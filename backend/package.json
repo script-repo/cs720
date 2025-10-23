@@ -1,0 +1,38 @@
+{
+  "name": "cs720-backend",
+  "version": "1.0.0",
+  "description": "CS720 Local Backend API",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "fastify": "^4.24.3",
+    "@fastify/cors": "^8.4.0",
+    "@fastify/multipart": "^8.0.0",
+    "@fastify/static": "^6.12.0",
+    "axios": "^1.6.0",
+    "node-cron": "^3.0.3",
+    "openai": "^4.20.1",
+    "mammoth": "^1.6.0",
+    "pdf-parse": "^1.1.1",
+    "marked": "^9.1.6",
+    "crypto": "^1.0.1",
+    "fs-extra": "^11.1.1",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.9",
+    "@types/node-cron": "^3.0.8",
+    "@types/fs-extra": "^11.0.4",
+    "@types/pdf-parse": "^1.1.4",
+    "typescript": "^5.2.2",
+    "tsx": "^4.1.4",
+    "jest": "^29.7.0",
+    "@types/jest": "^29.5.7"
+  }
+}

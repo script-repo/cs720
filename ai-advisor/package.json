@@ -1,0 +1,20 @@
+{
+  "name": "cs720-ai-advisor",
+  "version": "1.0.0",
+  "description": "CS720 AI Advisor - AI-powered chat interface with web search and multi-backend support",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "proxy": "node proxy-server.js"
+  },
+  "dependencies": {
+    "marked": "^12.0.0",
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git ls-tree:*)",
+      "Bash(git pull:*)",
+      "Bash(git checkout:*)",
+      "Bash(git reset:*)",
+      "Bash(npm install)",
+      "Bash(npm audit:*)",
+      "Bash(npm run dev:*)",
+      "Bash(ollama list:*)",
+      "WebFetch(domain:docs.perplexity.ai)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(npm run proxy:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

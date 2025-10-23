@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS720 AI Advisor</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <div id="chat-container">
+      <header>
+        <h1>CS720 AI Advisor</h1>
+        <div class="header-controls">
+          <div id="service-status">
+            <div class="service-indicator" id="ollama-status" title="Ollama Service">
+              <span class="status-dot"></span>
+              <span class="status-label">Ollama</span>
+            </div>
+            <div class="service-indicator" id="proxy-status" title="Proxy Server">
+              <span class="status-dot"></span>
+              <span class="status-label">Proxy</span>
+            </div>
+            <div class="service-indicator" id="openai-status" title="NAI Endpoint">
+              <span class="status-dot"></span>
+              <span class="status-label">NAI</span>
+            </div>
+          </div>
+          <div id="model-status">
+            <span id="status-text">Initializing...</span>
+            <div id="loading-spinner" class="spinner"></div>
+          </div>
+          <button id="settings-button" class="icon-button" title="Settings">⚙️</button>
+        </div>
+      </header>
+
+      <!-- Settings Modal -->
+      <div id="settings-modal" class="modal hidden">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>Settings</h2>
+            <button id="close-settings" class="close-button">✕</button>
+          </div>
+          <div class="modal-body">
+            <div class="setting-group">
+              <label for="inference-backend">Inference Backend</label>
+              <p class="setting-description">
+                Choose between local Ollama or an OpenAI-compatible API endpoint.
+              </p>
+              <select id="inference-backend" class="setting-select">
+                <option value="ollama">Ollama (Local)</option>
+                <option value="openai">OpenAI-Compatible API</option>
+              </select>
+            </div>
+
+            <div class="setting-group" id="ollama-settings">
+              <label for="ollama-url">Ollama URL</label>
+              <p class="setting-description">
+                URL of your local Ollama server.
+              </p>
+              <input
+                type="text"
+                id="ollama-url"
+                placeholder="http://localhost:11434"
+                autocomplete="off"
+              />
+            </div>
+
+            <div class="setting-group hidden" id="openai-settings">
+              <label for="openai-endpoint">OpenAI-Compatible Endpoint</label>
+              <p class="setting-description">
+                Enter the base URL for your OpenAI-compatible API (e.g., https://api.openai.com/v1).
+              </p>
+              <input
+                type="text"
+                id="openai-endpoint"
+                placeholder="https://api.openai.com/v1"
+                autocomplete="off"
+              />
+
+              <label for="openai-api-key" style="margin-top: 1rem; display: block;">API Key</label>
+              <input
+                type="password"
+                id="openai-api-key"
+                placeholder="sk-..."
+                autocomplete="off"
+              />
+
+              <label for="openai-model" style="margin-top: 1rem; display: block;">Model</label>
+              <input
+                type="text"
+                id="openai-model"
+                placeholder="gpt-4"
+                autocomplete="off"
+              />
+            </div>
+
+            <div class="setting-group">
+              <button id="save-inference-settings" class="primary-button">Save Inference Settings</button>
+              <p id="inference-settings-status" class="status-message"></p>
+            </div>
+
+            <div class="setting-group">
+              <label for="perplexity-api-key">Perplexity API Key (Required for Web Search)</label>
+              <p class="setting-description">
+                Web search is powered exclusively by Perplexity AI. Add your API key to enable real-time web search with citations.
+                Get a free API key at <a href="https://www.perplexity.ai/settings/api" target="_blank" rel="noopener">perplexity.ai/settings/api</a>
+              </p>
+              <input
+                type="password"
+                id="perplexity-api-key"
+                placeholder="pplx-..."
+                autocomplete="off"
+              />
+              <button id="save-api-key" class="primary-button">Save API Key</button>
+              <button id="clear-api-key" class="secondary-button">Clear API Key</button>
+              <p id="api-key-status" class="status-message"></p>
+            </div>
+
+            <div class="setting-group">
+              <label for="system-prompt">System Prompt</label>
+              <p class="setting-description">
+                Customize the AI's behavior and personality. The system prompt guides how the AI responds to your messages.
+              </p>
+              <textarea
+                id="system-prompt"
+                rows="6"
+                placeholder="You are a helpful AI assistant..."
+              ></textarea>
+              <button id="save-system-prompt" class="primary-button">Save System Prompt</button>
+              <button id="reset-system-prompt" class="secondary-button">Reset to Default</button>
+              <p id="system-prompt-status" class="status-message"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="messages-container">
+        <div id="messages"></div>
+      </div>
+
+      <div id="input-container">
+        <textarea
+          id="user-input"
+          placeholder="Type your message here..."
+          rows="3"
+          disabled
+        ></textarea>
+        <button id="send-button" disabled>Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
