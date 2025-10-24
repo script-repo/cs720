@@ -23,11 +23,11 @@ CS720 is now a fully modular microservices platform with clear separation of con
       │               │               │
       │               │               ├─────► Ollama (11434)
       │               │               │
-      │               └───────────────┴─────► OpenAI APIs (via proxy)
+      │               └───────────────┴─────► OpenAI Compatible Endpoint APIs (via proxy)
       │
       ├─────► Salesforce API
-      ├─────► Microsoft Graph API
-      └─────► Business Intelligence APIs
+      ├─────► Microsoft Graph API (OneDrive)
+      └─────► Business Intelligence APIs (External Web Search API)
 ```
 
 ## Services
