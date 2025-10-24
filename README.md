@@ -96,7 +96,7 @@ brew install ollama  # macOS
 
 # Pull local LLM model
 ollama serve
-ollama pull llama2
+ollama pull gemma3:4b-it-qat
 ```
 
 ### Development Setup
