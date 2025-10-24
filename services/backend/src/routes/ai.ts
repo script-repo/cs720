@@ -6,28 +6,97 @@ import crypto from 'crypto';
 
 export async function aiRoutes(fastify: FastifyInstance) {
 
-  // Query AI assistant
+  // Query AI assistant with streaming
   fastify.post('/query', async (request, reply) => {
     try {
-      const { accountId, query, conversationId } = request.body as AIQueryRequest;
+      const { accountId, query, conversationId, stream = true } = request.body as AIQueryRequest & { stream?: boolean };
 
       if (!query || query.trim().length === 0) {
         return reply.status(400).send({ error: 'Query is required' });
       }
 
       const startTime = Date.now();
+      const messageId = crypto.randomUUID();
 
       // Get account context
       const context = await getAccountContext(accountId);
 
-      // Query LLM
-      const response = await llmService.queryLLM(query, context);
+      // If streaming is requested, use Server-Sent Events
+      if (stream) {
+        reply.raw.writeHead(200, {
+          'Content-Type': 'text/event-stream',
+          'Cache-Control': 'no-cache',
+          'Connection': 'keep-alive'
+        });
 
+        // Send initial metadata
+        reply.raw.write(`data: ${JSON.stringify({ type: 'start', id: messageId })}\n\n`);
+
+        try {
+          let fullContent = '';
+
+          // Query LLM with streaming
+          await llmService.queryLLMStreaming(query, context, (chunk) => {
+            fullContent += chunk;
+            reply.raw.write(`data: ${JSON.stringify({ type: 'content', content: chunk })}\n\n`);
+          });
+
+          const responseTime = Date.now() - startTime;
+
+          // Get sources from full content
+          const sources = llmService['extractSources'](fullContent, context);
+
+          // Create chat message
+          const chatMessage: ChatMessage = {
+            id: messageId,
+            accountId,
+            query,
+            response: fullContent,
+            sources,
+            timestamp: new Date().toISOString(),
+            model: await llmService['getModelName'](),
+            metadata: {
+              responseTime,
+              confidence: 0.75
+            }
+          };
+
+          // Store chat message
+          await storeChatMessage(chatMessage);
+
+          // Send completion with metadata
+          reply.raw.write(`data: ${JSON.stringify({
+            type: 'done',
+            id: messageId,
+            sources,
+            metadata: {
+              responseTime,
+              model: chatMessage.model,
+              endpoint: 'local',
+              confidence: 0.75
+            }
+          })}\n\n`);
+
+          reply.raw.end();
+
+        } catch (error) {
+          reply.raw.write(`data: ${JSON.stringify({
+            type: 'error',
+            error: error instanceof Error ? error.message : 'Unknown error'
+          })}\n\n`);
+          reply.raw.end();
+        }
+
+        return reply;
+      }
+
+      // Non-streaming response (legacy)
+      const response = await llmService.queryLLM(query, context);
       const responseTime = Date.now() - startTime;
 
       // Create chat message
       const chatMessage: ChatMessage = {
-        id: crypto.randomUUID(),
+        id: messageId,
         accountId,
         query,
         response: response.content,
@@ -105,8 +174,11 @@ export async function aiRoutes(fastify: FastifyInstance) {
         },
         nai: {
           available: health.external.available,
+          degraded: health.external.degraded || false,
           latency: health.external.responseTime,
-          model: health.external.model
+          model: health.external.model,
+          errorMessage: health.external.errorMessage,
+          errorCode: health.external.errorCode
         },
         timestamp: new Date().toISOString()
       };

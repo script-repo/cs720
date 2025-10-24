@@ -10,8 +10,11 @@ interface LLMResponse {
 interface LLMHealth {
   external: {
     available: boolean;
+    degraded?: boolean;
     model: string;
     responseTime?: number;
+    errorMessage?: string;
+    errorCode?: string;
   };
   local: {
     available: boolean;
@@ -33,7 +36,7 @@ class LLMService {
   constructor() {
     // Ollama configuration
     this.ollamaBaseUrl = process.env.OLLAMA_BASE_URL || 'http://localhost:11434';
-    this.ollamaModel = process.env.OLLAMA_MODEL || 'gemma3:270m';
+    this.ollamaModel = process.env.OLLAMA_MODEL || 'gemma3:4b-it-qat';
 
     // Proxy configuration
     this.proxyUrl = process.env.PROXY_URL || 'http://localhost:3002/proxy';
@@ -101,6 +104,9 @@ class LLMService {
 
     // Augment context with web search results if available
     if (webSearchResults) {
+      console.log('[LLM] Adding web search results to context');
+      console.log('[LLM] Web search answer length:', webSearchResults.answer?.length || 0);
+      console.log('[LLM] Web search citations:', webSearchResults.citations?.length || 0);
       context = {
         ...context,
         webSearch: webSearchResults
@@ -147,6 +153,137 @@ class LLMService {
         webSearchUsed: false
       };
     }
+  }
+
+  async queryLLMStreaming(query: string, context: any, onChunk: (chunk: string) => void): Promise<void> {
+    console.log('\n[LLM] ========== Starting Streaming Query ==========');
+    console.log('[LLM] Query:', query);
+
+    // Load user preferences
+    const preferences = await this.loadPreferences();
+    const preferredBackend = preferences.ai?.preferredModel || 'ollama';
+    const naiBaseUrl = preferences.ai?.naiBaseUrl;
+    const naiApiKey = preferences.ai?.naiApiKey;
+    const naiModel = preferences.ai?.naiModel || 'gpt-4';
+    const systemPrompt = preferences.ai?.systemPrompt;
+    const perplexityApiKey = preferences.ai?.perplexityApiKey;
+    const perplexityModel = preferences.ai?.perplexityModel || 'sonar';
+
+    // Check if query needs web search
+    let webSearchResults = null;
+    const shouldSearch = this.shouldUseWebSearch(query);
+
+    if (perplexityApiKey && shouldSearch) {
+      try {
+        console.log('[LLM] Triggering web search...');
+        webSearchResults = await this.performWebSearch(query, perplexityApiKey, perplexityModel);
+        console.log('[LLM] Web search completed successfully');
+      } catch (error) {
+        console.warn('[LLM] Web search failed:', error);
+      }
+    }
+
+    // Augment context with web search results if available
+    if (webSearchResults) {
+      console.log('[LLM] Adding web search results to context');
+      context = {
+        ...context,
+        webSearch: webSearchResults
+      };
+    }
+
+    // Try Ollama with streaming (preferred for now)
+    try {
+      await this.queryOllamaStreaming(query, context, systemPrompt, onChunk);
+    } catch (error) {
+      console.error('Error during streaming:', error);
+      throw error;
+    }
+  }
+
+  private async queryOllamaStreaming(
+    query: string,
+    context: any,
+    customSystemPrompt?: string,
+    onChunk?: (chunk: string) => void
+  ): Promise<void> {
+    try {
+      // Build prompts (same as non-streaming)
+      let systemPrompt = this.buildSystemPrompt(context);
+      if (customSystemPrompt && !context?.webSearch) {
+        systemPrompt = customSystemPrompt;
+      }
+      const userPrompt = this.buildUserPrompt(query, context);
+
+      console.log('[Ollama] Starting streaming response');
+
+      const response = await fetch(`${this.ollamaBaseUrl}/api/chat`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: this.ollamaModel,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userPrompt }
+          ],
+          stream: true,  // Enable streaming
+          options: {
+            temperature: 0.7,
+            num_predict: 512
+          }
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Ollama API error: ${response.statusText}`);
+      }
+
+      // Process streaming response
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+
+      if (!reader) {
+        throw new Error('No response body');
+      }
+
+      while (true) {
+        const { done, value } = await reader.read();
+
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        const lines = chunk.split('\n').filter(line => line.trim());
+
+        for (const line of lines) {
+          try {
+            const data = JSON.parse(line);
+
+            if (data.message?.content) {
+              const content = data.message.content;
+              if (onChunk) {
+                onChunk(content);
+              }
+            }
+
+            if (data.done) {
+              console.log('[Ollama] Streaming complete');
+            }
+          } catch (e) {
+            // Ignore JSON parse errors for incomplete chunks
+          }
+        }
+      }
+
+    } catch (error) {
+      console.error('Error in Ollama streaming:', error);
+      throw error;
+    }
+  }
+
+  private getModelName(): string {
+    return this.ollamaModel;
   }
 
   private shouldUseWebSearch(query: string): boolean {
@@ -217,6 +354,15 @@ class LLMService {
 
       console.log('[Perplexity] Extracted answer length:', answer.length);
       console.log('[Perplexity] Citations count:', citations.length);
+      console.log('[Perplexity] === FULL ANSWER ===');
+      console.log(answer);
+      console.log('[Perplexity] === CITATIONS ===');
+      console.log(JSON.stringify(citations, null, 2));
+      console.log('[Perplexity] === END WEB SEARCH RESULTS ===');
+
+      if (!answer || answer.length === 0) {
+        console.error('[Perplexity] WARNING: Empty answer received from Perplexity!');
+      }
 
       return {
         answer,
@@ -234,8 +380,31 @@ class LLMService {
 
   private async queryOllama(query: string, context: any, customSystemPrompt?: string): Promise<LLMResponse> {
     try {
-      const systemPrompt = customSystemPrompt || this.buildSystemPrompt(context);
+      // IMPORTANT: Always build the dynamic system prompt to include web search instructions
+      // Even if customSystemPrompt is provided, we need to augment it with web search context
+      let systemPrompt = this.buildSystemPrompt(context);
+
+      // If a custom prompt was provided, use it as the base but keep the dynamic parts
+      if (customSystemPrompt && !context?.webSearch) {
+        // Only use custom prompt if there's NO web search (web search needs dynamic prompt)
+        systemPrompt = customSystemPrompt;
+      }
+
       const userPrompt = this.buildUserPrompt(query, context);
+
+      console.log('[Ollama] System prompt length:', systemPrompt.length);
+      console.log('[Ollama] User prompt length:', userPrompt.length);
+      console.log('[Ollama] Has web search in context:', !!context?.webSearch);
+      if (context?.webSearch) {
+        console.log('[Ollama] Web search answer preview:', context.webSearch.answer?.substring(0, 100) + '...');
+        console.log('[Ollama] Full web search answer:', context.webSearch.answer);
+        console.log('[Ollama] Web search citations:', context.webSearch.citations);
+      }
+      console.log('[Ollama] === FULL SYSTEM PROMPT ===');
+      console.log(systemPrompt);
+      console.log('[Ollama] === FULL USER PROMPT ===');
+      console.log(userPrompt);
+      console.log('[Ollama] === END PROMPTS ===');
 
       const response = await fetch(`${this.ollamaBaseUrl}/api/chat`, {
         method: 'POST',
@@ -291,7 +460,16 @@ class LLMService {
     }
 
     try {
-      const systemPrompt = customSystemPrompt || this.buildSystemPrompt(context);
+      // IMPORTANT: Always build the dynamic system prompt to include web search instructions
+      // Even if customSystemPrompt is provided, we need to augment it with web search context
+      let systemPrompt = this.buildSystemPrompt(context);
+
+      // If a custom prompt was provided, use it as the base but keep the dynamic parts
+      if (customSystemPrompt && !context?.webSearch) {
+        // Only use custom prompt if there's NO web search (web search needs dynamic prompt)
+        systemPrompt = customSystemPrompt;
+      }
+
       const userPrompt = this.buildUserPrompt(query, context);
 
       // Use proxy to avoid CORS issues
@@ -339,16 +517,20 @@ class LLMService {
   }
 
   private buildSystemPrompt(context: any): string {
+    const hasWebSearch = context?.webSearch;
+
     return `You are CS720, an AI assistant helping Sales Engineers understand customer context quickly.
 
 Your role:
 - Provide accurate, concise answers about customer accounts
-- Use only the provided context data
+- Use the provided context data${hasWebSearch ? ' and web search results' : ''}
 - Always cite your sources
 - Focus on helping SEs prepare for customer interactions
 - If you don't have enough information, say so clearly
 
-Guidelines:
+${hasWebSearch ? `IMPORTANT: When web search results are provided, prioritize them for current/latest information.
+Use web search data to supplement or update the customer context data.
+` : ''}Guidelines:
 - Keep responses under 500 words
 - Use bullet points for multiple items
 - Include relevant details like dates, amounts, status
@@ -361,15 +543,28 @@ Guidelines:
 
     // Add web search results if available
     if (context?.webSearch) {
-      prompt += `\n=== Web Search Results ===\n`;
-      prompt += `${context.webSearch.answer}\n`;
-      if (context.webSearch.citations && context.webSearch.citations.length > 0) {
-        prompt += `\nSources:\n`;
-        context.webSearch.citations.forEach((citation: string, index: number) => {
-          prompt += `${index + 1}. ${citation}\n`;
-        });
+      console.log('[buildUserPrompt] Web search detected in context');
+      console.log('[buildUserPrompt] context.webSearch.answer:', context.webSearch.answer);
+      console.log('[buildUserPrompt] Answer exists:', !!context.webSearch.answer);
+      console.log('[buildUserPrompt] Answer length:', context.webSearch.answer?.length || 0);
+
+      if (context.webSearch.answer && context.webSearch.answer.length > 0) {
+        prompt += `\n=== Web Search Results ===\n`;
+        prompt += `${context.webSearch.answer}\n`;
+        if (context.webSearch.citations && context.webSearch.citations.length > 0) {
+          prompt += `\nSources:\n`;
+          context.webSearch.citations.forEach((citation: string, index: number) => {
+            prompt += `${index + 1}. ${citation}\n`;
+          });
+        }
+        prompt += `\n`;
+        console.log('[buildUserPrompt] Web search section added to prompt');
+      } else {
+        console.error('[buildUserPrompt] ERROR: Web search answer is empty or undefined!');
+        console.error('[buildUserPrompt] Full webSearch object:', JSON.stringify(context.webSearch, null, 2));
       }
-      prompt += `\n`;
+    } else {
+      console.log('[buildUserPrompt] No web search in context');
     }
 
     if (context?.account) {
@@ -402,13 +597,23 @@ Guidelines:
       });
     }
 
-    prompt += `\nPlease answer the query using this context. If you reference specific information, mention the source document or data type.`;
+    // Add instruction based on whether web search was used
+    if (context?.webSearch) {
+      prompt += `\nIMPORTANT: Prioritize the Web Search Results above for answering this query, as they contain the most current information. Use the customer context data as supplementary information if relevant. Always cite your sources.`;
+    } else {
+      prompt += `\nPlease answer the query using this context. If you reference specific information, mention the source document or data type.`;
+    }
 
     return prompt;
   }
 
   private extractSources(content: string, context: any): string[] {
     const sources: string[] = [];
+
+    // Add web search citations if available
+    if (context?.webSearch?.citations && context.webSearch.citations.length > 0) {
+      sources.push(...context.webSearch.citations);
+    }
 
     // Look for document references in the response
     if (context?.documents) {
@@ -514,11 +719,24 @@ Guidelines:
           const result: any = await response.json();
           console.log('[Health] NAI health check response:', result);
 
-          // Proxy returns { success: true, data: { status: 'available', latency: 123 } }
-          if (result.success && result.data && result.data.status === 'available') {
-            health.external.available = true;
-            health.external.responseTime = result.data.latency || (Date.now() - startTime);
-            console.log('[Health] NAI endpoint is available');
+          // Proxy returns { success: true, data: { status: 'available'|'degraded'|'unavailable', latency: 123 } }
+          if (result.success && result.data) {
+            if (result.data.status === 'available') {
+              health.external.available = true;
+              health.external.degraded = false;
+              health.external.responseTime = result.data.latency || (Date.now() - startTime);
+              console.log('[Health] NAI endpoint is available');
+            } else if (result.data.status === 'degraded') {
+              // Endpoint is reachable but returning errors (e.g., NAI-10021)
+              health.external.available = true;
+              health.external.degraded = true;
+              health.external.responseTime = result.data.latency || (Date.now() - startTime);
+              health.external.errorMessage = result.data.message || 'Endpoint degraded';
+              health.external.errorCode = result.data.errorCode;
+              console.log('[Health] NAI endpoint is degraded:', result.data.message);
+            } else {
+              console.log('[Health] NAI endpoint is unavailable:', result.data?.message);
+            }
           } else {
             console.log('[Health] NAI endpoint is unavailable:', result.data?.message);
           }

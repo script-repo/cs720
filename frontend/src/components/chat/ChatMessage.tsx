@@ -1,4 +1,6 @@
 import { format } from 'date-fns';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import type { ChatMessage as ChatMessageType } from '@/types';
 import { UserIcon, ClockIcon } from '@/components/icons';
 
@@ -41,19 +43,68 @@ export default function ChatMessage({ message }: ChatMessageProps) {
             {isUser ? (
               <p className="text-sm">{message.query}</p>
             ) : (
-              <div className="text-sm">
-                <p className="whitespace-pre-wrap">{message.response}</p>
+              <div className="text-sm prose prose-invert prose-sm max-w-none">
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    // Style markdown elements to match chat theme
+                    p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                    ul: ({ children }) => <ul className="list-disc list-inside mb-2 space-y-1">{children}</ul>,
+                    ol: ({ children }) => <ol className="list-decimal list-inside mb-2 space-y-1">{children}</ol>,
+                    li: ({ children }) => <li className="text-gray-100">{children}</li>,
+                    strong: ({ children }) => <strong className="font-bold text-white">{children}</strong>,
+                    em: ({ children }) => <em className="italic">{children}</em>,
+                    code: ({ children }) => <code className="bg-gray-800 px-1 py-0.5 rounded text-xs">{children}</code>,
+                    pre: ({ children }) => <pre className="bg-gray-800 p-2 rounded text-xs overflow-x-auto mb-2">{children}</pre>,
+                    a: ({ href, children }) => (
+                      <a href={href} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">
+                        {children}
+                      </a>
+                    ),
+                    h1: ({ children }) => <h1 className="text-lg font-bold mb-2 text-white">{children}</h1>,
+                    h2: ({ children }) => <h2 className="text-base font-bold mb-2 text-white">{children}</h2>,
+                    h3: ({ children }) => <h3 className="text-sm font-bold mb-1 text-white">{children}</h3>,
+                  }}
+                >
+                  {message.response}
+                </ReactMarkdown>
 
                 {/* Sources */}
                 {message.sources && message.sources.length > 0 && (
                   <div className="mt-3 pt-3 border-t border-gray-600">
-                    <p className="text-xs text-gray-300 mb-2">Sources:</p>
+                    <p className="text-xs text-gray-300 mb-2 font-semibold">
+                      {message.sources.some(s => s.startsWith('http')) ? '🔗 Web Sources:' : 'Sources:'}
+                    </p>
                     <div className="space-y-1">
-                      {message.sources.map((source, index) => (
-                        <div key={index} className="text-xs text-gray-400">
-                          • {source}
-                        </div>
-                      ))}
+                      {message.sources.map((source, index) => {
+                        // Check if source is a URL
+                        const isUrl = source.startsWith('http://') || source.startsWith('https://');
+
+                        if (isUrl) {
+                          return (
+                            <div key={index} className="text-xs">
+                              <a
+                                href={source}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-400 hover:text-blue-300 hover:underline inline-flex items-center gap-1 break-all"
+                              >
+                                <span className="flex-shrink-0">[{index + 1}]</span>
+                                <span className="break-all">{source}</span>
+                                <svg className="w-3 h-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                              </a>
+                            </div>
+                          );
+                        } else {
+                          return (
+                            <div key={index} className="text-xs text-gray-400">
+                              • {source}
+                            </div>
+                          );
+                        }
+                      })}
                     </div>
                   </div>
                 )}
@@ -76,7 +127,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
                 {message.metadata.responseTime && (
                   <>
                     <span>•</span>
-                    <span>{message.metadata.responseTime}ms</span>
+                    <span>{(message.metadata.responseTime / 1000).toFixed(1)}s</span>
                   </>
                 )}
 

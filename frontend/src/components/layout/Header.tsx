@@ -21,6 +21,8 @@ export default function Header() {
     switch (status) {
       case 'available':
         return 'bg-green-400';
+      case 'degraded':
+        return 'bg-orange-400';
       case 'unavailable':
         return 'bg-red-400';
       case 'checking':
@@ -31,8 +33,8 @@ export default function Header() {
   };
 
   const handleHealthIndicatorClick = (status: string) => {
-    // Only navigate to settings if the service is unavailable (red)
-    if (status === 'unavailable') {
+    // Navigate to settings if the service is unavailable (red) or degraded (orange)
+    if (status === 'unavailable' || status === 'degraded') {
       navigate('/settings');
     }
   };
@@ -119,15 +121,24 @@ export default function Header() {
 
             {/* NAI (via Proxy) */}
             <div
-              className={`flex items-center space-x-1.5 group relative ${openai.status === 'unavailable' ? 'cursor-pointer' : ''}`}
+              className={`flex items-center space-x-1.5 group relative ${(openai.status === 'unavailable' || openai.status === 'degraded') ? 'cursor-pointer' : ''}`}
               onClick={() => handleHealthIndicatorClick(openai.status)}
             >
               <div className={`w-2 h-2 rounded-full ${getStatusColor(openai.status)}`} />
               <span className="text-xs text-gray-400">NAI</span>
               {/* Tooltip */}
-              <div className="hidden group-hover:block absolute top-full right-0 mt-2 px-2 py-1 bg-gray-900 text-xs text-white rounded shadow-lg whitespace-nowrap z-50">
+              <div className="hidden group-hover:block absolute top-full right-0 mt-2 px-2 py-1 bg-gray-900 text-xs text-white rounded shadow-lg whitespace-nowrap z-50 max-w-xs">
                 {openai.status === 'available'
                   ? `Available (${openai.latency}ms)`
+                  : openai.status === 'degraded'
+                  ? (
+                    <div className="whitespace-normal">
+                      <div className="font-semibold mb-1">⚠️ Degraded</div>
+                      {openai.errorCode && <div className="text-orange-300">Error: {openai.errorCode}</div>}
+                      {openai.errorMessage && <div className="mt-1">{openai.errorMessage}</div>}
+                      <div className="mt-1 text-gray-400">Click to check settings</div>
+                    </div>
+                  )
                   : openai.status === 'checking'
                   ? 'Checking...'
                   : 'Unavailable - Click to configure'}

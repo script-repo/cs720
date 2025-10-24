@@ -1,11 +1,13 @@
 import { create } from 'zustand';
 
-export type ServiceStatus = 'available' | 'unavailable' | 'checking';
+export type ServiceStatus = 'available' | 'unavailable' | 'degraded' | 'checking';
 
 interface ServiceHealth {
   status: ServiceStatus;
   latency?: number;
   lastCheck?: string;
+  errorMessage?: string;
+  errorCode?: string;
 }
 
 interface AIHealthStore {
@@ -88,10 +90,19 @@ export const useAIHealthStore = create<AIHealthStore>((set, get) => ({
           // Backend should return NAI endpoint status
           if (naiData.nai || naiData.openai || naiData.remote) {
             const naiStatus = naiData.nai || naiData.openai || naiData.remote;
+
+            // Determine status: available, degraded, or unavailable
+            let status: ServiceStatus = 'unavailable';
+            if (naiStatus.available) {
+              status = naiStatus.degraded ? 'degraded' : 'available';
+            }
+
             results.openai = {
-              status: naiStatus.available ? 'available' : 'unavailable',
+              status,
               latency: naiStatus.latency,
               lastCheck: new Date().toISOString(),
+              errorMessage: naiStatus.errorMessage,
+              errorCode: naiStatus.errorCode,
             };
           }
         }

@@ -7,7 +7,9 @@
       "Bash(if not exist \"C:\\Temp\" mkdir \"C:\\Temp\")",
       "Bash(tree:*)",
       "Bash(powershell -Command:*)",
-      "WebFetch(domain:docs.perplexity.ai)"
+      "WebFetch(domain:docs.perplexity.ai)",
+      "Bash(curl:*)",
+      "Bash(npm install:*)"
     ],
     "deny": [],
     "ask": []

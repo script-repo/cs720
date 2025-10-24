@@ -204,33 +204,10 @@ app.post(PROXY_ROUTES.HEALTH_REMOTE, async (req: Request, res: Response) => {
   const startTime = Date.now();
 
   try {
-    // Try /models endpoint first (some APIs support this)
-    let response = await fetch(`${endpoint}/models`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      signal: AbortSignal.timeout(3000),
-    });
-
-    if (response.ok) {
-      const latency = Date.now() - startTime;
-      console.log(`✅ Remote endpoint healthy (via /models) - ${latency}ms`);
-      return res.json({
-        success: true,
-        data: {
-          status: 'available',
-          message: 'Remote endpoint is reachable',
-          latency,
-        },
-        timestamp: new Date().toISOString(),
-      });
-    }
-
-    // If /models failed, try minimal chat completion request
-    console.log('⚠️  /models endpoint not supported, trying chat completion...');
-    response = await fetch(`${endpoint}/chat/completions`, {
+    // Always test actual chat completion with the configured model
+    // This ensures we catch model-specific errors like NAI-10021
+    console.log(`🔍 Testing chat completion with model: ${model || 'gpt-3.5-turbo'}`);
+    const response = await fetch(`${endpoint}/chat/completions`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
@@ -261,11 +238,26 @@ app.post(PROXY_ROUTES.HEALTH_REMOTE, async (req: Request, res: Response) => {
     } else {
       const errorText = await response.text();
       console.log(`❌ Remote endpoint unhealthy: ${response.status} - ${errorText}`);
+
+      // Check if this is a NAI-10021 error (endpoint available but not responding correctly)
+      let errorDetails;
+      try {
+        errorDetails = JSON.parse(errorText);
+      } catch {
+        errorDetails = null;
+      }
+
+      const isNAIError = errorDetails && errorDetails.errCode === 'NAI-10021';
+
       return res.json({
         success: true,
         data: {
-          status: 'unavailable',
-          message: `Endpoint returned status ${response.status}`,
+          status: isNAIError ? 'degraded' : 'unavailable',
+          message: isNAIError
+            ? `NAI endpoint available but not responding correctly: ${errorDetails.errMsg || 'Failed to process chat completion request'}`
+            : `Endpoint returned status ${response.status}`,
+          errorCode: isNAIError ? errorDetails.errCode : undefined,
+          errorDetails: isNAIError ? errorDetails.errMsg : undefined,
           latency,
         },
         timestamp: new Date().toISOString(),

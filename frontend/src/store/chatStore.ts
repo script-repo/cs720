@@ -49,6 +49,7 @@ export const useChatStore = create<ChatStore>()(
       if (!query.trim()) return;
 
       set({ isTyping: true, error: null });
+      const startTime = Date.now();
 
       // Add user message immediately
       const userMessage: ChatMessage = {
@@ -68,6 +69,10 @@ export const useChatStore = create<ChatStore>()(
         messages: [...state.messages, userMessage]
       }));
 
+      // Create placeholder AI message for streaming
+      let aiMessageId = '';
+      let fullResponse = '';
+
       try {
         const response = await fetch('/api/ai/query', {
           method: 'POST',
@@ -76,7 +81,8 @@ export const useChatStore = create<ChatStore>()(
           },
           body: JSON.stringify({
             accountId,
-            query
+            query,
+            stream: true  // Request streaming
           }),
         });
 
@@ -84,31 +90,105 @@ export const useChatStore = create<ChatStore>()(
           throw new Error(`AI query failed: ${response.statusText}`);
         }
 
-        const result = await response.json();
+        // Handle streaming response
+        const reader = response.body?.getReader();
+        const decoder = new TextDecoder();
 
-        // Create AI response message
-        const aiMessage: ChatMessage = {
-          id: result.id,
-          accountId,
-          query,
-          response: result.content,
-          sources: result.sources || [],
-          timestamp: new Date().toISOString(),
-          model: result.metadata.model,
-          metadata: {
-            responseTime: result.metadata.responseTime,
-            confidence: result.metadata.confidence
+        if (!reader) {
+          throw new Error('No response body');
+        }
+
+        let placeholderAdded = false;
+
+        while (true) {
+          const { done, value } = await reader.read();
+
+          if (done) break;
+
+          const chunk = decoder.decode(value, { stream: true });
+          const lines = chunk.split('\n').filter(line => line.trim() && line.startsWith('data: '));
+
+          for (const line of lines) {
+            try {
+              const data = JSON.parse(line.substring(6)); // Remove 'data: ' prefix
+
+              if (data.type === 'start') {
+                // Initialize AI message placeholder
+                aiMessageId = data.id;
+                const placeholderMessage: ChatMessage = {
+                  id: aiMessageId,
+                  accountId,
+                  query,
+                  response: '',
+                  sources: [],
+                  timestamp: new Date().toISOString(),
+                  model: 'streaming...',
+                  metadata: {
+                    responseTime: 0
+                  }
+                };
+
+                set((state) => ({
+                  messages: [...state.messages, placeholderMessage]
+                }));
+                placeholderAdded = true;
+
+              } else if (data.type === 'content') {
+                // Append content chunk
+                fullResponse += data.content;
+
+                if (placeholderAdded) {
+                  set((state) => {
+                    const messages = [...state.messages];
+                    const lastIndex = messages.length - 1;
+                    if (messages[lastIndex]?.id === aiMessageId) {
+                      messages[lastIndex] = {
+                        ...messages[lastIndex],
+                        response: fullResponse
+                      };
+                    }
+                    return { messages };
+                  });
+                }
+
+              } else if (data.type === 'done') {
+                // Finalize message with metadata
+                const responseTime = Date.now() - startTime;
+
+                const finalMessage: ChatMessage = {
+                  id: aiMessageId,
+                  accountId,
+                  query,
+                  response: fullResponse,
+                  sources: data.sources || [],
+                  timestamp: new Date().toISOString(),
+                  model: data.metadata.model,
+                  metadata: {
+                    responseTime,
+                    confidence: data.metadata.confidence
+                  }
+                };
+
+                set((state) => {
+                  const messages = [...state.messages];
+                  const lastIndex = messages.length - 1;
+                  if (messages[lastIndex]?.id === aiMessageId) {
+                    messages[lastIndex] = finalMessage;
+                  }
+                  return { messages, isTyping: false };
+                });
+
+                // Save to database
+                await DatabaseService.saveChatMessage(finalMessage);
+
+              } else if (data.type === 'error') {
+                throw new Error(data.error);
+              }
+            } catch (e) {
+              console.error('Error parsing SSE message:', e);
+            }
           }
-        };
-
-        // Update messages - replace user message with AI response
-        set((state) => ({
-          messages: [...state.messages.slice(0, -1), aiMessage],
-          isTyping: false
-        }));
-
-        // Save to database
-        await DatabaseService.saveChatMessage(aiMessage);
+        }
 
       } catch (error) {
         console.error('Error sending message:', error);
@@ -129,7 +209,7 @@ export const useChatStore = create<ChatStore>()(
         };
 
         set((state) => ({
-          messages: [...state.messages.slice(0, -1), errorResponse],
+          messages: [...state.messages, errorResponse],
           isTyping: false,
           error: errorMessage
         }));
