@@ -12,19 +12,23 @@ Follow these steps to set up CS720 Customer Intelligence Platform on your machin
 ## Quick Start (5 minutes)
 
 ```bash
-# 1. Clone and install
+# 1. Clone the workspace
 git clone <your-repo-url>
-cd CS720
+cd cs720
+
+# 2. Install dependencies for every package
 npm install
+npm run install:all
 
-# 2. Set up environment
-cd backend
-cp .env.example .env
-# Edit .env with your OAuth credentials (see steps below)
+# 3. Prepare environment files
+cp services/backend/.env.example services/backend/.env
+cp services/proxy/.env.example services/proxy/.env
+cp services/ai-service/.env.example services/ai-service/.env
+# Edit each .env with your credentials (see steps below)
 
-# 3. Start the application
-cd ..
-npm run dev
+# 4. Start all services
+npm run build:shared   # one-time build for shared library
+npm run dev            # launches backend, proxy, AI, and frontend together
 ```
 
 **Open:** http://localhost:3000
@@ -60,7 +64,7 @@ npm run dev
 
 ### Update .env File
 ```bash
-# Edit backend/.env
+# Edit services/backend/.env
 SALESFORCE_CLIENT_ID=your_consumer_key_here
 SALESFORCE_CLIENT_SECRET=your_consumer_secret_here
 ```
@@ -102,7 +106,7 @@ SALESFORCE_CLIENT_SECRET=your_consumer_secret_here
 
 ### Update .env File
 ```bash
-# Edit backend/.env
+# Edit services/backend/.env
 MICROSOFT_CLIENT_ID=your_application_id_here
 MICROSOFT_CLIENT_SECRET=your_client_secret_value_here
 ```
@@ -161,12 +165,17 @@ npm run dev
 
 This starts:
 - **Backend API:** http://localhost:3001
+- **CORS Proxy:** http://localhost:3002
+- **AI Service:** http://localhost:3003
 - **Frontend App:** http://localhost:3000
 
 ### Verify Setup
 
 1. **Open CS720:** http://localhost:3000
-2. **Check API health:** http://localhost:3001/health
+2. **Check API health:**
+   - Backend → http://localhost:3001/health
+   - Proxy → http://localhost:3002/health
+   - AI Service → http://localhost:3003/health
 3. **Test authentication:** Go to Settings page and connect your accounts
 
 ---
