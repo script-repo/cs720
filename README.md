@@ -139,7 +139,7 @@ npm run health
 
 # Optional: Local AI (recommended)
 ollama serve         # Start Ollama service
-ollama pull llama2   # Download AI model
+ollama pull gemma3:4b-it-qat   # Download AI model
 ```
 
 ## Setup & Documentation
