@@ -51,8 +51,9 @@ CS720 is a local-first Progressive Web App (PWA) that helps Sales Engineers unde
 
 ```
 /cs720/
-├── README.md                    # This file
-├── /specs/                      # All specification artifacts
+├── README.md                        # This file
+├── ARCHITECTURE.md                  # Detailed architecture documentation
+├── /specs/                          # All specification artifacts
 │   ├── 01_ProblemOverview.md
 │   ├── 02_ProductCharter.md
 │   ├── 03_UserJourneyMap.md
@@ -62,10 +63,20 @@ CS720 is a local-first Progressive Web App (PWA) that helps Sales Engineers unde
 │   ├── 07_BackendAPISpec.md
 │   ├── 08_TestPlan.md
 │   ├── 09_IterationReport.md
-│   └── CompletePackage.md       # Master export
-├── /frontend/                   # React PWA ✅ Implemented
-├── /backend/                    # Fastify API ✅ Implemented
-└── /docs/                       # Additional documentation
+│   └── CompletePackage.md           # Master export
+├── /shared/                         # Shared types and utilities ✅ NEW
+│   ├── src/
+│   │   ├── types.ts                 # Common TypeScript types
+│   │   ├── constants.ts             # Shared constants
+│   │   └── utils.ts                 # Utility functions
+│   └── package.json
+├── /services/                       # Modular backend services ✅ NEW
+│   ├── /backend/                    # Core API (Port 3001) ✅ Moved
+│   ├── /proxy/                      # CORS Proxy (Port 3002) ✅ NEW
+│   └── /ai-service/                 # AI Chat Service (Port 3003) ✅ NEW
+├── /frontend/                       # React PWA (Port 3000) ✅ Implemented
+├── /scripts/                        # Utility scripts ✅ NEW
+└── package.json                     # Workspace root
 ```
 
 ## Getting Started
@@ -90,27 +101,45 @@ ollama pull llama2
 
 ### Development Setup
 
+> **Windows Users:** If you're on Windows with OneDrive, see [WINDOWS_SETUP.md](./WINDOWS_SETUP.md) for step-by-step instructions to avoid npm/OneDrive conflicts.
+
 ```bash
 # Clone repository
 git clone <repo-url>
 cd cs720
 
-# Quick setup (recommended)
-./setup.sh          # Unix/Mac
-setup.bat            # Windows
+# Install all dependencies
+# Linux/Mac: npm run install:all
+# Windows: See WINDOWS_SETUP.md for manual installation
 
-# Or manual setup:
-npm install          # Install all dependencies
-cp backend/.env.example backend/.env  # Create environment file
-# Edit backend/.env with your OAuth credentials (see SETUP.md)
+# Setup environment files
+cp services/backend/.env.example services/backend/.env
+cp services/proxy/.env.example services/proxy/.env
+cp services/ai-service/.env.example services/ai-service/.env
+# Edit .env files with your credentials (see SETUP.md)
 
-# Run development
-npm run dev          # Starts both frontend and backend
-# Open: http://localhost:3000
+# Build shared library (required before starting services)
+npm run build:shared
 
-# Optional: Local AI
+# Run all services in development mode
+npm run dev          # Starts all services concurrently
+# - Backend API: http://localhost:3001
+# - CORS Proxy: http://localhost:3002
+# - AI Service: http://localhost:3003
+# - Frontend: http://localhost:3000
+
+# Or run individual services
+npm run dev:frontend    # Frontend only
+npm run dev:backend     # Backend only
+npm run dev:proxy       # Proxy only
+npm run dev:ai          # AI service only
+
+# Check service health
+npm run health
+
+# Optional: Local AI (recommended)
 ollama serve         # Start Ollama service
-ollama pull llama2:7b-chat  # Download AI model
+ollama pull llama2   # Download AI model
 ```
 
 ## Setup & Documentation
@@ -127,7 +156,7 @@ All specifications are in the `/specs` folder:
 4. **Wireframe Blueprint** - 4 screens, interaction specs
 5. **Design System Spec** - 12 components, tokens, a11y
 6. **Frontend Architecture** - PWA, TypeScript, IndexedDB
-7. **Backend/API Spec** - Local server, 15 endpoints
+7. **Backend/API Spec** - Local server, 22 endpoints
 8. **Test Plan** - Comprehensive QA strategy
 9. **Iteration Report** - Alignment review, gaps, roadmap
 
@@ -186,35 +215,51 @@ See `specs/09_IterationReport.md` for detailed gap resolution strategies.
 }
 ```
 
-## API Endpoints (15 total)
+## API Endpoints (22 total)
 
-**Base URL:** `http://localhost:3001/api`
+**Base URL:** `http://localhost:3001`
 
-### Authentication
-- `POST /auth/salesforce/authorize`
-- `POST /auth/onedrive/authorize`
-- `GET /auth/status`
+### Server Health
+- `GET /health` - Server health check
 
-### Sync
-- `POST /sync/start`
-- `GET /sync/status/:jobId`
-- `GET /sync/history`
+**API Base:** `/api`
 
-### Data
-- `GET /accounts`
-- `GET /accounts/:id/documents`
-- `GET /accounts/:id/dashboard`
+### Authentication (5 endpoints)
+- `GET /auth/status` - Check authentication status for both providers
+- `POST /auth/salesforce/authorize` - Initiate Salesforce OAuth flow
+- `GET /auth/salesforce/callback` - Handle Salesforce OAuth callback
+- `POST /auth/onedrive/authorize` - Initiate Microsoft/OneDrive OAuth flow
+- `GET /auth/onedrive/callback` - Handle Microsoft OAuth callback
 
-### AI
-- `POST /ai/query`
-- `GET /ai/health`
+### Sync (4 endpoints)
+- `POST /sync/start` - Start new sync job
+- `GET /sync/status/:jobId` - Get sync job status
+- `GET /sync/history` - Get sync job history
+- `POST /sync/cancel/:jobId` - Cancel running sync job
 
-### BI
-- `GET /bi/insights`
+### Data (5 endpoints)
+- `GET /accounts` - Get all synced accounts
+- `GET /accounts/:accountId/documents` - Get documents for specific account
+- `GET /accounts/:accountId/dashboard` - Get dashboard data for account
+- `GET /documents/:documentId` - Get specific document's full content
+- `GET /search` - Search across all documents
 
-### Config
-- `GET /config/preferences`
-- `PUT /config/preferences`
+### AI (4 endpoints)
+- `POST /ai/query` - Query AI assistant with natural language
+- `GET /ai/chat/:accountId` - Get chat history for an account
+- `GET /ai/health` - Check AI/LLM health and availability
+- `DELETE /ai/chat/:accountId` - Clear chat history for an account
+
+### Business Intelligence (3 endpoints)
+- `GET /bi/insights` - Get industry insights
+- `GET /bi/industries` - Get all available industries with insights
+- `POST /bi/insights/refresh` - Refresh insights for specific industry
+
+### Config (4 endpoints)
+- `GET /config/preferences` - Get user preferences
+- `PUT /config/preferences` - Update user preferences
+- `POST /config/preferences/reset` - Reset preferences to defaults
+- `GET /config/status` - Get application status and configuration
 
 ## Success Criteria
 
@@ -249,22 +294,41 @@ Internal Use Only - Proprietary
 
 ---
 
-**Status:** Application implemented, ready for testing 🚀
+**Status:** Modular architecture implemented, ready for testing 🚀
 
-## Implementation Complete ✅
+## Modular Architecture Complete ✅
 
-The CS720 application has been fully implemented with:
+The CS720 platform has been refactored into a fully modular microservices architecture:
 
-- **Complete Backend API** - All 15 endpoints implemented with Fastify
-- **Complete React PWA** - Dashboard, Settings, Sync pages with full UI
-- **State Management** - Zustand stores for app, accounts, sync, chat, preferences
-- **Database Schema** - IndexedDB with Dexie for local storage
-- **UI Components** - Full design system with 12+ reusable components
-- **PWA Configuration** - Service worker, manifest, offline support
-- **TypeScript** - Complete type safety across frontend and backend
+### Services
+- **Backend API Service** (Port 3001) - 22 REST endpoints, OAuth, sync orchestration
+- **CORS Proxy Service** (Port 3002) - OpenAI-compatible API proxy
+- **AI Service** (Port 3003) - Multi-backend LLM support with auto-failover
+- **Frontend** (Port 3000) - Unified React PWA with all features integrated
+
+### Shared Infrastructure
+- **@cs720/shared** - Common types, constants, and utilities used across all services
+- **npm Workspaces** - Unified dependency management and build orchestration
+- **TypeScript** - Complete type safety across all services
+
+### Key Benefits
+✅ **Independent Services** - Each service can be developed, tested, and deployed separately
+✅ **Unified UI** - Single frontend provides consistent user experience
+✅ **Type Safety** - Shared types ensure consistency across service boundaries
+✅ **Scalability** - Services can be scaled independently based on load
+✅ **Maintainability** - Clear separation of concerns makes code easier to maintain
 
 ### Next Steps
-1. Test the application end-to-end
-2. Set up OAuth credentials for Salesforce/OneDrive
-3. Configure Ollama for local AI fallback
-4. Deploy to SE laptops for alpha testing
+1. Install dependencies: `npm run install:all`
+2. Build shared library: `npm run build:shared`
+3. Configure environment files (see SETUP.md)
+4. Start all services: `npm run dev`
+5. Check health: `npm run health`
+6. Set up OAuth credentials for Salesforce/OneDrive
+7. Configure Ollama for local AI
+8. Deploy to SE laptops for alpha testing
+
+### Documentation
+- **[ARCHITECTURE.md](./ARCHITECTURE.md)** - Detailed architecture documentation
+- **[SETUP.md](./SETUP.md)** - Setup instructions
+- **[CHECKLIST.md](./CHECKLIST.md)** - Implementation checklist

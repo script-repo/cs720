@@ -94,7 +94,20 @@ export async function aiRoutes(fastify: FastifyInstance) {
 
       return {
         status: 'healthy',
-        services: health,
+        ollama: {
+          available: health.local.available,
+          latency: health.local.responseTime,
+          model: health.local.model
+        },
+        proxy: {
+          available: health.proxy.available,
+          latency: health.proxy.responseTime
+        },
+        nai: {
+          available: health.external.available,
+          latency: health.external.responseTime,
+          model: health.external.model
+        },
         timestamp: new Date().toISOString()
       };
 

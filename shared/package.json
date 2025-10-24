@@ -1,0 +1,19 @@
+{
+  "name": "@cs720/shared",
+  "version": "1.0.0",
+  "description": "Shared types, constants, and utilities for CS720 platform",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "keywords": ["cs720", "shared", "types"],
+  "author": "CS720 Team",
+  "license": "UNLICENSED",
+  "private": true,
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}

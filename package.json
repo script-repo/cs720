@@ -1,28 +1,50 @@
 {
   "name": "cs720-platform",
   "version": "1.0.0",
-  "description": "Customer Intelligence Platform for Sales Engineers",
+  "description": "Customer Intelligence Platform for Sales Engineers - Modular Architecture",
   "private": true,
-  "workspaces": [
-    "frontend",
-    "backend"
-  ],
   "scripts": {
-    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev": "concurrently -n \"BACKEND,PROXY,AI,FRONTEND\" -c \"blue,magenta,green,cyan\" \"npm run dev:backend\" \"npm run dev:proxy\" \"npm run dev:ai\" \"npm run dev:frontend\"",
     "dev:frontend": "cd frontend && npm run dev",
-    "dev:backend": "cd backend && npm run dev",
-    "build": "npm run build:backend && npm run build:frontend",
+    "dev:backend": "cd services/backend && npm run dev",
+    "dev:proxy": "cd services/proxy && npm run dev",
+    "dev:ai": "cd services/ai-service && npm run dev",
+    "build": "npm run build:shared && npm run build:backend && npm run build:proxy && npm run build:ai && npm run build:frontend",
+    "build:shared": "cd shared && npm run build",
+    "build:backend": "cd services/backend && npm run build",
+    "build:proxy": "cd services/proxy && npm run build",
+    "build:ai": "cd services/ai-service && npm run build",
     "build:frontend": "cd frontend && npm run build",
-    "build:backend": "cd backend && npm run build",
-    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "install:all": "node scripts/install-all.js",
+    "install:all:windows": "install-all.bat",
+    "clean": "npm run clean:shared && npm run clean:backend && npm run clean:proxy && npm run clean:ai && npm run clean:frontend",
+    "clean:shared": "cd shared && npm run clean",
+    "clean:backend": "cd services/backend && npm run clean",
+    "clean:proxy": "cd services/proxy && npm run clean",
+    "clean:ai": "cd services/ai-service && npm run clean",
+    "clean:frontend": "cd frontend && npm run clean",
     "test": "npm run test:backend && npm run test:frontend",
+    "test:backend": "cd services/backend && npm run test",
     "test:frontend": "cd frontend && npm run test",
-    "test:backend": "cd backend && npm run test"
+    "start": "concurrently -n \"BACKEND,PROXY,AI\" -c \"blue,magenta,green\" \"npm run start:backend\" \"npm run start:proxy\" \"npm run start:ai\"",
+    "start:backend": "cd services/backend && npm start",
+    "start:proxy": "cd services/proxy && npm start",
+    "start:ai": "cd services/ai-service && npm start",
+    "health": "node scripts/health-check.js"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
   },
   "engines": {
     "node": ">=20.0.0"
-  }
+  },
+  "keywords": [
+    "customer-intelligence",
+    "sales-engineering",
+    "ai",
+    "pwa",
+    "microservices"
+  ],
+  "author": "CS720 Team",
+  "license": "UNLICENSED"
 }

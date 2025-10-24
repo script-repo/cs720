@@ -1,10 +1,41 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '@/store/appStore';
 import { useAccountStore } from '@/store/accountStore';
+import { useAIHealthStore } from '@/store/aiHealthStore';
 import { Bars3Icon, BellIcon, UserIcon } from '@/components/icons';
 
 export default function Header() {
+  const navigate = useNavigate();
   const { currentAccount, setShowMobileMenu, isOnline } = useAppStore();
   const { currentAccountData } = useAccountStore();
+  const { ollama, proxy, openai, web, startHealthMonitoring, stopHealthMonitoring } = useAIHealthStore();
+
+  // Start health monitoring on mount
+  useEffect(() => {
+    startHealthMonitoring();
+    return () => stopHealthMonitoring();
+  }, [startHealthMonitoring, stopHealthMonitoring]);
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'available':
+        return 'bg-green-400';
+      case 'unavailable':
+        return 'bg-red-400';
+      case 'checking':
+        return 'bg-yellow-400 animate-pulse';
+      default:
+        return 'bg-gray-400';
+    }
+  };
+
+  const handleHealthIndicatorClick = (status: string) => {
+    // Only navigate to settings if the service is unavailable (red)
+    if (status === 'unavailable') {
+      navigate('/settings');
+    }
+  };
 
   return (
     <header className="bg-gray-800 border-b border-gray-700 px-6 py-4">
@@ -50,16 +81,75 @@ export default function Header() {
 
         {/* Right side - Status and actions */}
         <div className="flex items-center space-x-4">
-          {/* Online/Offline indicator */}
-          <div className="flex items-center space-x-2">
+          {/* AI Service Health Indicators */}
+          <div className="flex items-center space-x-3">
+            {/* Ollama */}
             <div
-              className={`w-2 h-2 rounded-full ${
-                isOnline ? 'bg-green-400' : 'bg-red-400'
-              }`}
-            />
-            <span className="text-sm text-gray-400">
-              {isOnline ? 'Online' : 'Offline'}
-            </span>
+              className={`flex items-center space-x-1.5 group relative ${ollama.status === 'unavailable' ? 'cursor-pointer' : ''}`}
+              onClick={() => handleHealthIndicatorClick(ollama.status)}
+            >
+              <div className={`w-2 h-2 rounded-full ${getStatusColor(ollama.status)}`} />
+              <span className="text-xs text-gray-400">Ollama</span>
+              {/* Tooltip */}
+              <div className="hidden group-hover:block absolute top-full right-0 mt-2 px-2 py-1 bg-gray-900 text-xs text-white rounded shadow-lg whitespace-nowrap z-50">
+                {ollama.status === 'available'
+                  ? `Available (${ollama.latency}ms)`
+                  : ollama.status === 'checking'
+                  ? 'Checking...'
+                  : 'Unavailable - Click to configure'}
+              </div>
+            </div>
+
+            {/* Proxy */}
+            <div
+              className={`flex items-center space-x-1.5 group relative ${proxy.status === 'unavailable' ? 'cursor-pointer' : ''}`}
+              onClick={() => handleHealthIndicatorClick(proxy.status)}
+            >
+              <div className={`w-2 h-2 rounded-full ${getStatusColor(proxy.status)}`} />
+              <span className="text-xs text-gray-400">Proxy</span>
+              {/* Tooltip */}
+              <div className="hidden group-hover:block absolute top-full right-0 mt-2 px-2 py-1 bg-gray-900 text-xs text-white rounded shadow-lg whitespace-nowrap z-50">
+                {proxy.status === 'available'
+                  ? `Available (${proxy.latency}ms)`
+                  : proxy.status === 'checking'
+                  ? 'Checking...'
+                  : 'Unavailable - Click to configure'}
+              </div>
+            </div>
+
+            {/* NAI (via Proxy) */}
+            <div
+              className={`flex items-center space-x-1.5 group relative ${openai.status === 'unavailable' ? 'cursor-pointer' : ''}`}
+              onClick={() => handleHealthIndicatorClick(openai.status)}
+            >
+              <div className={`w-2 h-2 rounded-full ${getStatusColor(openai.status)}`} />
+              <span className="text-xs text-gray-400">NAI</span>
+              {/* Tooltip */}
+              <div className="hidden group-hover:block absolute top-full right-0 mt-2 px-2 py-1 bg-gray-900 text-xs text-white rounded shadow-lg whitespace-nowrap z-50">
+                {openai.status === 'available'
+                  ? `Available (${openai.latency}ms)`
+                  : openai.status === 'checking'
+                  ? 'Checking...'
+                  : 'Unavailable - Click to configure'}
+              </div>
+            </div>
+
+            {/* Web (Perplexity API) */}
+            <div
+              className={`flex items-center space-x-1.5 group relative ${web.status === 'unavailable' ? 'cursor-pointer' : ''}`}
+              onClick={() => handleHealthIndicatorClick(web.status)}
+            >
+              <div className={`w-2 h-2 rounded-full ${getStatusColor(web.status)}`} />
+              <span className="text-xs text-gray-400">Web</span>
+              {/* Tooltip */}
+              <div className="hidden group-hover:block absolute top-full right-0 mt-2 px-2 py-1 bg-gray-900 text-xs text-white rounded shadow-lg whitespace-nowrap z-50">
+                {web.status === 'available'
+                  ? 'Perplexity API configured'
+                  : web.status === 'checking'
+                  ? 'Checking...'
+                  : 'Not configured - Click to add API key'}
+              </div>
+            </div>
           </div>
 
           {/* Notifications */}

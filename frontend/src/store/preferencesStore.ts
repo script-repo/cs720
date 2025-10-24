@@ -10,8 +10,14 @@ const DEFAULT_PREFERENCES: UserPreferences = {
     accountScope: 'all'
   },
   ai: {
-    preferredModel: 'external',
-    maxTokens: 1000
+    preferredModel: 'ollama',
+    maxTokens: 2048,
+    naiBaseUrl: '',
+    naiApiKey: '',
+    naiModel: '',
+    perplexityApiKey: '',
+    perplexityModel: 'sonar',
+    systemPrompt: 'You are an AI advisor for CS720, a customer intelligence platform for Sales Engineers. Help answer questions about customer accounts, priorities, and documentation.'
   },
   ui: {
     theme: 'dark',
@@ -55,7 +61,13 @@ export const usePreferencesStore = create<PreferencesStore>()(
             const dbPreferences = await DatabaseService.getPreferences();
 
             if (dbPreferences) {
-              set({ preferences: dbPreferences, loading: false });
+              // Merge with defaults to ensure all new fields are present
+              const mergedPreferences: UserPreferences = {
+                sync: { ...DEFAULT_PREFERENCES.sync, ...dbPreferences.sync },
+                ai: { ...DEFAULT_PREFERENCES.ai, ...dbPreferences.ai },
+                ui: { ...DEFAULT_PREFERENCES.ui, ...dbPreferences.ui }
+              };
+              set({ preferences: mergedPreferences, loading: false });
               return;
             }
 
@@ -64,12 +76,19 @@ export const usePreferencesStore = create<PreferencesStore>()(
 
             if (response.ok) {
               const data = await response.json();
-              const apiPreferences = data.preferences || DEFAULT_PREFERENCES;
+              const loadedPreferences = data.preferences || DEFAULT_PREFERENCES;
 
-              set({ preferences: apiPreferences, loading: false });
+              // Merge with defaults to ensure all new fields are present
+              const mergedPreferences: UserPreferences = {
+                sync: { ...DEFAULT_PREFERENCES.sync, ...loadedPreferences.sync },
+                ai: { ...DEFAULT_PREFERENCES.ai, ...loadedPreferences.ai },
+                ui: { ...DEFAULT_PREFERENCES.ui, ...loadedPreferences.ui }
+              };
+
+              set({ preferences: mergedPreferences, loading: false });
 
               // Save to IndexedDB for offline access
-              await DatabaseService.savePreferences(apiPreferences);
+              await DatabaseService.savePreferences(mergedPreferences);
             } else {
               // Use defaults if API fails
               set({ preferences: DEFAULT_PREFERENCES, loading: false });

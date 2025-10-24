@@ -4,7 +4,10 @@
       "Bash(npm run build:*)",
       "Bash(test:*)",
       "Bash(npm run dev:*)",
-      "Bash(if not exist \"C:\\Temp\" mkdir \"C:\\Temp\")"
+      "Bash(if not exist \"C:\\Temp\" mkdir \"C:\\Temp\")",
+      "Bash(tree:*)",
+      "Bash(powershell -Command:*)",
+      "WebFetch(domain:docs.perplexity.ai)"
     ],
     "deny": [],
     "ask": []

@@ -31,6 +31,7 @@ export const useChatStore = create<ChatStore>()(
       set({ loading: true, error: null });
 
       try {
+        // Load chat history from local database
         const messages = await DatabaseService.getChatHistory(accountId);
         set({ messages, loading: false });
 
@@ -38,7 +39,8 @@ export const useChatStore = create<ChatStore>()(
         console.error('Error loading chat history:', error);
         set({
           error: error instanceof Error ? error.message : 'Failed to load chat history',
-          loading: false
+          loading: false,
+          messages: [] // Clear messages on error
         });
       }
     },

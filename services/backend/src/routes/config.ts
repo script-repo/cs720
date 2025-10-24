@@ -8,8 +8,14 @@ const DEFAULT_PREFERENCES: UserPreferences = {
     accountScope: 'all'
   },
   ai: {
-    preferredModel: 'external',
-    maxTokens: 1000
+    preferredModel: 'ollama',
+    maxTokens: 2048,
+    naiBaseUrl: '',
+    naiApiKey: '',
+    naiModel: '',
+    perplexityApiKey: '',
+    perplexityModel: 'sonar',
+    systemPrompt: 'You are an AI advisor for CS720, a customer intelligence platform for Sales Engineers. Help answer questions about customer accounts, priorities, and documentation.'
   },
   ui: {
     theme: 'dark',
@@ -141,12 +147,12 @@ function validatePreferences(preferences: UserPreferences): string | null {
   }
 
   // Validate AI preferences
-  if (!['external', 'local'].includes(preferences.ai.preferredModel)) {
+  if (!['ollama', 'openai'].includes(preferences.ai.preferredModel)) {
     return 'Invalid AI model preference';
   }
 
-  if (preferences.ai.maxTokens < 100 || preferences.ai.maxTokens > 4000) {
-    return 'Max tokens must be between 100 and 4000';
+  if (preferences.ai.maxTokens < 100 || preferences.ai.maxTokens > 8000) {
+    return 'Max tokens must be between 100 and 8000';
   }
 
   // Validate UI preferences

@@ -28,12 +28,14 @@ export default function AIPanel() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!query.trim() || !currentAccount || isTyping) return;
+    if (!query.trim() || isTyping) return;
 
     const queryToSend = query.trim();
     setQuery('');
 
-    await sendMessage(currentAccount.id, queryToSend);
+    // Use account ID if available, otherwise use 'general' for non-account-specific queries
+    const accountId = currentAccount?.id || 'general';
+    await sendMessage(accountId, queryToSend);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -43,15 +45,11 @@ export default function AIPanel() {
     }
   };
 
-  if (!currentAccount) {
-    return (
-      <div className="w-80 bg-gray-800 border-l border-gray-700 p-6 flex items-center justify-center">
-        <div className="text-center text-gray-500">
-          <p className="text-sm">Select an account to start chatting</p>
-        </div>
-      </div>
-    );
-  }
+  // AI chat is always available, even without an account selected
+  const accountContext = currentAccount ? {
+    id: currentAccount.id,
+    name: currentAccount.name
+  } : null;
 
   return (
     <div className={`bg-gray-800 border-l border-gray-700 transition-all duration-300 ${
@@ -61,8 +59,10 @@ export default function AIPanel() {
       <div className="p-4 border-b border-gray-700">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-semibold text-white">AI Assistant</h3>
-            <p className="text-sm text-gray-400">Ask questions about {currentAccount.name}</p>
+            <h3 className="text-lg font-semibold text-white">AI Advisor</h3>
+            <p className="text-sm text-gray-400">
+              {accountContext ? `Ask questions about ${accountContext.name}` : 'Ask me anything'}
+            </p>
           </div>
           <div className="flex items-center space-x-2">
             <button
@@ -92,14 +92,26 @@ export default function AIPanel() {
               </svg>
             </div>
             <p className="text-gray-400 text-sm mb-4">
-              Hi! I'm your AI assistant. Ask me anything about {currentAccount.name}.
+              Hi! I'm your AI advisor. {accountContext
+                ? `Ask me anything about ${accountContext.name}.`
+                : 'Ask me anything or select an account for context-aware answers.'}
             </p>
             <div className="space-y-2 text-xs text-gray-500">
               <p>Try asking:</p>
               <div className="space-y-1">
-                <p>• "What are the top priorities?"</p>
-                <p>• "What projects are in progress?"</p>
-                <p>• "Any upcoming renewals?"</p>
+                {accountContext ? (
+                  <>
+                    <p>• "What are the top priorities?"</p>
+                    <p>• "What projects are in progress?"</p>
+                    <p>• "Any upcoming renewals?"</p>
+                  </>
+                ) : (
+                  <>
+                    <p>• "What can you help me with?"</p>
+                    <p>• "Explain the CS720 platform"</p>
+                    <p>• "How does data sync work?"</p>
+                  </>
+                )}
               </div>
             </div>
           </div>

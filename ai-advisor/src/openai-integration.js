@@ -6,7 +6,7 @@ export class OpenAIEngine {
     this.apiKey = null;
     this.modelId = 'gpt-4';
     this.useProxy = true; // Use proxy by default to avoid CORS issues
-    this.proxyUrl = 'http://localhost:3001/proxy';
+    this.proxyUrl = 'http://localhost:3002/proxy';
   }
 
   async initialize(onProgress, endpoint, apiKey, modelId) {

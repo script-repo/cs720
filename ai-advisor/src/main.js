@@ -182,7 +182,7 @@ class CS720AIAdvisorApp {
       }
 
       // Check the actual remote endpoint via proxy health check
-      const response = await fetch('http://localhost:3001/health/remote', {
+      const response = await fetch('http://localhost:3002/health/remote', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -223,7 +223,7 @@ class CS720AIAdvisorApp {
 
   async checkProxyHealth() {
     try {
-      const response = await fetch('http://localhost:3001/health', {
+      const response = await fetch('http://localhost:3002/health', {
         method: 'GET',
         signal: AbortSignal.timeout(3000) // 3 second timeout
       });

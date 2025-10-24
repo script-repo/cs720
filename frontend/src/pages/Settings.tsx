@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePreferencesStore } from '@/store/preferencesStore';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
@@ -8,6 +8,11 @@ import { toast } from '@/store/appStore';
 export default function Settings() {
   const { preferences, updatePreferences, resetPreferences, loading } = usePreferencesStore();
   const [localPreferences, setLocalPreferences] = useState(preferences);
+
+  // Sync local state when store preferences change
+  useEffect(() => {
+    setLocalPreferences(preferences);
+  }, [preferences]);
 
   const handleSave = async () => {
     try {
@@ -93,48 +98,197 @@ export default function Settings() {
         {/* AI Settings */}
         <Card
           title="AI Settings"
-          subtitle="Configure AI assistant preferences"
+          subtitle="Configure AI advisor preferences"
           icon={<Cog6ToothIcon className="w-5 h-5" />}
+          className="lg:col-span-2"
         >
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-white mb-2">
-                Preferred Model
-              </label>
-              <select
-                value={localPreferences.ai.preferredModel}
-                onChange={(e) => setLocalPreferences({
-                  ...localPreferences,
-                  ai: {
-                    ...localPreferences.ai,
-                    preferredModel: e.target.value as any
-                  }
-                })}
-                className="input w-full"
-              >
-                <option value="external">External (OpenAI)</option>
-                <option value="local">Local (Ollama)</option>
-              </select>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Left Column */}
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-white mb-2">
+                  Preferred Backend
+                </label>
+                <select
+                  value={localPreferences.ai.preferredModel}
+                  onChange={(e) => setLocalPreferences({
+                    ...localPreferences,
+                    ai: {
+                      ...localPreferences.ai,
+                      preferredModel: e.target.value as any
+                    }
+                  })}
+                  className="input w-full"
+                >
+                  <option value="ollama">Local (Ollama)</option>
+                  <option value="openai">Remote (NAI)</option>
+                </select>
+                <p className="text-xs text-gray-500 mt-1">
+                  Choose between local Ollama or remote NAI inference
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-white mb-2">
+                  NAI Base URL
+                </label>
+                <input
+                  type="url"
+                  value={localPreferences.ai.naiBaseUrl || ''}
+                  onChange={(e) => setLocalPreferences({
+                    ...localPreferences,
+                    ai: {
+                      ...localPreferences.ai,
+                      naiBaseUrl: e.target.value
+                    }
+                  })}
+                  placeholder="https://api.novelai.net/v1"
+                  className="input w-full"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  OpenAI-compatible endpoint URL
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-white mb-2">
+                  NAI API Key
+                </label>
+                <input
+                  type="password"
+                  value={localPreferences.ai.naiApiKey || ''}
+                  onChange={(e) => setLocalPreferences({
+                    ...localPreferences,
+                    ai: {
+                      ...localPreferences.ai,
+                      naiApiKey: e.target.value
+                    }
+                  })}
+                  placeholder="sk-..."
+                  className="input w-full"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Your NAI API key (stored locally)
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-white mb-2">
+                  NAI Model
+                </label>
+                <input
+                  type="text"
+                  value={localPreferences.ai.naiModel || ''}
+                  onChange={(e) => setLocalPreferences({
+                    ...localPreferences,
+                    ai: {
+                      ...localPreferences.ai,
+                      naiModel: e.target.value
+                    }
+                  })}
+                  placeholder="kayra-v1"
+                  className="input w-full"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Model name for NAI inference
+                </p>
+              </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-white mb-2">
-                Max Tokens
-              </label>
-              <input
-                type="number"
-                min="100"
-                max="4000"
-                value={localPreferences.ai.maxTokens}
-                onChange={(e) => setLocalPreferences({
-                  ...localPreferences,
-                  ai: {
-                    ...localPreferences.ai,
-                    maxTokens: parseInt(e.target.value)
-                  }
-                })}
-                className="input w-full"
-              />
+            {/* Right Column */}
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-white mb-2">
+                  Perplexity API Key
+                </label>
+                <input
+                  type="password"
+                  value={localPreferences.ai.perplexityApiKey || ''}
+                  onChange={(e) => setLocalPreferences({
+                    ...localPreferences,
+                    ai: {
+                      ...localPreferences.ai,
+                      perplexityApiKey: e.target.value
+                    }
+                  })}
+                  placeholder="pplx-..."
+                  className="input w-full"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  For web search integration (optional)
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-white mb-2">
+                  Perplexity Model
+                </label>
+                <select
+                  value={localPreferences.ai.perplexityModel || 'sonar'}
+                  onChange={(e) => setLocalPreferences({
+                    ...localPreferences,
+                    ai: {
+                      ...localPreferences.ai,
+                      perplexityModel: e.target.value
+                    }
+                  })}
+                  className="input w-full"
+                >
+                  <option value="sonar">Sonar (Lightweight, cost-effective)</option>
+                  <option value="sonar-pro">Sonar Pro (Advanced search)</option>
+                  <option value="sonar-reasoning">Sonar Reasoning (Fast reasoning)</option>
+                  <option value="sonar-reasoning-pro">Sonar Reasoning Pro (DeepSeek-R1)</option>
+                  <option value="sonar-deep-research">Sonar Deep Research (Comprehensive)</option>
+                </select>
+                <p className="text-xs text-gray-500 mt-1">
+                  Select Perplexity model for web search queries
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-white mb-2">
+                  System Prompt
+                </label>
+                <textarea
+                  value={localPreferences.ai.systemPrompt || ''}
+                  onChange={(e) => setLocalPreferences({
+                    ...localPreferences,
+                    ai: {
+                      ...localPreferences.ai,
+                      systemPrompt: e.target.value
+                    }
+                  })}
+                  placeholder="You are an AI advisor for CS720..."
+                  rows={6}
+                  className="input w-full resize-none"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Custom system prompt for AI advisor
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-white mb-2">
+                  Max Tokens
+                </label>
+                <input
+                  type="number"
+                  min="100"
+                  max="8000"
+                  value={localPreferences.ai.maxTokens}
+                  onChange={(e) => setLocalPreferences({
+                    ...localPreferences,
+                    ai: {
+                      ...localPreferences.ai,
+                      maxTokens: parseInt(e.target.value)
+                    }
+                  })}
+                  className="input w-full"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Maximum response length (100-8000 tokens)
+                </p>
+              </div>
             </div>
           </div>
         </Card>

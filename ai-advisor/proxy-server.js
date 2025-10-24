@@ -11,7 +11,7 @@ import express from 'express';
 import cors from 'cors';
 
 const app = express();
-const PORT = 3001;
+const PORT = 3002;
 
 // Enable CORS for all origins (restrict this in production)
 app.use(cors());

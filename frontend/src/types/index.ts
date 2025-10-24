@@ -177,8 +177,14 @@ export interface UserPreferences {
     selectedAccounts?: string[];
   };
   ai: {
-    preferredModel: 'external' | 'local';
+    preferredModel: 'ollama' | 'openai';
     maxTokens: number;
+    naiBaseUrl?: string;
+    naiApiKey?: string;
+    naiModel?: string;
+    perplexityApiKey?: string;
+    perplexityModel?: string;
+    systemPrompt?: string;
   };
   ui: {
     theme: 'dark' | 'light';
