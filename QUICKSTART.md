@@ -243,8 +243,8 @@ npx tailwindcss init -p
 
 #### Day 1: Project Setup
 ```bash
-# Initialize Fastify project
-mkdir backend && cd backend
+# Initialize Fastify project in monorepo structure
+cd services/backend
 npm init -y
 npm install fastify @fastify/cors @fastify/oauth2
 npm install dotenv winston

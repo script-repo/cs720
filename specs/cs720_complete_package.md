@@ -839,32 +839,26 @@ ollama pull llama2
 git clone https://github.com/your-org/cs720.git
 cd cs720
 
-# Install frontend
-cd frontend
+# Install workspace dependencies
 npm install
-
-# Install backend
-cd ../backend
-npm install
+npm run install:all
 
 # Set up environment variables
-cp .env.example .env
-# Edit .env with your API keys
+cp services/backend/.env.example services/backend/.env
+cp services/proxy/.env.example services/proxy/.env
+cp services/ai-service/.env.example services/ai-service/.env
+# Edit each .env with your API keys and credentials
 ```
 
 **Run Development:**
 ```bash
-# Terminal 1: Backend
-cd backend
-npm run dev
-# Runs on http://localhost:3001
+# Build shared package once
+npm run build:shared
 
-# Terminal 2: Frontend
-cd frontend
+# Start all services (backend, proxy, AI, frontend)
 npm run dev
-# Runs on http://localhost:3000
 
-# Terminal 3: Ollama (if not running)
+# Separate terminal: Ollama (if not running)
 ollama serve
 ```
 
