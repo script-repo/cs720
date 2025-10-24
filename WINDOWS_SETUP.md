@@ -18,7 +18,7 @@ Open PowerShell as Administrator and run each command:
 
 ```powershell
 # Navigate to project root
-cd "C:\Users\DaemonBehr\OneDrive - Nutanix\Documents\GitHub\cs720"
+cd "C:\Users\USERNAME\OneDrive - Nutanix\Documents\GitHub\cs720"
 
 # 1. Install shared library
 cd shared
