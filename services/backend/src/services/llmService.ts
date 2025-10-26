@@ -32,6 +32,8 @@ class LLMService {
   private ollamaModel: string;
   private proxyUrl: string;
   private perplexityApiKey: string | null = null;
+  private lastStreamingMetadata: { model: string; endpoint: string } | null = null;
+  private activeBackend: 'ollama' | 'openai' = 'ollama'; // Track which backend is currently active
 
   constructor() {
     // Ollama configuration
@@ -118,6 +120,8 @@ class LLMService {
       try {
         const response = await this.queryOpenAICompatible(query, context, naiBaseUrl, naiApiKey, naiModel, systemPrompt);
         response.webSearchUsed = !!webSearchResults;
+        this.activeBackend = 'openai'; // Mark NAI as active
+        console.log('[LLM] Active backend: NAI/OpenAI');
         return response;
       } catch (error) {
         console.warn('NAI/OpenAI-compatible API failed, falling back to Ollama:', error);
@@ -128,6 +132,8 @@ class LLMService {
     try {
       const response = await this.queryOllama(query, context, systemPrompt);
       response.webSearchUsed = !!webSearchResults;
+      this.activeBackend = 'ollama'; // Mark Ollama as active
+      console.log('[LLM] Active backend: Ollama');
       return response;
     } catch (error) {
       console.warn('Ollama failed:', error);
@@ -137,6 +143,8 @@ class LLMService {
         try {
           const response = await this.queryOpenAICompatible(query, context, naiBaseUrl, naiApiKey, naiModel, systemPrompt);
           response.webSearchUsed = !!webSearchResults;
+          this.activeBackend = 'openai'; // Mark NAI as active (fallback)
+          console.log('[LLM] Active backend: NAI/OpenAI (fallback)');
           return response;
         } catch (fallbackError) {
           console.error('All LLM backends failed:', fallbackError);
@@ -192,12 +200,31 @@ class LLMService {
       };
     }
 
-    // Try Ollama with streaming (preferred for now)
-    try {
-      await this.queryOllamaStreaming(query, context, systemPrompt, onChunk);
-    } catch (error) {
-      console.error('Error during streaming:', error);
-      throw error;
+    // Use the preferred backend for streaming
+    if (preferredBackend === 'openai' && naiBaseUrl && naiApiKey) {
+      // NAI/OpenAI-compatible streaming
+      try {
+        await this.queryOpenAICompatibleStreaming(query, context, naiBaseUrl, naiApiKey, naiModel, systemPrompt, onChunk);
+        this.activeBackend = 'openai'; // Mark NAI as active
+        console.log('[LLM] Active backend: NAI/OpenAI (streaming)');
+      } catch (error) {
+        console.error('Error during NAI streaming:', error);
+        // Fallback to Ollama if NAI fails
+        console.log('[LLM] Falling back to Ollama streaming');
+        await this.queryOllamaStreaming(query, context, systemPrompt, onChunk);
+        this.activeBackend = 'ollama'; // Mark Ollama as active (fallback)
+        console.log('[LLM] Active backend: Ollama (fallback from NAI)');
+      }
+    } else {
+      // Try Ollama with streaming
+      try {
+        await this.queryOllamaStreaming(query, context, systemPrompt, onChunk);
+        this.activeBackend = 'ollama'; // Mark Ollama as active
+        console.log('[LLM] Active backend: Ollama (streaming)');
+      } catch (error) {
+        console.error('Error during streaming:', error);
+        throw error;
+      }
     }
   }
 
@@ -216,6 +243,9 @@ class LLMService {
       const userPrompt = this.buildUserPrompt(query, context);
 
       console.log('[Ollama] Starting streaming response');
+
+      // Set metadata for this streaming session
+      this.lastStreamingMetadata = { model: this.ollamaModel, endpoint: 'local' };
 
       const response = await fetch(`${this.ollamaBaseUrl}/api/chat`, {
         method: 'POST',
@@ -282,8 +312,109 @@ class LLMService {
     }
   }
 
+  private async queryOpenAICompatibleStreaming(
+    query: string,
+    context: any,
+    endpoint: string,
+    apiKey: string,
+    model: string,
+    customSystemPrompt?: string,
+    onChunk?: (chunk: string) => void
+  ): Promise<void> {
+    try {
+      // Build prompts
+      let systemPrompt = this.buildSystemPrompt(context);
+      if (customSystemPrompt && !context?.webSearch) {
+        systemPrompt = customSystemPrompt;
+      }
+      const userPrompt = this.buildUserPrompt(query, context);
+
+      console.log('[NAI] Starting streaming response');
+
+      // Set metadata for this streaming session
+      this.lastStreamingMetadata = { model, endpoint: 'external' };
+
+      // Use proxy to avoid CORS issues
+      const response = await fetch(this.proxyUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          endpoint: endpoint,
+          apiKey: apiKey,
+          body: {
+            model: model,
+            messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: userPrompt }
+            ],
+            stream: true,
+            temperature: 0.7,
+            max_tokens: 2048
+          }
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`NAI API error: ${response.statusText}`);
+      }
+
+      // Process streaming response
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+
+      if (!reader) {
+        throw new Error('No response body');
+      }
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        const lines = chunk.split('\n').filter(line => line.trim() && line.startsWith('data: '));
+
+        for (const line of lines) {
+          try {
+            const data = JSON.parse(line.substring(6)); // Remove 'data: ' prefix
+
+            // Handle different SSE event types
+            if (data.choices && data.choices[0]?.delta?.content) {
+              const content = data.choices[0].delta.content;
+              if (onChunk) {
+                onChunk(content);
+              }
+            } else if (data.choices && data.choices[0]?.finish_reason) {
+              // Stream completed
+              console.log('[NAI] Stream completed');
+              break;
+            }
+          } catch (e) {
+            // Skip malformed JSON
+            console.warn('[NAI] Failed to parse SSE message:', e);
+          }
+        }
+      }
+
+      console.log('[NAI] Streaming response completed');
+
+    } catch (error) {
+      console.error('Error in NAI streaming:', error);
+      throw error;
+    }
+  }
+
   private getModelName(): string {
     return this.ollamaModel;
+  }
+
+  getLastStreamingMetadata(): { model: string; endpoint: string } {
+    return this.lastStreamingMetadata || { model: this.ollamaModel, endpoint: 'local' };
+  }
+
+  getActiveBackend(): 'ollama' | 'openai' {
+    return this.activeBackend;
   }
 
   private shouldUseWebSearch(query: string): boolean {
@@ -751,6 +882,42 @@ Use web search data to supplement or update the customer context data.
         console.log('[Health] NAI not configured, skipping health check');
       } else if (!health.proxy.available) {
         console.log('[Health] Proxy unavailable, skipping NAI health check');
+      }
+    }
+
+    // Determine which backend should be active based on preferences and availability
+    const preferredBackend = preferences.ai?.preferredModel || 'ollama';
+
+    // Update activeBackend based on preference and availability
+    if (preferredBackend === 'openai') {
+      // Prefer NAI/OpenAI
+      if (health.external.available && !health.external.degraded) {
+        // NAI is available and healthy, use it
+        this.activeBackend = 'openai';
+        console.log('[Health] Active backend set to: NAI/OpenAI (preferred, available)');
+      } else if (health.local.available) {
+        // NAI is unavailable or degraded, failover to Ollama
+        this.activeBackend = 'ollama';
+        console.log('[Health] Active backend set to: Ollama (failover from NAI)');
+      } else {
+        // Both unavailable, keep preference
+        this.activeBackend = 'openai';
+        console.log('[Health] Active backend set to: NAI/OpenAI (preferred, but unavailable)');
+      }
+    } else {
+      // Prefer Ollama
+      if (health.local.available) {
+        // Ollama is available, use it
+        this.activeBackend = 'ollama';
+        console.log('[Health] Active backend set to: Ollama (preferred, available)');
+      } else if (health.external.available) {
+        // Ollama is unavailable, failover to NAI
+        this.activeBackend = 'openai';
+        console.log('[Health] Active backend set to: NAI/OpenAI (failover from Ollama)');
+      } else {
+        // Both unavailable, keep preference
+        this.activeBackend = 'ollama';
+        console.log('[Health] Active backend set to: Ollama (preferred, but unavailable)');
       }
     }
 

@@ -17,6 +17,7 @@ interface AIHealthStore {
   openai: ServiceHealth;
   web: ServiceHealth;
   isChecking: boolean;
+  activeBackend: 'ollama' | 'openai'; // Which backend is currently active (handles failover/failback)
 
   // Actions
   checkHealth: () => Promise<void>;
@@ -33,17 +34,25 @@ export const useAIHealthStore = create<AIHealthStore>((set, get) => ({
   openai: { status: 'checking' },
   web: { status: 'checking' },
   isChecking: false,
+  activeBackend: 'ollama', // Default to ollama
 
   // Check health of all AI services
   checkHealth: async () => {
     set({ isChecking: true });
 
-    const results = {
+    const results: {
+      ollama: ServiceHealth;
+      proxy: ServiceHealth;
+      openai: ServiceHealth;
+      web: ServiceHealth;
+    } = {
       ollama: { status: 'unavailable' as ServiceStatus, lastCheck: new Date().toISOString() },
       proxy: { status: 'unavailable' as ServiceStatus, lastCheck: new Date().toISOString() },
       openai: { status: 'unavailable' as ServiceStatus, lastCheck: new Date().toISOString() },
       web: { status: 'unavailable' as ServiceStatus, lastCheck: new Date().toISOString() },
     };
+
+    let activeBackend: 'ollama' | 'openai' = 'ollama';
 
     try {
       // 1. Check AI Service health (which checks Ollama)
@@ -87,6 +96,12 @@ export const useAIHealthStore = create<AIHealthStore>((set, get) => ({
         const naiResponse = await fetch('/api/ai/health');
         if (naiResponse.ok) {
           const naiData = await naiResponse.json();
+
+          // Get the active backend (which one is actually being used, accounting for failover)
+          if (naiData.activeBackend) {
+            activeBackend = naiData.activeBackend;
+          }
+
           // Backend should return NAI endpoint status
           if (naiData.nai || naiData.openai || naiData.remote) {
             const naiStatus = naiData.nai || naiData.openai || naiData.remote;
@@ -129,18 +144,20 @@ export const useAIHealthStore = create<AIHealthStore>((set, get) => ({
 
       set({
         ...results,
+        activeBackend, // Update which backend is currently active
         isChecking: false,
       });
     } catch (error) {
       console.error('Health check error:', error);
       set({
         ...results,
+        activeBackend, // Keep previous activeBackend on error
         isChecking: false,
       });
     }
   },
 
-  // Start monitoring (check every 10 seconds)
+  // Start monitoring (check every 3 seconds)
   startHealthMonitoring: () => {
     const { checkHealth } = get();
 
@@ -152,10 +169,10 @@ export const useAIHealthStore = create<AIHealthStore>((set, get) => ({
       clearInterval(healthCheckInterval);
     }
 
-    // Check every 10 seconds
+    // Check every 3 seconds for faster active backend updates
     healthCheckInterval = setInterval(() => {
       checkHealth();
-    }, 10000);
+    }, 3000);
   },
 
   // Stop monitoring

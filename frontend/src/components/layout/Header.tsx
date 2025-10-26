@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '@/store/appStore';
 import { useAccountStore } from '@/store/accountStore';
 import { useAIHealthStore } from '@/store/aiHealthStore';
-import { Bars3Icon, BellIcon, UserIcon } from '@/components/icons';
+import { Bars3Icon } from '@/components/icons';
 
 export default function Header() {
   const navigate = useNavigate();
-  const { currentAccount, setShowMobileMenu, isOnline } = useAppStore();
+  const { currentAccount, setShowMobileMenu } = useAppStore();
   const { currentAccountData } = useAccountStore();
-  const { ollama, proxy, openai, web, startHealthMonitoring, stopHealthMonitoring } = useAIHealthStore();
+  const { ollama, proxy, openai, web, activeBackend, startHealthMonitoring, stopHealthMonitoring } = useAIHealthStore();
 
   // Start health monitoring on mount
   useEffect(() => {
@@ -87,15 +87,21 @@ export default function Header() {
           <div className="flex items-center space-x-3">
             {/* Ollama */}
             <div
-              className={`flex items-center space-x-1.5 group relative ${ollama.status === 'unavailable' ? 'cursor-pointer' : ''}`}
+              className={`flex items-center space-x-1.5 group relative ${ollama.status === 'unavailable' ? 'cursor-pointer' : ''} ${
+                activeBackend === 'ollama' && ollama.status === 'available'
+                  ? 'px-2 py-1 rounded-md bg-green-500/10 ring-1 ring-green-500/30 shadow-[0_0_10px_rgba(34,197,94,0.3)]'
+                  : ''
+              }`}
               onClick={() => handleHealthIndicatorClick(ollama.status)}
             >
               <div className={`w-2 h-2 rounded-full ${getStatusColor(ollama.status)}`} />
-              <span className="text-xs text-gray-400">Ollama</span>
+              <span className={`text-xs ${activeBackend === 'ollama' && ollama.status === 'available' ? 'text-green-400 font-medium' : 'text-gray-400'}`}>
+                Ollama {activeBackend === 'ollama' ? '✓' : ''}
+              </span>
               {/* Tooltip */}
               <div className="hidden group-hover:block absolute top-full right-0 mt-2 px-2 py-1 bg-gray-900 text-xs text-white rounded shadow-lg whitespace-nowrap z-50">
                 {ollama.status === 'available'
-                  ? `Available (${ollama.latency}ms)`
+                  ? `${activeBackend === 'ollama' ? '✓ Active • ' : ''}Available (${ollama.latency}ms)`
                   : ollama.status === 'checking'
                   ? 'Checking...'
                   : 'Unavailable - Click to configure'}
@@ -121,19 +127,33 @@ export default function Header() {
 
             {/* NAI (via Proxy) */}
             <div
-              className={`flex items-center space-x-1.5 group relative ${(openai.status === 'unavailable' || openai.status === 'degraded') ? 'cursor-pointer' : ''}`}
+              className={`flex items-center space-x-1.5 group relative ${(openai.status === 'unavailable' || openai.status === 'degraded') ? 'cursor-pointer' : ''} ${
+                activeBackend === 'openai' && openai.status === 'available'
+                  ? 'px-2 py-1 rounded-md bg-green-500/10 ring-1 ring-green-500/30 shadow-[0_0_10px_rgba(34,197,94,0.3)]'
+                  : activeBackend === 'openai' && openai.status === 'degraded'
+                  ? 'px-2 py-1 rounded-md bg-orange-500/10 ring-1 ring-orange-500/30 shadow-[0_0_10px_rgba(251,146,60,0.3)]'
+                  : ''
+              }`}
               onClick={() => handleHealthIndicatorClick(openai.status)}
             >
               <div className={`w-2 h-2 rounded-full ${getStatusColor(openai.status)}`} />
-              <span className="text-xs text-gray-400">NAI</span>
+              <span className={`text-xs ${
+                activeBackend === 'openai' && openai.status === 'available'
+                  ? 'text-green-400 font-medium'
+                  : activeBackend === 'openai' && openai.status === 'degraded'
+                  ? 'text-orange-400 font-medium'
+                  : 'text-gray-400'
+              }`}>
+                NAI {activeBackend === 'openai' ? '✓' : ''}
+              </span>
               {/* Tooltip */}
               <div className="hidden group-hover:block absolute top-full right-0 mt-2 px-2 py-1 bg-gray-900 text-xs text-white rounded shadow-lg whitespace-nowrap z-50 max-w-xs">
                 {openai.status === 'available'
-                  ? `Available (${openai.latency}ms)`
+                  ? `${activeBackend === 'openai' ? '✓ Active • ' : ''}Available (${openai.latency}ms)`
                   : openai.status === 'degraded'
                   ? (
                     <div className="whitespace-normal">
-                      <div className="font-semibold mb-1">⚠️ Degraded</div>
+                      <div className="font-semibold mb-1">{activeBackend === 'openai' ? '✓ Active (Degraded)' : '⚠️ Degraded'}</div>
                       {openai.errorCode && <div className="text-orange-300">Error: {openai.errorCode}</div>}
                       {openai.errorMessage && <div className="mt-1">{openai.errorMessage}</div>}
                       <div className="mt-1 text-gray-400">Click to check settings</div>
@@ -162,24 +182,6 @@ export default function Header() {
               </div>
             </div>
           </div>
-
-          {/* Notifications */}
-          <button
-            className="p-2 rounded-lg hover:bg-gray-700 text-gray-400 hover:text-white transition-colors relative"
-            aria-label="Notifications"
-          >
-            <BellIcon className="w-5 h-5" />
-            {/* Notification badge placeholder */}
-            <span className="absolute top-1 right-1 w-2 h-2 bg-primary-500 rounded-full"></span>
-          </button>
-
-          {/* User menu */}
-          <button
-            className="p-2 rounded-lg hover:bg-gray-700 text-gray-400 hover:text-white transition-colors"
-            aria-label="User menu"
-          >
-            <UserIcon className="w-5 h-5" />
-          </button>
         </div>
       </div>
     </header>

@@ -46,6 +46,9 @@ export async function aiRoutes(fastify: FastifyInstance) {
           // Get sources from full content
           const sources = llmService['extractSources'](fullContent, context);
 
+          // Get streaming metadata (which backend was actually used)
+          const streamingMetadata = llmService.getLastStreamingMetadata();
+
           // Create chat message
           const chatMessage: ChatMessage = {
             id: messageId,
@@ -54,7 +57,7 @@ export async function aiRoutes(fastify: FastifyInstance) {
             response: fullContent,
             sources,
             timestamp: new Date().toISOString(),
-            model: await llmService['getModelName'](),
+            model: streamingMetadata.model,
             metadata: {
               responseTime,
               confidence: 0.75
@@ -71,8 +74,8 @@ export async function aiRoutes(fastify: FastifyInstance) {
             sources,
             metadata: {
               responseTime,
-              model: chatMessage.model,
-              endpoint: 'local',
+              model: streamingMetadata.model,
+              endpoint: streamingMetadata.endpoint,
               confidence: 0.75
             }
           })}\n\n`);
@@ -160,9 +163,11 @@ export async function aiRoutes(fastify: FastifyInstance) {
   fastify.get('/health', async (request, reply) => {
     try {
       const health = await llmService.checkHealth();
+      const activeBackend = llmService.getActiveBackend();
 
       return {
         status: 'healthy',
+        activeBackend, // Which backend is currently active (ollama or openai)
         ollama: {
           available: health.local.available,
           latency: health.local.responseTime,

@@ -9,7 +9,16 @@
       "Bash(powershell -Command:*)",
       "WebFetch(domain:docs.perplexity.ai)",
       "Bash(curl:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(npm run health-check:*)",
+      "Bash(node scripts/health-check.js:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(copy servicesproxy.env.example servicesproxy.env)",
+      "Bash(copy servicesai-service.env.example servicesai-service.env)",
+      "Bash(timeout:*)",
+      "Bash(python:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []

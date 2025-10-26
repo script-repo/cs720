@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import type { ChatMessage as ChatMessageType } from '@/types';
@@ -8,9 +9,106 @@ interface ChatMessageProps {
   message: ChatMessageType;
 }
 
+interface ParsedResponse {
+  reasoning?: string;
+  webSearch?: string;
+  finalAnswer: string;
+}
+
+// Parse response to extract reasoning and web search sections
+function parseResponse(response: string): ParsedResponse {
+  let reasoning: string | undefined;
+  let webSearch: string | undefined;
+  let finalAnswer = response;
+
+  // Extract reasoning section (between "analysis" and "assistantfinal")
+  // This format is used by some NAI reasoning models
+  // Handle both with and without spaces: "analysis content assistantfinal" or "analysiscontent assistantfinal"
+  const reasoningMatch = response.match(/analysis\s*([\s\S]*?)\s*assistantfinal/i);
+  if (reasoningMatch) {
+    reasoning = reasoningMatch[1].trim();
+    // Remove reasoning section from final answer
+    finalAnswer = response.replace(/analysis\s*[\s\S]*?\s*assistantfinal/i, '').trim();
+  }
+
+  // Extract web search section (look for common web search patterns)
+  const webSearchPatterns = [
+    // Markdown-formatted web search results
+    /\*\*Web Search Results:\*\*([\s\S]*?)(?=\n\n##|\n\n\*\*(?!Web)|$)/i,
+    /###? Web Search Results:?\s*\n([\s\S]*?)(?=\n\n##|\n\n###?(?! Web)|$)/i,
+    // Plain text web search results
+    /Web Search Results?:?\s*\n([\s\S]*?)(?=\n\n[A-Z]|\n\n\*\*|$)/i,
+    // Based on web research section
+    /Based on (?:my )?web (?:search|research):?\s*\n([\s\S]*?)(?=\n\n[A-Z]|\n\n\*\*|$)/i,
+    // According to web sources
+    /According to web sources:?\s*\n([\s\S]*?)(?=\n\n[A-Z]|\n\n\*\*|$)/i,
+  ];
+
+  for (const pattern of webSearchPatterns) {
+    const match = finalAnswer.match(pattern);
+    if (match) {
+      webSearch = match[1].trim();
+      // Only remove if the web search section is substantial (more than just a single line)
+      if (webSearch.length > 50) {
+        finalAnswer = finalAnswer.replace(match[0], '').trim();
+      }
+      break;
+    }
+  }
+
+  return { reasoning, webSearch, finalAnswer };
+}
+
+function CollapsibleSection({ title, content, icon }: { title: string; content: string; icon: string }) {
+  // Always start collapsed (false)
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <div className="mb-3 border border-gray-600 rounded-lg overflow-hidden">
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="w-full px-3 py-2 bg-gray-800/50 hover:bg-gray-800 flex items-center justify-between text-xs font-medium text-gray-300 transition-colors"
+        aria-expanded={isExpanded}
+      >
+        <div className="flex items-center space-x-2">
+          <span>{icon}</span>
+          <span>{title}</span>
+          {!isExpanded && <span className="text-gray-500 text-xs">(click to expand)</span>}
+        </div>
+        <svg
+          className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      {isExpanded && (
+        <div className="px-3 py-2 bg-gray-800/30 text-xs text-gray-300 border-t border-gray-600">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={{
+              p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+              ul: ({ children }) => <ul className="list-disc list-inside mb-2 space-y-1">{children}</ul>,
+              ol: ({ children }) => <ol className="list-decimal list-inside mb-2 space-y-1">{children}</ol>,
+              li: ({ children }) => <li className="text-gray-300">{children}</li>,
+              strong: ({ children }) => <strong className="font-bold text-white">{children}</strong>,
+              code: ({ children }) => <code className="bg-gray-900 px-1 py-0.5 rounded">{children}</code>,
+            }}
+          >
+            {content}
+          </ReactMarkdown>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function ChatMessage({ message }: ChatMessageProps) {
   const isUser = message.model === 'user';
   const isError = message.model === 'error';
+  const parsed = !isUser && !isError ? parseResponse(message.response) : null;
 
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
@@ -44,6 +142,25 @@ export default function ChatMessage({ message }: ChatMessageProps) {
               <p className="text-sm">{message.query}</p>
             ) : (
               <div className="text-sm prose prose-invert prose-sm max-w-none">
+                {/* Collapsible reasoning section */}
+                {parsed?.reasoning && (
+                  <CollapsibleSection
+                    title="Reasoning"
+                    content={parsed.reasoning}
+                    icon="🧠"
+                  />
+                )}
+
+                {/* Collapsible web search section */}
+                {parsed?.webSearch && (
+                  <CollapsibleSection
+                    title="Web Search Results"
+                    content={parsed.webSearch}
+                    icon="🌐"
+                  />
+                )}
+
+                {/* Final answer */}
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm]}
                   components={{
@@ -66,7 +183,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
                     h3: ({ children }) => <h3 className="text-sm font-bold mb-1 text-white">{children}</h3>,
                   }}
                 >
-                  {message.response}
+                  {parsed?.finalAnswer || message.response}
                 </ReactMarkdown>
 
                 {/* Sources */}

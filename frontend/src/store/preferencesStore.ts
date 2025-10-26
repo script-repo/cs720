@@ -40,7 +40,7 @@ interface PreferencesStore {
   // Getters
   getTheme: () => 'dark' | 'light';
   getSyncFrequency: () => 'manual' | 'daily' | 'hourly';
-  getAIModel: () => 'external' | 'local';
+  getAIModel: () => 'ollama' | 'openai';
 }
 
 export const usePreferencesStore = create<PreferencesStore>()(
