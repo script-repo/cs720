@@ -4,30 +4,6 @@ import { readDataFile } from '../utils/storage';
 
 export async function dataRoutes(fastify: FastifyInstance) {
 
-  // Get all synced accounts
-  fastify.get('/accounts', async (request, reply) => {
-    try {
-      // Read accounts from storage
-      const accounts = await readDataFile('accounts/index.json') || [];
-
-      return {
-        accounts: accounts.map((account: any) => ({
-          id: account.id,
-          name: account.name,
-          industry: account.industry,
-          status: account.status,
-          siteCount: account.siteCount,
-          lastModified: account.lastModified,
-          lastSyncTime: account.lastSyncTime || null
-        }))
-      };
-
-    } catch (error) {
-      fastify.log.error(`Error fetching accounts: ${String(error)}`);
-      return reply.status(500).send({ error: 'Failed to fetch accounts' });
-    }
-  });
-
   // Get documents for a specific account
   fastify.get('/accounts/:accountId/documents', async (request, reply) => {
     try {

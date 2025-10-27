@@ -4,12 +4,27 @@ import type { SyncJob } from '@/types';
 import { DatabaseService } from '@/db/schema';
 import { toast } from './appStore';
 
+interface ETLSyncRun {
+  sync_id: string;
+  status: 'running' | 'completed' | 'failed';
+  started_at: string;
+  completed_at?: string;
+  records_processed: number;
+  records_failed: number;
+  error_message?: string;
+}
+
 interface SyncStore {
   // State
   currentJob: SyncJob | null;
   recentJobs: SyncJob[];
   loading: boolean;
   error: string | null;
+
+  // ETL State
+  etlSyncing: boolean;
+  etlHistory: ETLSyncRun[];
+  latestETLSync: ETLSyncRun | null;
 
   // Actions
   startSync: (type: 'manual' | 'scheduled', options?: {
@@ -19,6 +34,11 @@ interface SyncStore {
   cancelSync: (jobId: string) => Promise<void>;
   loadSyncHistory: () => Promise<void>;
   clearError: () => void;
+
+  // ETL Actions
+  startETLSync: () => Promise<void>;
+  loadETLHistory: () => Promise<void>;
+  loadETLStats: () => Promise<void>;
 
   // Real-time sync status (placeholder for SSE integration)
   subscribeToSyncUpdates: (jobId: string) => () => void;
@@ -31,6 +51,11 @@ export const useSyncStore = create<SyncStore>()(
     recentJobs: [],
     loading: false,
     error: null,
+
+    // ETL Initial state
+    etlSyncing: false,
+    etlHistory: [],
+    latestETLSync: null,
 
     // Actions
     startSync: async (type, options = {}) => {
@@ -240,9 +265,86 @@ export const useSyncStore = create<SyncStore>()(
       };
     },
 
-    clearError: () => set({ error: null })
+    clearError: () => set({ error: null }),
+
+    // ETL Actions
+    startETLSync: async () => {
+      set({ etlSyncing: true, error: null });
+
+      try {
+        const response = await fetch('/api/sync/etl/trigger', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to start ETL sync: ${response.statusText}`);
+        }
+
+        await response.json();
+
+        toast.success('ETL sync started', {
+          action: {
+            label: 'View Progress',
+            onClick: () => {
+              window.location.hash = '/sync';
+            }
+          }
+        });
+
+        // Reload stats and history after a delay
+        setTimeout(() => {
+          get().loadETLStats();
+          get().loadETLHistory();
+          set({ etlSyncing: false });
+        }, 2000);
+
+      } catch (error) {
+        console.error('Error starting ETL sync:', error);
+        const errorMessage = error instanceof Error ? error.message : 'Failed to start ETL sync';
+
+        set({
+          error: errorMessage,
+          etlSyncing: false
+        });
+
+        toast.error(errorMessage);
+      }
+    },
+
+    loadETLHistory: async () => {
+      try {
+        const response = await fetch('/api/sync/etl/history?limit=10');
+
+        if (response.ok) {
+          const data = await response.json();
+          set({ etlHistory: data.history || [] });
+        }
+
+      } catch (error) {
+        console.error('Error loading ETL history:', error);
+      }
+    },
+
+    loadETLStats: async () => {
+      try {
+        const response = await fetch('/api/sync/etl/stats');
+
+        if (response.ok) {
+          const data = await response.json();
+          set({ latestETLSync: data.latestSync || null });
+        }
+
+      } catch (error) {
+        console.error('Error loading ETL stats:', error);
+      }
+    },
   }))
 );
 
 // Auto-load sync history when store is created
 useSyncStore.getState().loadSyncHistory();
+useSyncStore.getState().loadETLHistory();
+useSyncStore.getState().loadETLStats();

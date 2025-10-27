@@ -6,7 +6,7 @@
  */
 
 const SERVICES = {
-  frontend: { name: 'Frontend', url: 'http://localhost:3000' },
+  frontend: { name: 'Frontend', url: 'http://localhost:3000/health' },
   backend: { name: 'Backend API', url: 'http://localhost:3001/health' },
   proxy: { name: 'CORS Proxy', url: 'http://localhost:3002/health' },
   aiService: { name: 'AI Service', url: 'http://localhost:3003/health' },

@@ -6,7 +6,17 @@ import { ArrowPathIcon, ClockIcon, CheckIcon, XMarkIcon } from '@/components/ico
 import { format } from 'date-fns';
 
 export default function Sync() {
-  const { currentJob, recentJobs, startSync, cancelSync, loading } = useSyncStore();
+  const {
+    currentJob,
+    recentJobs,
+    startSync,
+    cancelSync,
+    loading,
+    etlSyncing,
+    etlHistory,
+    latestETLSync,
+    startETLSync
+  } = useSyncStore();
   const [syncSources, setSyncSources] = useState<('salesforce' | 'onedrive' | 'bi')[]>(['salesforce', 'onedrive', 'bi']);
 
   const handleStartSync = async () => {
@@ -46,8 +56,127 @@ export default function Sync() {
         <p className="text-gray-400">Manage data synchronization with external sources</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Current Sync Status */}
+      {/* ETL Sync Section */}
+      <div className="mb-8">
+        <h2 className="text-xl font-semibold text-white mb-4">CSV Data Import (ETL)</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* ETL Sync Trigger */}
+          <Card
+            title="Import CSV Data"
+            subtitle="Process account data from CSV files"
+            icon={<ArrowPathIcon className="w-5 h-5" />}
+          >
+            <div className="space-y-4">
+              {latestETLSync ? (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-400">Last Sync</span>
+                    <span className="text-sm text-white">
+                      {format(new Date(latestETLSync.started_at), 'MMM d, HH:mm')}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-400">Status</span>
+                    <div className="flex items-center space-x-2">
+                      {latestETLSync.status === 'completed' && <CheckIcon className="w-4 h-4 text-green-400" />}
+                      {latestETLSync.status === 'failed' && <XMarkIcon className="w-4 h-4 text-red-400" />}
+                      {latestETLSync.status === 'running' && <ArrowPathIcon className="w-4 h-4 text-blue-400 animate-spin" />}
+                      <span className="text-sm capitalize text-white">{latestETLSync.status}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-400">Records Processed</span>
+                    <span className="text-sm text-white">{latestETLSync.records_processed}</span>
+                  </div>
+
+                  {latestETLSync.records_failed > 0 && (
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-400">Failed</span>
+                      <span className="text-sm text-red-400">{latestETLSync.records_failed}</span>
+                    </div>
+                  )}
+
+                  {latestETLSync.error_message && (
+                    <div className="bg-red-900/20 border border-red-500 rounded-lg p-2">
+                      <p className="text-xs text-red-300">{latestETLSync.error_message}</p>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="text-center py-4 text-gray-500">
+                  <p className="text-sm">No ETL sync history</p>
+                </div>
+              )}
+
+              <Button
+                variant="primary"
+                onClick={startETLSync}
+                disabled={etlSyncing}
+                loading={etlSyncing}
+                className="w-full"
+              >
+                <ArrowPathIcon className="w-4 h-4 mr-2" />
+                {etlSyncing ? 'Starting Sync...' : 'Start CSV Import'}
+              </Button>
+
+              <p className="text-xs text-gray-500">
+                Imports data from CSV files in the data/ folder into the local database.
+              </p>
+            </div>
+          </Card>
+
+          {/* ETL Sync History */}
+          <Card
+            title="ETL Sync History"
+            subtitle={`${etlHistory.length} recent syncs`}
+            icon={<ClockIcon className="w-5 h-5" />}
+          >
+            {etlHistory.length > 0 ? (
+              <div className="space-y-2 max-h-80 overflow-y-auto">
+                {etlHistory.map((sync) => (
+                  <div key={sync.sync_id} className="border border-gray-700 rounded-lg p-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center space-x-2">
+                        {sync.status === 'completed' && <CheckIcon className="w-4 h-4 text-green-400" />}
+                        {sync.status === 'failed' && <XMarkIcon className="w-4 h-4 text-red-400" />}
+                        {sync.status === 'running' && <ArrowPathIcon className="w-4 h-4 text-blue-400 animate-spin" />}
+                        <span className="text-sm capitalize text-white">{sync.status}</span>
+                      </div>
+                      <span className="text-xs text-gray-400">
+                        {format(new Date(sync.started_at), 'MMM d, HH:mm')}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div>
+                        <span className="text-gray-400">Processed:</span>
+                        <span className="ml-1 text-white">{sync.records_processed}</span>
+                      </div>
+                      <div>
+                        <span className="text-gray-400">Failed:</span>
+                        <span className="ml-1 text-white">{sync.records_failed}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-gray-500">
+                <ClockIcon className="w-8 h-8 mx-auto mb-2 text-gray-600" />
+                <p className="text-sm">No ETL sync history</p>
+              </div>
+            )}
+          </Card>
+        </div>
+      </div>
+
+      {/* Salesforce/OneDrive Sync Section */}
+      <div>
+        <h2 className="text-xl font-semibold text-white mb-4">External Data Sources</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Current Sync Status */}
         <Card
           title="Sync Status"
           subtitle={currentJob ? `Job ${currentJob.id}` : 'No active sync'}
@@ -179,13 +308,13 @@ export default function Sync() {
           </div>
         </Card>
 
-        {/* Sync History */}
-        <div className="lg:col-span-2">
-          <Card
-            title="Sync History"
-            subtitle={`${recentJobs.length} recent jobs`}
-            icon={<ClockIcon className="w-5 h-5" />}
-          >
+          {/* Sync History */}
+          <div className="lg:col-span-2">
+            <Card
+              title="Sync History"
+              subtitle={`${recentJobs.length} recent jobs`}
+              icon={<ClockIcon className="w-5 h-5" />}
+            >
             {recentJobs.length > 0 ? (
               <div className="space-y-3">
                 {recentJobs.map((job) => (
@@ -232,6 +361,7 @@ export default function Sync() {
           </Card>
         </div>
       </div>
+    </div>
     </div>
   );
 }

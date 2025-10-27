@@ -13,6 +13,7 @@ config();
 import { authRoutes } from './routes/auth';
 import { syncRoutes } from './routes/sync';
 import { dataRoutes } from './routes/data';
+import { accountRoutes } from './routes/accounts';
 import { aiRoutes } from './routes/ai';
 import { biRoutes } from './routes/bi';
 import { configRoutes } from './routes/config';
@@ -56,6 +57,7 @@ async function registerRoutes() {
   // API routes
   await fastify.register(authRoutes, { prefix: '/api/auth' });
   await fastify.register(syncRoutes, { prefix: '/api/sync' });
+  await fastify.register(accountRoutes, { prefix: '/api/accounts' });
   await fastify.register(dataRoutes, { prefix: '/api' });
   await fastify.register(aiRoutes, { prefix: '/api/ai' });
   await fastify.register(biRoutes, { prefix: '/api/bi' });

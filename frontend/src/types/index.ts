@@ -168,6 +168,16 @@ export interface DashboardData {
   tickets: Ticket[];
   industryIntelligence: IndustryIntelligence[];
   lastSyncTime: string;
+  stats?: {
+    clusters: number;
+    nodes: number;
+    vms: number;
+    storageContainers: number;
+    cases: number;
+    licenses: number;
+  };
+  clusters?: any[];
+  utilization?: any[];
 }
 
 export interface UserPreferences {

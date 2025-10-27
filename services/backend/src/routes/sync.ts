@@ -2,6 +2,8 @@ import { FastifyInstance } from 'fastify';
 import { SyncJob, SyncStartRequest } from '../types';
 import { syncOrchestrator } from '../services/syncOrchestrator';
 import { writeDataFile, readDataFile } from '../utils/storage';
+import { etlService } from '../services/etlService';
+import { initDatabase, checkDatabaseHealth } from '../db/database';
 import crypto from 'crypto';
 
 function uuidv4(): string {
@@ -11,6 +13,142 @@ function uuidv4(): string {
 let activeSyncJobs: Map<string, SyncJob> = new Map();
 
 export async function syncRoutes(fastify: FastifyInstance) {
+
+  // Initialize database on startup
+  initDatabase();
+
+  // ===========================================================================
+  // ETL Routes (CSV Data Sync)
+  // ===========================================================================
+
+  // Trigger CSV ETL sync
+  fastify.post('/etl/trigger', async (request, reply) => {
+    try {
+      fastify.log.info('ETL sync triggered via API');
+
+      // Run sync asynchronously and return immediately
+      const syncPromise = etlService.sync();
+
+      // Handle completion/errors in background
+      syncPromise.catch(error => {
+        fastify.log.error('ETL sync failed:', error);
+      });
+
+      return {
+        success: true,
+        message: 'ETL sync started',
+        timestamp: new Date().toISOString()
+      };
+
+    } catch (error) {
+      fastify.log.error(`Error triggering ETL sync: ${String(error)}`);
+      return reply.status(500).send({
+        success: false,
+        error: 'Failed to trigger ETL sync',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Get ETL sync history
+  fastify.get('/etl/history', async (request, reply) => {
+    try {
+      const { limit = 10 } = request.query as { limit?: number };
+      const history = etlService.getSyncHistory(Number(limit));
+
+      return {
+        success: true,
+        history,
+        total: history.length
+      };
+
+    } catch (error) {
+      fastify.log.error(`Error fetching ETL sync history: ${String(error)}`);
+      return reply.status(500).send({
+        success: false,
+        error: 'Failed to fetch ETL sync history',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Get logs for a specific ETL sync
+  fastify.get('/etl/logs/:syncId', async (request, reply) => {
+    try {
+      const { syncId } = request.params as { syncId: string };
+      const logs = etlService.getSyncLogs(syncId);
+
+      return {
+        success: true,
+        syncId,
+        logs,
+        total: logs.length
+      };
+
+    } catch (error) {
+      fastify.log.error(`Error fetching ETL sync logs: ${String(error)}`);
+      return reply.status(500).send({
+        success: false,
+        error: 'Failed to fetch ETL sync logs',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Get database health status
+  fastify.get('/db/health', async (request, reply) => {
+    try {
+      const health = checkDatabaseHealth();
+
+      if (health.healthy) {
+        return {
+          success: true,
+          status: 'healthy',
+          message: 'Database is operational'
+        };
+      } else {
+        return reply.status(503).send({
+          success: false,
+          status: 'unhealthy',
+          message: health.message || 'Database health check failed'
+        });
+      }
+
+    } catch (error) {
+      fastify.log.error(`Error checking database health: ${String(error)}`);
+      return reply.status(500).send({
+        success: false,
+        error: 'Failed to check database health',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Get ETL sync statistics
+  fastify.get('/etl/stats', async (request, reply) => {
+    try {
+      const history = etlService.getSyncHistory(1);
+      const latestSync = history[0];
+
+      return {
+        success: true,
+        latestSync: latestSync || null,
+        dbHealth: checkDatabaseHealth()
+      };
+
+    } catch (error) {
+      fastify.log.error(`Error fetching ETL sync stats: ${String(error)}`);
+      return reply.status(500).send({
+        success: false,
+        error: 'Failed to fetch ETL sync stats',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // ===========================================================================
+  // Salesforce/OneDrive Sync Routes (existing)
+  // ===========================================================================
 
   // Start a new sync job
   fastify.post('/start', async (request, reply) => {

@@ -1,0 +1,10 @@
+Account: Account Name,Account: SE Owner,Workload Name,Workloads: Created Date,Workloads: Created By,Workloads: Last Modified Date,Workloads: Last Modified By,Workload Details,Use Case,Other Workload,Workloads: Workloads Unique ID
+Inter Pipeline Fund,Brian Parks,4 - Databases,5/1/2025,Brian Parks,5/1/2025,Brian Parks,4 - MSSQL,,,W-14797
+Inter Pipeline Fund,Brian Parks,5 - EUC / VDI,5/1/2025,Brian Parks,5/1/2025,Brian Parks,5 - Citrix (XenDesktop/Xen App),,,W-14798
+Inter Pipeline Fund,Brian Parks,6 - Healthcare,5/1/2025,Brian Parks,5/1/2025,Brian Parks,,,,W-14799
+Inter Pipeline Fund,Brian Parks,3 - Business Critical VM Application,5/1/2025,Brian Parks,5/1/2025,Brian Parks,3 - Microsoft,,,W-14800
+Inter Pipeline Fund,Brian Parks,2 - Big Data/Analytics,5/1/2025,Brian Parks,5/1/2025,Brian Parks,,,,W-14801
+Inter Pipeline Fund,Brian Parks,"7 - IT Services (AD, DNS, File and Object services, Print, etc.)",5/1/2025,Brian Parks,5/1/2025,Brian Parks,7 - NA,,,W-14802
+Inter Pipeline Fund,Brian Parks,8 - Non-AI Modern K8s Application,5/1/2025,Brian Parks,5/1/2025,Brian Parks,,,,W-14803
+Inter Pipeline Fund,Brian Parks,9 - Other VM Application,5/1/2025,Brian Parks,5/1/2025,Brian Parks,,Production,,W-14804
+Inter Pipeline Fund,Brian Parks,1 - AI and Machine Learning,5/1/2025,Brian Parks,5/1/2025,Brian Parks,1 - Inference,Production,,W-14805

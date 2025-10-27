@@ -1,0 +1,520 @@
+Node UUID,Node Serial Number,Node Model,Node License Mode,Install Location,Cluster Name,Contract Status,Account Name,Account Executive,Account Executive Email,Incumbent Reseller,Incumbent Distributor,Cluster UUID,Block Serial Number,Node Vendor,Model Family,Model Group,BIOS Vendor,BIOS Version,BIOS Revision,BIOS ROM Size (in MiB),BMC Manufacturer,BMC Version,Storage Controller Manufacturer,Storage Controller Part Number,Storage Controller Version,Satadom Device Model,Satadom Version,NIC Manufacturer,NIC Version,NIC Firmware Version,NIC Location,Drive Configuration,SSD Part No,SSD Version,HDD Part No,HDD Version,NVME Part No,NVME Version,M.2 SSD Part No,M.2 SSD Version,M.2 HDD Part No,M.2 HDD Version,CPU Cores,Enabled Core Count,CPU Sockets,CPU Core Count Per Socket,CPU Version,Processor Family,CPU Max Speed,CPU Speed,GPU Vendor,GPU Sub-Vendor,GPU Device,GPU Sub Device,GPU Class,GPU Revision,GPU Slot,No. of GPUs,Total Memory Capacity,Quantity Of Memory Sticks Per Node,Memory Capacity Per Node (in GiB),Used Memory Capacity (in GiB),Available Memory Capacity,Total Storage Capacity,Used Storage Capacity,Available Storage Capacity,Total SSD Capacity,Used SSD Capacity,Available SSD Capacity,Total HDD Capacity,Used HDD Capacity,Available HDD Capacity,No. of SSDs,No. of HDDs,No. of NVMes,No. of M.2 SSDs,No. of M.2 HDDs,VM Count,Hypervisor Type,Hypervisor Version,LCM Version,Install Country,Install Zip,Last Pulse Date,Contract Coverage,Contract Start Date,Prior Contract End Date,Contract End Date,Primary Contact,CVM vCPU,CVM Memory,CVM Uptime,Customer Experience Manager (CXM),Theater,Region,Sub Region
+0bc68aa1-6b2f-4f20-b36f-c437e9c09a6a,"HM23AS001367",NX-8170-G8,NX-SWO,"Calgary","CG2NTX01",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",00059c1d-becb-2afa-265f-ac1f6b3586c9,"23SH5K440175","Nutanix","NX G8",NX-8170-G8,"American Megatrends International, LLC.","WU61.101",5.22,31.25,"SuperMicro","8.02.02","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086)","2.24.6","9.40 0x8000f21e 1.3534.0","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","SAMSUNG MZQL215THBLA-00A07","GDD5302Q","-","-","-","-","40","40","2","20","Intel(R) Xeon(R) Silver 4316 CPU @ 2.30GHz","Ice Lake",4500,"2300","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b4b","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",1007.01,"32","31.47",89.20,917.81,87.35,51.94,35.40,No data received in last 24 hours,47.19,-,-,0,-,-,-,"6",-,-,4,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C3C2",2025-10-22,"Production: 24x7 service; NBD parts",2023-11-29,"-",2028-11-28,"infrastructure@petronascanada.com",14,48.00 GiB,195 days and 03:31:16,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+0f4501e1-351e-4d98-b4b7-cfe4af851943,"HM249S000953",NX-8170-G9,NX-SWO,"Calgary","CG2NTX01",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom","ARROW ECS CANADA",00059c1d-becb-2afa-265f-ac1f6b3586c9,"24SG5R450018","Nutanix","NX G9",NX-8170-G9,"American Megatrends International, LLC.","EH30.101",5.32,31.25,"SuperMicro","1.01.04","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086), Mellanox Technologies(15b3)","2.24.6, 23.10-2.1.3","9.00 0x8000e0f9 1.3353.0, 26.39.3004 (MT_0000000575)","eth0
+eth1
+eth2
+eth3
+eth4
+eth5","All NVMe","-","-","-","-","KIOXIA KCD8XRUG15T3","0105","-","-","-","-","40","40","2","20","Intel(R) Xeon(R) Silver 4416+","Sapphire Rapids",4200,"2000","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c30","Display controller:VGA compatible controller:VGA controller","82","0000:02:00.0","1",1007.08,"32","31.47",84.17,922.91,87.29,59.72,27.56,No data received in last 24 hours,53.59,-,-,0,-,-,-,"6",-,-,2,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2P 1M4",2025-10-22,"Production: 24x7 service; NBD parts",2024-11-13,"-",2029-11-12,"infrastructure@petronascanada.com",16,64.00 GiB,195 days and 03:31:43,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+11c2c2c7-d4a9-4b8f-a9e3-e412f77ae70d,"OM208S002018",NX-1175S-G7,NX-SWO,"Calgary","CG1NTX03",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",0005b867-d944-5ddb-2015-3cecef19ba0d,"20SM5E440214","Nutanix","NX G7",NX-1175S-G7,"American Megatrends Inc.","PW91.101",5.14,31.25,"SuperMicro","7.15.01","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.19.9, 2.24.6","0x800006d1, 255.65535.255, 6.20 0x800041f9 1.3534.0","eth0
+eth1
+eth2
+eth3","HDD + SSD","INTEL SSDSC2KB019T8","XCV10165","ST12000NM001G-2MV103","SN04","-","-","INTEL SSDSCKKB240G8","XC311135","-","-","20","20","1","20","Intel(R) Xeon(R) Gold 6210U CPU @ 2.50GHz","Cascade Lake",4500,"2500","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0953","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",375.88,"6","62.65",272.00,103.88,25.07,9.13,15.94,3.49,2.04,1.71,21.83,5.86,17.58,2,2,"0",1,-,15,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C 3C2",2025-10-22,"Production: 24x7 service; NBD parts",2020-12-07,"-",2025-12-06,"infrastructure@petronascanada.com",12,32.00 GiB,230 days and 03:51:15,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+25740bea-108b-4f8a-8ac4-b504519e3f61,"HM249S000862",NX-8170-G9,NX-SWO,"Calgary","CG1NTX01",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom","ARROW ECS CANADA",00059c0d-e562-6375-7211-ac1f6b356611,"24SG5R450011","Nutanix","NX G9",NX-8170-G9,"American Megatrends International, LLC.","EH31.001",5.32,31.25,"SuperMicro","1.01.06","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086), Mellanox Technologies(15b3)","2.24.6, 23.10-2.1.3","9.40 0x8000f220 1.3534.0, 26.39.3004 (MT_0000000575)","eth0
+eth1
+eth2
+eth3
+eth4
+eth5","All NVMe","-","-","-","-","KIOXIA KCD8XRUG15T3","0105","-","-","-","-","40","40","2","20","Intel(R) Xeon(R) Silver 4416+","Sapphire Rapids",4200,"2000","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c30","Display controller:VGA compatible controller:VGA controller","82","0000:02:00.0","1",1007.09,"32","31.47",460.73,546.36,87.25,52.74,34.51,No data received in last 24 hours,47.79,-,-,0,-,-,-,"6",-,-,31,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2P 1M4",2025-10-22,"Production: 24x7 service; NBD parts",2024-11-13,"-",2029-11-12,"infrastructure@petronascanada.com",16,48.00 GiB,189 days and 03:01:19,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+27991521-c2c8-4b09-9cf8-95acdfe5187e,"HM236S002581",NX-8170-G8,NX-SWO,"Calgary","CG1NTX01",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",00059c0d-e562-6375-7211-ac1f6b356611,"23SH5K330148","Nutanix","NX G8",NX-8170-G8,"American Megatrends International, LLC.","WU61.101",5.22,31.25,"SuperMicro","8.02.02","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","2.24.6, 2.24.6","9.40 0x8000ed12 1.3429.0, 9.40 0x8000f21e 1.3534.0","eth0
+eth1
+eth2
+eth3
+eth4
+eth5","All NVMe","-","-","-","-","SAMSUNG MZQL215THBLA-00A07","GDD5302Q","-","-","-","-","32","32","2","16","Intel(R) Xeon(R) Silver 4314 CPU @ 2.40GHz","Ice Lake",4500,"2400","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b4b","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",754.76,"24","31.45",370.88,383.88,87.29,47.15,40.14,No data received in last 24 hours,42.89,-,-,0,-,-,-,"6",-,-,17,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C 3C3",2025-10-22,"Production: 24x7 service; NBD parts",2023-08-24,"-",2028-08-23,"infrastructure@petronascanada.com",14,48.00 GiB,189 days and 03:23:53,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+29ddabb0-62fb-4c36-8fbd-ca44d0dddb1d,"OM219S060757",NX-1175S-G7,NX-SWO,"Calgary","B89J",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom","ARROW ECS CANADA",0005d813-479e-9912-2c37-3cecefee84a2,"21SG5E470005","Nutanix","NX G7",NX-1175S-G7,"American Megatrends Inc.","PW95.001",5.14,31.25,"SuperMicro","7.15.01","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.22.25, 2.28.6","0x800006d1, 255.65535.255, 6.50 0x800042eb 1.3769.0","eth0
+eth1
+eth2
+eth3","HDD + SSD","SAMSUNG MZ7LH1T9HMLT-00005","HXT7B04Q","ST12000NM001G-2MV103","SN04","-","-","Micron_5300_MTFDDAV240TDS","D3MU001","-","-","20","20","1","20","Intel(R) Xeon(R) Gold 6210U CPU @ 2.50GHz","Cascade Lake",4500,"2500","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0953","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",375.88,"6","62.65",33.81,342.06,26.03,0.26,25.77,3.49,0.26,3.49,21.83,0.00,23.43,2,2,"0",1,-,2,"AHV","10","3.2.1.71663","CANADA (CA)","T2P 1M4",2025-10-22,"Production: 24x7 service; NBD parts",2021-11-23,"-",2026-11-21,"infrastructure@petronascanada.com",12,20.00 GiB,7 days and 17:27:26,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+3253f8eb-d835-4e9b-a179-b6acf7da5336,"OM219S060930",NX-1175S-G7,NX-SWO,"Calgary","B89J",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom","ARROW ECS CANADA",0005d813-479e-9912-2c37-3cecefee84a2,"21SG5E470027","Nutanix","NX G7",NX-1175S-G7,"American Megatrends Inc.","PW95.001",5.14,31.25,"SuperMicro","7.15.01","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.22.25, 2.28.6","0x800006d1, 255.65535.255, 6.50 0x800042eb 1.3769.0","eth0
+eth1
+eth2
+eth3","HDD + SSD","SAMSUNG MZ7LH1T9HMLT-00005","HXT7B04Q","ST12000NM001G-2MV103","SN04","-","-","Micron_5300_MTFDDAV240TDS","D3MU001","-","-","20","20","1","20","Intel(R) Xeon(R) Gold 6210U CPU @ 2.50GHz","Cascade Lake",4500,"2500","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0953","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",375.88,"6","62.65",41.92,333.96,26.03,0.29,25.74,3.49,0.27,3.48,21.83,0.00,23.43,2,2,"0",1,-,3,"AHV","10","3.2.1.71663","CANADA (CA)","T2P 1M4",2025-10-22,"Production: 24x7 service; NBD parts",2021-11-23,"-",2026-11-21,"infrastructure@petronascanada.com",12,20.00 GiB,6 days and 18:23:00,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+36d7c5f8-4353-4805-bafa-3b7a9f410653,"OM219S060808",NX-1175S-G7,NX-SWO,"Calgary","CG1NTX03",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",0005b867-d944-5ddb-2015-3cecef19ba0d,"21SM5E510244","Nutanix","NX G7",NX-1175S-G7,"American Megatrends Inc.","PW91.101",5.14,31.25,"SuperMicro","7.15.01","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.19.9, 2.24.6","0x800006d1, 255.65535.255, 6.20 0x800041f9 1.3534.0","eth0
+eth1
+eth2
+eth3","HDD + SSD","SAMSUNG MZ7LH1T9HMLT-00005","HXT7B04Q","HGST HUH721212ALE600","LEGNTB01","-","-","Micron_5300_MTFDDAV240TDS","D3MU001","-","-","20","20","1","20","Intel(R) Xeon(R) Gold 6210U CPU @ 2.50GHz","Cascade Lake",4500,"2500","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0953","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",375.88,"6","62.65",211.42,164.46,25.06,9.87,15.19,3.49,2.45,1.30,21.83,6.07,17.36,2,2,"0",1,-,11,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2P 1M4",2025-10-22,"Production: 24x7 service; NBD parts",2022-01-07,"-",2027-01-06,"infrastructure@petronascanada.com",12,32.00 GiB,230 days and 02:41:55,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+3c082f60-0b3c-4b1a-a40e-f488697f2c32,"HM22CS010115",NX-3155G-G8,NX-SWO,"Calgary","CG1NTX04",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",0005fc76-8db4-3aae-23df-7cc255357f98,"23SH5J170572","Nutanix","NX G8",NX-3155GN-G8,"American Megatrends International, LLC.","WU61.101",5.22,31.25,"SuperMicro","8.02.02","Intel Corporation, Broadcom / LSI",", SAS3816(A0)",", 25.00.00.01","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 2.24.6","231.0.153.0/pkg 231.1.162.1, 9.40 0x8000ee2c 1.3534.0","eth0
+eth1
+eth2
+eth3","All SSD","SAMSUNG MZ7L33T8HBLT-00A07","JXTC604Q","-","-","-","-","-","-","-","-","48","48","2","24","Intel(R) Xeon(R) Gold 5318Y CPU @ 2.10GHz","Ice Lake",4500,"2100","ASPEED Technology, Inc.
+NVIDIA Corporation","NVIDIA Corporation
+Super Micro Computer Inc","ASPEED Graphics Family
+GA107GL [A2 / A16]","Subsystem device 0000
+Subsystem device 14a9
+Subsystem device 1b4b","Display controller:3D controller
+Display controller:VGA compatible controller:VGA controller","161
+82","0000:04:00.0
+0000:ce:00.0
+0000:ce:00.4
+0000:ce:00.5
+0000:ce:00.6
+0000:ce:00.7
+0000:ce:01.0
+0000:ce:01.1
+0000:ce:01.2
+0000:ce:01.3
+0000:ce:01.4
+0000:ce:01.5
+0000:ce:01.6
+0000:ce:01.7
+0000:ce:02.0
+0000:ce:02.1
+0000:ce:02.2
+0000:ce:02.3
+0000:cf:00.0
+0000:cf:00.4
+0000:cf:00.5
+0000:cf:00.6
+0000:cf:00.7
+0000:cf:01.0
+0000:cf:01.1
+0000:cf:01.2
+0000:cf:01.3
+0000:cf:01.4
+0000:cf:01.5
+0000:cf:01.6
+0000:cf:01.7
+0000:cf:02.0
+0000:cf:02.1
+0000:cf:02.2
+0000:cf:02.3
+0000:d0:00.0
+0000:d0:00.4
+0000:d0:00.5
+0000:d0:00.6
+0000:d0:00.7
+0000:d0:01.0
+0000:d0:01.1
+0000:d0:01.2
+0000:d0:01.3
+0000:d0:01.4
+0000:d0:01.5
+0000:d0:01.6
+0000:d0:01.7
+0000:d0:02.0
+0000:d0:02.1
+0000:d0:02.2
+0000:d0:02.3
+0000:d1:00.0
+0000:d1:00.4
+0000:d1:00.5
+0000:d1:00.6
+0000:d1:00.7
+0000:d1:01.0
+0000:d1:01.1
+0000:d1:01.2
+0000:d1:01.3
+0000:d1:01.4
+0000:d1:01.5
+0000:d1:01.6
+0000:d1:01.7
+0000:d1:02.0
+0000:d1:02.1
+0000:d1:02.2
+0000:d1:02.3","69",1007.00,"16","62.94",598.50,408.50,20.82,7.09,13.72,20.95,4.59,17.91,-,0,-,6,-,"0",-,-,62,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C3C2",2025-10-22,"Production: 24x7 service; NBD parts",2023-05-09,"-",2028-05-08,"infrastructure@petronascanada.com",12,32.00 GiB,252 days and 03:47:06,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+4b598316-5a42-4cf6-b25b-ba94696fb131,"HM23AS001453",NX-8170-G8,NX-SWO,"Calgary","CG1NTX01",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",00059c0d-e562-6375-7211-ac1f6b356611,"23SH5K440201","Nutanix","NX G8",NX-8170-G8,"American Megatrends International, LLC.","WU61.101",5.22,31.25,"SuperMicro","8.02.02","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086)","2.24.6","9.40 0x8000f21e 1.3534.0","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","SAMSUNG MZQL215THBLA-00A07","GDD5302Q","-","-","-","-","40","40","2","20","Intel(R) Xeon(R) Silver 4316 CPU @ 2.30GHz","Ice Lake",4500,"2300","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b4b","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",1007.01,"32","31.47",467.33,539.68,87.30,53.58,33.72,No data received in last 24 hours,48.33,-,-,0,-,-,-,"6",-,-,20,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C3C2",2025-10-22,"Production: 24x7 service; NBD parts",2023-11-29,"-",2028-11-28,"infrastructure@petronascanada.com",14,48.00 GiB,153 days and 03:23:05,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+52b0a603-5ba5-4255-8c94-a5451743195a,"HM22CS010094",NX-3155G-G8,NX-SWO,"Calgary","CG1NTX04",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",0005fc76-8db4-3aae-23df-7cc255357f98,"23SH5J170566","Nutanix","NX G8",NX-3155GN-G8,"American Megatrends International, LLC.","WU61.101",5.22,31.25,"SuperMicro","8.02.02","Intel Corporation, Broadcom / LSI",", SAS3816(A0)",", 25.00.00.01","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 2.24.6","231.0.153.0/pkg 231.1.162.1, 9.40 0x8000ee2c 1.3534.0","eth0
+eth1
+eth2
+eth3","All SSD","SAMSUNG MZ7L33T8HBLT-00A07","JXTC604Q","-","-","-","-","-","-","-","-","48","48","2","24","Intel(R) Xeon(R) Gold 5318Y CPU @ 2.10GHz","Ice Lake",4500,"2100","ASPEED Technology, Inc.
+NVIDIA Corporation","NVIDIA Corporation
+Super Micro Computer Inc","ASPEED Graphics Family
+GA107GL [A2 / A16]","Subsystem device 0000
+Subsystem device 14a9
+Subsystem device 1b4b","Display controller:3D controller
+Display controller:VGA compatible controller:VGA controller","161
+82","0000:04:00.0
+0000:ce:00.0
+0000:ce:00.4
+0000:ce:00.5
+0000:ce:00.6
+0000:ce:00.7
+0000:ce:01.0
+0000:ce:01.1
+0000:ce:01.2
+0000:ce:01.3
+0000:ce:01.4
+0000:ce:01.5
+0000:ce:01.6
+0000:ce:01.7
+0000:ce:02.0
+0000:ce:02.1
+0000:ce:02.2
+0000:ce:02.3
+0000:cf:00.0
+0000:cf:00.4
+0000:cf:00.5
+0000:cf:00.6
+0000:cf:00.7
+0000:cf:01.0
+0000:cf:01.1
+0000:cf:01.2
+0000:cf:01.3
+0000:cf:01.4
+0000:cf:01.5
+0000:cf:01.6
+0000:cf:01.7
+0000:cf:02.0
+0000:cf:02.1
+0000:cf:02.2
+0000:cf:02.3
+0000:d0:00.0
+0000:d0:00.4
+0000:d0:00.5
+0000:d0:00.6
+0000:d0:00.7
+0000:d0:01.0
+0000:d0:01.1
+0000:d0:01.2
+0000:d0:01.3
+0000:d0:01.4
+0000:d0:01.5
+0000:d0:01.6
+0000:d0:01.7
+0000:d0:02.0
+0000:d0:02.1
+0000:d0:02.2
+0000:d0:02.3
+0000:d1:00.0
+0000:d1:00.4
+0000:d1:00.5
+0000:d1:00.6
+0000:d1:00.7
+0000:d1:01.0
+0000:d1:01.1
+0000:d1:01.2
+0000:d1:01.3
+0000:d1:01.4
+0000:d1:01.5
+0000:d1:01.6
+0000:d1:01.7
+0000:d1:02.0
+0000:d1:02.1
+0000:d1:02.2
+0000:d1:02.3","69",1007.00,"16","62.94",582.74,424.26,20.82,7.12,13.69,20.95,4.60,17.90,-,0,-,6,-,"0",-,-,39,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C3C2",2025-10-22,"Production: 24x7 service; NBD parts",2023-05-09,"-",2028-05-08,"infrastructure@petronascanada.com",12,32.00 GiB,252 days and 03:49:00,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+5943e914-31d0-407f-8669-ce76a1106ff6,"HM236S007306",NX-8170-G8,NX-SWO,"Calgary","CG1NTX01",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",00059c0d-e562-6375-7211-ac1f6b356611,"23SG5K360033","Nutanix","NX G8",NX-8170-G8,"American Megatrends International, LLC.","WU61.101",5.22,31.25,"SuperMicro","8.02.02","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","2.24.6, 2.24.6","9.40 0x8000ed12 1.3429.0, 9.40 0x8000f21e 1.3534.0","eth0
+eth1
+eth2
+eth3
+eth4
+eth5","All NVMe","-","-","-","-","SAMSUNG MZQL215THBLA-00A07","GDD5302Q","-","-","-","-","32","32","2","16","Intel(R) Xeon(R) Silver 4314 CPU @ 2.40GHz","Ice Lake",4500,"2400","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b4b","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",754.76,"24","31.45",287.65,467.11,87.28,49.40,37.88,No data received in last 24 hours,44.31,-,-,0,-,-,-,"6",-,-,16,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C 3C2",2025-10-22,"Production: 24x7 service; NBD parts",2023-11-02,"-",2028-11-01,"infrastructure@petronascanada.com",14,48.00 GiB,189 days and 03:24:40,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+5ea64cab-52b8-4e30-b3b8-4c035215282f,"OM208S001770",NX-1175S-G7,NX-SWO,"Calgary","CG1NTX03",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",0005b867-d944-5ddb-2015-3cecef19ba0d,"20SM5E440206","Nutanix","NX G7",NX-1175S-G7,"American Megatrends Inc.","PW91.101",5.14,31.25,"SuperMicro","7.15.01","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.19.9, 2.24.6","0x800006d1, 255.65535.255, 6.20 0x800041f9 1.3534.0","eth0
+eth1
+eth2
+eth3","HDD + SSD","INTEL SSDSC2KB019T8","XCV10165","ST12000NM001G-2MV103","SN04","-","-","INTEL SSDSCKKB240G8","XC311135","-","-","20","20","1","20","Intel(R) Xeon(R) Gold 6210U CPU @ 2.50GHz","Cascade Lake",4500,"2500","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0953","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",375.88,"6","62.65",277.92,97.96,25.07,9.38,15.69,3.49,1.89,1.86,21.83,6.45,16.99,2,2,"0",1,-,12,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C 3C2",2025-10-22,"Production: 24x7 service; NBD parts",2020-12-07,"-",2025-12-06,"infrastructure@petronascanada.com",12,32.00 GiB,175 days and 03:50:38,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+626f2358-c582-4bf3-8c87-8c16ef6efcb3,"HM23AS001372",NX-8170-G8,NX-SWO,"Calgary","CG1NTX01",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",00059c0d-e562-6375-7211-ac1f6b356611,"23SH5K440170","Nutanix","NX G8",NX-8170-G8,"American Megatrends International, LLC.","WU61.101",5.22,31.25,"SuperMicro","8.02.02","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086)","2.24.6","9.40 0x8000f21e 1.3534.0","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","SAMSUNG MZQL215THBLA-00A07","GDD5302Q","-","-","-","-","40","40","2","20","Intel(R) Xeon(R) Silver 4316 CPU @ 2.30GHz","Ice Lake",4500,"2300","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b4b","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",1007.01,"32","31.47",431.02,575.99,87.27,49.95,37.32,No data received in last 24 hours,45.28,-,-,0,-,-,-,"6",-,-,25,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C3C2",2025-10-22,"Production: 24x7 service; NBD parts",2023-11-29,"-",2028-11-28,"infrastructure@petronascanada.com",14,48.00 GiB,189 days and 03:24:50,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+6a7d2842-69af-465d-99ee-fe9f24eb9dea,"HM214S004733",NX-8035-G7,NX-SWO,"Calgary","CG2NTX01",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",00059c1d-becb-2afa-265f-ac1f6b3586c9,"21FM3F310058","Nutanix","NX G7",NX-8035-G7,"American Megatrends Inc.","PB91.101",5.14,31.25,"SuperMicro","7.15.01","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.19.9, 5.19.9","0x800006d1, 255.65535.255, 0x80001743, 1.3082.0","eth0
+eth1
+eth2
+eth3","HDD + SSD","SAMSUNG MZ7LH3T8HMLT-00005","HXT7B04Q","HGST HUH721212ALE600","LEGNTB01","-","-","-","-","-","-","36","36","2","18","Intel(R) Xeon(R) Gold 5220 CPU @ 2.20GHz","Cascade Lake",4500,"2200","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0962","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",754.06,"12","62.84",66.72,687.34,50.55,31.00,19.55,6.98,4.24,3.26,43.66,23.93,22.94,2,4,"0",-,-,2,"AHV","20230302","3.2.1.71663","CANADA (CA)","T3C 3P9",2025-10-22,"Production: 24x7 service; NBD parts",2021-08-05,"-",2026-08-04,"infrastructure@petronascanada.com",14,40.00 GiB,182 days and 03:32:32,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+7591d7e8-8c09-4f39-aad9-9e8da29d7368,"HM229S022378",NX-8035-G8,NX-SWO,"Calgary","CG2NTX01",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",00059c1d-becb-2afa-265f-ac1f6b3586c9,"22SG3G490023","Nutanix","NX G8",NX-8035N-G8,"American Megatrends International, LLC.","WB61.101",5.22,31.25,"SuperMicro","8.02.02","Intel Corporation, Broadcom / LSI",", SAS3808(A0)",", 25.00.00.01","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 2.24.6","231.0.153.0/pkg 231.1.162.1, 9.40 0x8000ed12 1.3429.0","eth0
+eth1
+eth2
+eth3","HDD + SSD","KRM61RUG3T84","0105","ST12000NM000J-2TY103","SN05","-","-","-","-","-","-","32","32","2","16","Intel(R) Xeon(R) Silver 4314 CPU @ 2.40GHz","Ice Lake",4500,"2400","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b6a","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",754.76,"12","62.90",83.67,671.09,52.38,34.20,18.18,6.98,4.21,3.29,43.66,26.85,20.02,2,4,"0",-,-,5,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C 3C2",2025-10-22,"Production: 24x7 service; NBD parts",2022-12-19,"-",2027-12-18,"infrastructure@petronascanada.com",14,40.00 GiB,195 days and 03:32:50,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+77358912-ebc3-4b95-b9cc-7f80069388a5,"HM236S002456",NX-8170-G8,NX-SWO,"Calgary","CG1NTX01",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",00059c0d-e562-6375-7211-ac1f6b356611,"21SM5M400471","Nutanix","NX G8",NX-8170-G8,"American Megatrends International, LLC.","WU61.101",5.22,31.25,"SuperMicro","8.02.02","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","2.24.6, 2.24.6","9.40 0x8000ed12 1.3429.0, 9.40 0x8000f21e 1.3534.0","eth0
+eth1
+eth2
+eth3
+eth4
+eth5","All NVMe","-","-","-","-","SAMSUNG MZQL215THBLA-00A07","GDD5302Q","-","-","-","-","32","32","2","16","Intel(R) Xeon(R) Silver 4314 CPU @ 2.40GHz","Ice Lake",4500,"2400","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b4b","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",754.76,"24","31.45",369.86,384.90,87.29,47.62,39.67,No data received in last 24 hours,42.99,-,-,0,-,-,-,"6",-,-,23,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C 3C3",2025-10-22,"Production: 24x7 service; NBD parts",2023-08-24,"-",2028-08-23,"infrastructure@petronascanada.com",14,48.00 GiB,119 days and 03:21:06,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+7dd114b6-779f-4e01-a875-c54219fb57f2,"OM219S060908",NX-1175S-G7,NX-SWO,"Calgary","B89J",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom","ARROW ECS CANADA",0005d813-479e-9912-2c37-3cecefee84a2,"21SG5E470033","Nutanix","NX G7",NX-1175S-G7,"American Megatrends Inc.","PW95.001",5.14,31.25,"SuperMicro","7.15.01","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.22.25, 2.28.6","0x800006d1, 255.65535.255, 6.50 0x800042eb 1.3769.0","eth0
+eth1
+eth2
+eth3","HDD + SSD","SAMSUNG MZ7LH1T9HMLT-00005","HXT7B04Q","ST12000NM001G-2MV103","SN04","-","-","Micron_5300_MTFDDAV240TDS","D3MU001","-","-","20","20","1","20","Intel(R) Xeon(R) Gold 6210U CPU @ 2.50GHz","Cascade Lake",4500,"2500","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0953","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",375.88,"6","62.65",41.80,334.08,26.03,0.24,25.79,3.49,0.22,3.53,21.83,0.00,23.43,2,2,"0",1,-,2,"AHV","10","3.2.1.71663","CANADA (CA)","T2P 1M4",2025-10-22,"Production: 24x7 service; NBD parts",2021-11-23,"-",2026-11-21,"infrastructure@petronascanada.com",12,20.00 GiB,7 days and 17:53:51,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+812fcf98-423d-4b9a-afae-5fd91411e4ad,"OM208S001772",NX-1175S-G7,NX-SWO,"Calgary","CG1NTX03",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",0005b867-d944-5ddb-2015-3cecef19ba0d,"20SM5E440198","Nutanix","NX G7",NX-1175S-G7,"American Megatrends Inc.","PW91.101",5.14,31.25,"SuperMicro","7.15.01","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.19.9, 2.24.6","0x800006d1, 255.65535.255, 6.20 0x800041f9 1.3534.0","eth0
+eth1
+eth2
+eth3","HDD + SSD","INTEL SSDSC2KB019T8","XCV10165","ST12000NM001G-2MV103","SN04","-","-","INTEL SSDSCKKB240G8","XC311135","-","-","20","20","1","20","Intel(R) Xeon(R) Gold 6210U CPU @ 2.50GHz","Cascade Lake",4500,"2500","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0953","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",375.88,"6","62.65",263.82,112.06,25.07,8.86,16.20,3.49,2.07,1.68,21.83,5.96,17.48,2,2,"0",1,-,13,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C 3C2",2025-10-22,"Production: 24x7 service; NBD parts",2020-12-07,"-",2025-12-06,"infrastructure@petronascanada.com",12,32.00 GiB,230 days and 03:50:22,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+96af6677-a7d6-48ae-8c97-838a15aac0c3,"HM23AS001386",NX-8170-G8,NX-SWO,"Calgary","CG2NTX01",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",00059c1d-becb-2afa-265f-ac1f6b3586c9,"23SH5K440177","Nutanix","NX G8",NX-8170-G8,"American Megatrends International, LLC.","WU61.101",5.22,31.25,"SuperMicro","8.02.02","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086)","2.24.6","9.40 0x8000f21e 1.3534.0","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","SAMSUNG MZQL215THBLA-00A07","GDD5302Q","-","-","-","-","40","40","2","20","Intel(R) Xeon(R) Silver 4316 CPU @ 2.30GHz","Ice Lake",4500,"2300","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b4b","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",1007.01,"32","31.47",152.27,854.74,87.45,51.85,35.60,No data received in last 24 hours,47.01,-,-,0,-,-,-,"6",-,-,5,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C3C2",2025-10-22,"Production: 24x7 service; NBD parts",2023-11-29,"-",2028-11-28,"infrastructure@petronascanada.com",14,48.00 GiB,195 days and 03:32:03,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+adb5d8a3-57cf-4faa-854d-3a9ec228243c,"HM22CS010037",NX-3155G-G8,NX-SWO,"Calgary","CG1NTX04",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",0005fc76-8db4-3aae-23df-7cc255357f98,"23SH5J170570","Nutanix","NX G8",NX-3155GN-G8,"American Megatrends International, LLC.","WU61.101",5.22,31.25,"SuperMicro","8.02.02","Intel Corporation, Broadcom / LSI",", SAS3816(A0)",", 25.00.00.01","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 2.24.6","231.0.153.0/pkg 231.1.162.1, 9.40 0x8000ee2c 1.3534.0","eth0
+eth1
+eth2
+eth3","All SSD","SAMSUNG MZ7L33T8HBLT-00A07","JXTC604Q","-","-","-","-","-","-","-","-","48","48","2","24","Intel(R) Xeon(R) Gold 5318Y CPU @ 2.10GHz","Ice Lake",4500,"2100","ASPEED Technology, Inc.
+NVIDIA Corporation","NVIDIA Corporation
+Super Micro Computer Inc","ASPEED Graphics Family
+GA107GL [A2 / A16]","Subsystem device 0000
+Subsystem device 14a9
+Subsystem device 1b4b","Display controller:3D controller
+Display controller:VGA compatible controller:VGA controller","161
+82","0000:04:00.0
+0000:ce:00.0
+0000:ce:00.4
+0000:ce:00.5
+0000:ce:00.6
+0000:ce:00.7
+0000:ce:01.0
+0000:ce:01.1
+0000:ce:01.2
+0000:ce:01.3
+0000:ce:01.4
+0000:ce:01.5
+0000:ce:01.6
+0000:ce:01.7
+0000:ce:02.0
+0000:ce:02.1
+0000:ce:02.2
+0000:ce:02.3
+0000:cf:00.0
+0000:cf:00.4
+0000:cf:00.5
+0000:cf:00.6
+0000:cf:00.7
+0000:cf:01.0
+0000:cf:01.1
+0000:cf:01.2
+0000:cf:01.3
+0000:cf:01.4
+0000:cf:01.5
+0000:cf:01.6
+0000:cf:01.7
+0000:cf:02.0
+0000:cf:02.1
+0000:cf:02.2
+0000:cf:02.3
+0000:d0:00.0
+0000:d0:00.4
+0000:d0:00.5
+0000:d0:00.6
+0000:d0:00.7
+0000:d0:01.0
+0000:d0:01.1
+0000:d0:01.2
+0000:d0:01.3
+0000:d0:01.4
+0000:d0:01.5
+0000:d0:01.6
+0000:d0:01.7
+0000:d0:02.0
+0000:d0:02.1
+0000:d0:02.2
+0000:d0:02.3
+0000:d1:00.0
+0000:d1:00.4
+0000:d1:00.5
+0000:d1:00.6
+0000:d1:00.7
+0000:d1:01.0
+0000:d1:01.1
+0000:d1:01.2
+0000:d1:01.3
+0000:d1:01.4
+0000:d1:01.5
+0000:d1:01.6
+0000:d1:01.7
+0000:d1:02.0
+0000:d1:02.1
+0000:d1:02.2
+0000:d1:02.3","69",1007.00,"16","62.94",500.22,506.79,20.82,6.90,13.91,20.95,4.55,17.95,-,0,-,6,-,"0",-,-,28,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C3C2",2025-10-22,"Production: 24x7 service; NBD parts",2023-05-09,"-",2028-05-08,"infrastructure@petronascanada.com",12,32.00 GiB,252 days and 03:48:33,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+aea713d0-2375-4a8f-8109-7f731dca8ce5,"HM214S004518",NX-8035-G7,NX-SWO,"Calgary","CG2NTX01",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",00059c1d-becb-2afa-265f-ac1f6b3586c9,"21FM3F310058","Nutanix","NX G7",NX-8035-G7,"American Megatrends Inc.","PB91.101",5.14,31.25,"SuperMicro","7.15.01","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.19.9, 5.19.9","0x800006d1, 255.65535.255, 0x80001743, 1.3082.0","eth0
+eth1
+eth2
+eth3","HDD + SSD","SAMSUNG MZ7LH3T8HMLT-00005","HXT7B04Q","HGST HUH721212ALE600","LEGNTB01","-","-","-","-","-","-","36","36","2","18","Intel(R) Xeon(R) Gold 5220 CPU @ 2.20GHz","Cascade Lake",4500,"2200","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0962","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",754.06,"12","62.84",56.91,697.15,52.46,34.94,17.52,6.98,4.10,3.40,43.66,27.63,19.24,2,4,"0",-,-,2,"AHV","20230302","3.2.1.71663","CANADA (CA)","T3C 3P9",2025-10-22,"Production: 24x7 service; NBD parts",2021-08-05,"-",2026-08-04,"infrastructure@petronascanada.com",14,40.00 GiB,195 days and 03:33:57,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+b9c336ba-6fb7-4165-8598-86fce6029aba,"HM22CS009425",NX-3155G-G8,NX-SWO,"Calgary","CG1NTX04",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",0005fc76-8db4-3aae-23df-7cc255357f98,"23SH5J170567","Nutanix","NX G8",NX-3155GN-G8,"American Megatrends International, LLC.","WU61.101",5.22,31.25,"SuperMicro","8.02.02","Intel Corporation, Broadcom / LSI",", SAS3816(A0)",", 25.00.00.01","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 2.24.6","231.0.153.0/pkg 231.1.162.1, 9.40 0x8000ee2c 1.3534.0","eth0
+eth1
+eth2
+eth3","All SSD","SAMSUNG MZ7L33T8HBLT-00A07","JXTC604Q","-","-","-","-","-","-","-","-","48","48","2","24","Intel(R) Xeon(R) Gold 5318Y CPU @ 2.10GHz","Ice Lake",4500,"2100","ASPEED Technology, Inc.
+NVIDIA Corporation","NVIDIA Corporation
+Super Micro Computer Inc","ASPEED Graphics Family
+GA107GL [A2 / A16]","Subsystem device 0000
+Subsystem device 14a9
+Subsystem device 1b4b","Display controller:3D controller
+Display controller:VGA compatible controller:VGA controller","161
+82","0000:04:00.0
+0000:ce:00.0
+0000:ce:00.4
+0000:ce:00.5
+0000:ce:00.6
+0000:ce:00.7
+0000:ce:01.0
+0000:ce:01.1
+0000:ce:01.2
+0000:ce:01.3
+0000:ce:01.4
+0000:ce:01.5
+0000:ce:01.6
+0000:ce:01.7
+0000:ce:02.0
+0000:ce:02.1
+0000:ce:02.2
+0000:ce:02.3
+0000:cf:00.0
+0000:cf:00.4
+0000:cf:00.5
+0000:cf:00.6
+0000:cf:00.7
+0000:cf:01.0
+0000:cf:01.1
+0000:cf:01.2
+0000:cf:01.3
+0000:cf:01.4
+0000:cf:01.5
+0000:cf:01.6
+0000:cf:01.7
+0000:cf:02.0
+0000:cf:02.1
+0000:cf:02.2
+0000:cf:02.3
+0000:d0:00.0
+0000:d0:00.4
+0000:d0:00.5
+0000:d0:00.6
+0000:d0:00.7
+0000:d0:01.0
+0000:d0:01.1
+0000:d0:01.2
+0000:d0:01.3
+0000:d0:01.4
+0000:d0:01.5
+0000:d0:01.6
+0000:d0:01.7
+0000:d0:02.0
+0000:d0:02.1
+0000:d0:02.2
+0000:d0:02.3
+0000:d1:00.0
+0000:d1:00.4
+0000:d1:00.5
+0000:d1:00.6
+0000:d1:00.7
+0000:d1:01.0
+0000:d1:01.1
+0000:d1:01.2
+0000:d1:01.3
+0000:d1:01.4
+0000:d1:01.5
+0000:d1:01.6
+0000:d1:01.7
+0000:d1:02.0
+0000:d1:02.1
+0000:d1:02.2
+0000:d1:02.3","69",1007.00,"16","62.94",478.75,528.25,20.82,4.16,16.66,20.95,3.93,18.57,-,0,-,6,-,"0",-,-,38,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C3C2",2025-10-22,"Production: 24x7 service; NBD parts",2023-05-09,"-",2028-05-08,"infrastructure@petronascanada.com",12,32.00 GiB,21 days and 11:59:32,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+ba1d261f-7b63-4681-bcc9-46da94c8c546,"HM229S022377",NX-8035-G8,NX-SWO,"Calgary","CG2NTX01",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",00059c1d-becb-2afa-265f-ac1f6b3586c9,"22SG3G490023","Nutanix","NX G8",NX-8035N-G8,"American Megatrends International, LLC.","WB61.101",5.22,31.25,"SuperMicro","8.02.02","Intel Corporation, Broadcom / LSI",", SAS3808(A0)",", 25.00.00.01","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 2.24.6","231.0.153.0/pkg 231.1.162.1, 9.40 0x8000ed12 1.3429.0","eth0
+eth1
+eth2
+eth3","HDD + SSD","KRM61RUG3T84","0105","ST12000NM000J-2TY103","SN05","-","-","-","-","-","-","32","32","2","16","Intel(R) Xeon(R) Silver 4314 CPU @ 2.40GHz","Ice Lake",4500,"2400","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b6a","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",754.76,"12","62.90",81.61,673.15,52.42,31.71,20.71,6.98,4.04,3.46,43.66,24.73,22.15,2,4,"0",-,-,2,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C 3C2",2025-10-22,"Production: 24x7 service; NBD parts",2022-12-19,"-",2027-12-18,"infrastructure@petronascanada.com",14,40.00 GiB,195 days and 03:29:41,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+bf0913ca-6ab5-4b46-a86d-0cd8af510c83,"HM23AS001353",NX-8170-G8,NX-SWO,"Calgary","CG1NTX01",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",00059c0d-e562-6375-7211-ac1f6b356611,"23SH5K440189","Nutanix","NX G8",NX-8170-G8,"American Megatrends International, LLC.","WU61.101",5.22,31.25,"SuperMicro","8.02.02","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086)","2.24.6","9.40 0x8000f21e 1.3534.0","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","SAMSUNG MZQL215THBLA-00A07","GDD5302Q","-","-","-","-","40","40","2","20","Intel(R) Xeon(R) Silver 4316 CPU @ 2.30GHz","Ice Lake",4500,"2300","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b4b","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",1007.01,"32","31.47",501.92,505.08,87.27,49.09,38.18,No data received in last 24 hours,44.46,-,-,0,-,-,-,"6",-,-,27,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C3C2",2025-10-22,"Production: 24x7 service; NBD parts",2023-11-29,"-",2028-11-28,"infrastructure@petronascanada.com",14,48.00 GiB,189 days and 03:25:45,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+c30798b8-1840-4fea-850f-73c00773df10,"HM23AS001356",NX-8170-G8,NX-SWO,"Calgary","CG1NTX01",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",00059c0d-e562-6375-7211-ac1f6b356611,"23SH5K440142","Nutanix","NX G8",NX-8170-G8,"American Megatrends International, LLC.","WU61.101",5.22,31.25,"SuperMicro","8.02.02","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086)","2.24.6","9.40 0x8000f21e 1.3534.0","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","SAMSUNG MZQL215THBLA-00A07","GDD5302Q","-","-","-","-","40","40","2","20","Intel(R) Xeon(R) Silver 4316 CPU @ 2.30GHz","Ice Lake",4500,"2300","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b4b","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",1007.01,"32","31.47",447.17,559.83,87.32,56.74,30.58,No data received in last 24 hours,51.08,-,-,0,-,-,-,"6",-,-,25,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C3C2",2025-10-22,"Production: 24x7 service; NBD parts",2023-11-29,"-",2028-11-28,"infrastructure@petronascanada.com",14,48.00 GiB,189 days and 03:24:05,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+c7fa6a5b-009e-4a64-9d9d-1cff37d976b5,"HM22CS010168",NX-3155G-G8,NX-SWO,"Calgary","CG1NTX04",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",0005fc76-8db4-3aae-23df-7cc255357f98,"23SH5J170576","Nutanix","NX G8",NX-3155GN-G8,"American Megatrends International, LLC.","WU61.101",5.22,31.25,"SuperMicro","8.02.02","Intel Corporation, Broadcom / LSI",", SAS3816(A0)",", 25.00.00.01","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 2.24.6","231.0.153.0/pkg 231.1.162.1, 9.40 0x8000ee2c 1.3534.0","eth0
+eth1
+eth2
+eth3","All SSD","SAMSUNG MZ7L33T8HBLT-00A07","JXTC604Q","-","-","-","-","-","-","-","-","48","48","2","24","Intel(R) Xeon(R) Gold 5318Y CPU @ 2.10GHz","Ice Lake",4500,"2100","ASPEED Technology, Inc.
+NVIDIA Corporation","NVIDIA Corporation
+Super Micro Computer Inc","ASPEED Graphics Family
+GA107GL [A2 / A16]","Subsystem device 0000
+Subsystem device 14a9
+Subsystem device 1b4b","Display controller:3D controller
+Display controller:VGA compatible controller:VGA controller","161
+82","0000:04:00.0
+0000:ce:00.0
+0000:ce:00.4
+0000:ce:00.5
+0000:ce:00.6
+0000:ce:00.7
+0000:ce:01.0
+0000:ce:01.1
+0000:ce:01.2
+0000:ce:01.3
+0000:ce:01.4
+0000:ce:01.5
+0000:ce:01.6
+0000:ce:01.7
+0000:ce:02.0
+0000:ce:02.1
+0000:ce:02.2
+0000:ce:02.3
+0000:cf:00.0
+0000:cf:00.4
+0000:cf:00.5
+0000:cf:00.6
+0000:cf:00.7
+0000:cf:01.0
+0000:cf:01.1
+0000:cf:01.2
+0000:cf:01.3
+0000:cf:01.4
+0000:cf:01.5
+0000:cf:01.6
+0000:cf:01.7
+0000:cf:02.0
+0000:cf:02.1
+0000:cf:02.2
+0000:cf:02.3
+0000:d0:00.0
+0000:d0:00.4
+0000:d0:00.5
+0000:d0:00.6
+0000:d0:00.7
+0000:d0:01.0
+0000:d0:01.1
+0000:d0:01.2
+0000:d0:01.3
+0000:d0:01.4
+0000:d0:01.5
+0000:d0:01.6
+0000:d0:01.7
+0000:d0:02.0
+0000:d0:02.1
+0000:d0:02.2
+0000:d0:02.3
+0000:d1:00.0
+0000:d1:00.4
+0000:d1:00.5
+0000:d1:00.6
+0000:d1:00.7
+0000:d1:01.0
+0000:d1:01.1
+0000:d1:01.2
+0000:d1:01.3
+0000:d1:01.4
+0000:d1:01.5
+0000:d1:01.6
+0000:d1:01.7
+0000:d1:02.0
+0000:d1:02.1
+0000:d1:02.2
+0000:d1:02.3","69",1007.00,"16","62.94",426.21,580.79,20.82,4.94,15.87,20.95,4.38,18.12,-,0,-,6,-,"0",-,-,43,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C3C2",2025-10-22,"Production: 24x7 service; NBD parts",2023-05-09,"-",2028-05-08,"infrastructure@petronascanada.com",12,32.00 GiB,252 days and 03:48:59,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+d217685e-05e0-4a47-bcac-1620fc520f24,"OM23AS019297",NX-1175S-G8,NX-SWO,"Fort St. John","C72A",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom","ARROW ECS CANADA",00058a98-f316-4543-0000-00000002933c,"23SH5N470504","Nutanix","NX G8",NX-1175S-G8,"American Megatrends International, LLC.","WW61.101",5.22,31.25,"SuperMicro","8.02.02","Broadcom / LSI","SAS3816(A0)","25.00.00.01","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.19.9, 2.24.6","0x8000172d, 1.3429.0, 9.40 0x8000ecab 1.3429.0","eth0
+eth1
+eth2
+eth3
+eth4
+eth5","HDD + SSD","SAMSUNG MZ7L31T9HBLT-00A07","JXTC604Q","HGST HUS726T6TALE6L4","VKGNW9U0","-","-","-","-","-","-","20","20","1","20","Intel(R) Xeon(R) Silver 4316 CPU @ 2.30GHz","Ice Lake",4500,"2300","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b62","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",250.83,"8","31.35",61.28,189.55,14.49,2.68,11.81,3.49,1.96,1.79,10.91,0.48,11.24,2,2,"0",-,-,4,"AHV","20230302","3.2.1.71663","CANADA (CA)","V1J 8C5",2025-10-22,"Production: 24x7 service; NBD parts",2024-01-08,"-",2029-01-07,"infrastructure@petronascanada.com",12,24.00 GiB,250 days and 03:04:26,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+dc784c46-93e6-447d-abfd-9924f5827ca6,"HM23AS001610",NX-8170-G8,NX-SWO,"Calgary","CG2NTX01",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",00059c1d-becb-2afa-265f-ac1f6b3586c9,"23SH5K440113","Nutanix","NX G8",NX-8170-G8,"American Megatrends International, LLC.","WU61.101",5.22,31.25,"SuperMicro","8.02.02","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086)","2.24.6","9.40 0x8000f21e 1.3534.0","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","SAMSUNG MZQL215THBLA-00A07","GDD5302Q","-","-","-","-","40","40","2","20","Intel(R) Xeon(R) Silver 4316 CPU @ 2.30GHz","Ice Lake",4500,"2300","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b4b","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",1007.01,"32","31.47",78.85,928.15,87.40,55.11,32.29,No data received in last 24 hours,49.93,-,-,0,-,-,-,"6",-,-,4,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C3C2",2025-10-22,"Production: 24x7 service; NBD parts",2023-11-29,"-",2028-11-28,"infrastructure@petronascanada.com",14,48.00 GiB,195 days and 03:32:32,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+dee92ad4-7996-4b85-909f-55007d09a1eb,"OM23AS019405",NX-1175S-G8,NX-SWO,"Fort St. John","C72A",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom","ARROW ECS CANADA",00058a98-f316-4543-0000-00000002933c,"23SH5N470492","Nutanix","NX G8",NX-1175S-G8,"American Megatrends International, LLC.","WW61.101",5.22,31.25,"SuperMicro","8.02.02","Broadcom / LSI","SAS3816(A0)","25.00.00.01","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.19.9, 2.24.6","0x8000172d, 1.3429.0, 9.40 0x8000ecab 1.3429.0","eth0
+eth1
+eth2
+eth3
+eth4
+eth5","HDD + SSD","SAMSUNG MZ7L31T9HBLT-00A07","JXTC604Q","HGST HUS726T6TALE6L4","VKGNW9U0","-","-","-","-","-","-","20","20","1","20","Intel(R) Xeon(R) Silver 4316 CPU @ 2.30GHz","Ice Lake",4500,"2300","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b62","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",250.83,"8","31.35",85.53,165.30,14.49,2.67,11.81,3.49,1.98,1.77,10.91,0.46,11.26,2,2,"0",-,-,6,"AHV","20230302","3.2.1.71663","CANADA (CA)","V1J 8C5",2025-10-22,"Production: 24x7 service; NBD parts",2024-01-08,"-",2029-01-07,"infrastructure@petronascanada.com",12,24.00 GiB,250 days and 03:05:22,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+f9b50bd2-801d-4f5b-9b05-11e605168cf7,"HM23AS001337",NX-8170-G8,NX-SWO,"Calgary","CG2NTX01",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom Canada","ARROW ECS CANADA",00059c1d-becb-2afa-265f-ac1f6b3586c9,"23SH5K440208","Nutanix","NX G8",NX-8170-G8,"American Megatrends International, LLC.","WU61.101",5.22,31.25,"SuperMicro","8.02.02","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086)","2.24.6","9.40 0x8000f21e 1.3534.0","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","SAMSUNG MZQL215THBLA-00A07","GDD5302Q","-","-","-","-","40","40","2","20","Intel(R) Xeon(R) Silver 4316 CPU @ 2.30GHz","Ice Lake",4500,"2300","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b4b","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",1007.01,"32","31.47",97.26,909.74,87.38,52.04,35.35,No data received in last 24 hours,47.09,-,-,0,-,-,-,"6",-,-,4,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C3C2",2025-10-22,"Production: 24x7 service; NBD parts",2023-11-29,"-",2028-11-28,"infrastructure@petronascanada.com",14,48.00 GiB,195 days and 03:32:18,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+fad4c724-00cd-4d1d-8012-0233e4886cf9,"OM23AS019388",NX-1175S-G8,NX-SWO,"Fort St. John","C72A",Under Support,"Petronas Energy Canada Ltd","Scott Sefcik","scott.sefcik@nutanix.com","CompuCom","ARROW ECS CANADA",00058a98-f316-4543-0000-00000002933c,"23SH5N470470","Nutanix","NX G8",NX-1175S-G8,"American Megatrends International, LLC.","WW61.101",5.22,31.25,"SuperMicro","8.02.02","Broadcom / LSI","SAS3816(A0)","25.00.00.01","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.19.9, 2.24.6","0x8000172d, 1.3429.0, 9.40 0x8000ecab 1.3429.0","eth0
+eth1
+eth2
+eth3
+eth4
+eth5","HDD + SSD","SAMSUNG MZ7L31T9HBLT-00A07","JXTC604Q","HGST HUS726T6TALE6L4","VKGNW9U0","-","-","-","-","-","-","20","20","1","20","Intel(R) Xeon(R) Silver 4316 CPU @ 2.30GHz","Ice Lake",4500,"2300","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b62","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",250.83,"8","31.35",81.56,169.27,14.49,3.01,11.48,3.49,2.22,1.53,10.91,0.50,11.22,2,2,"0",-,-,6,"AHV","20230302","3.2.1.71663","CANADA (CA)","V1J 8C5",2025-10-22,"Production: 24x7 service; NBD parts",2024-01-08,"-",2029-01-07,"infrastructure@petronascanada.com",12,24.00 GiB,250 days and 03:04:19,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"

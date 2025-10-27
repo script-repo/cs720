@@ -1,0 +1,854 @@
+Node UUID,Node Serial Number,Node Model,Node License Mode,Install Location,Cluster Name,Contract Status,Account Name,Account Executive,Account Executive Email,Incumbent Reseller,Incumbent Distributor,Cluster UUID,Block Serial Number,Node Vendor,Model Family,Model Group,BIOS Vendor,BIOS Version,BIOS Revision,BIOS ROM Size (in MiB),BMC Manufacturer,BMC Version,Storage Controller Manufacturer,Storage Controller Part Number,Storage Controller Version,Satadom Device Model,Satadom Version,NIC Manufacturer,NIC Version,NIC Firmware Version,NIC Location,Drive Configuration,SSD Part No,SSD Version,HDD Part No,HDD Version,NVME Part No,NVME Version,M.2 SSD Part No,M.2 SSD Version,M.2 HDD Part No,M.2 HDD Version,CPU Cores,Enabled Core Count,CPU Sockets,CPU Core Count Per Socket,CPU Version,Processor Family,CPU Max Speed,CPU Speed,GPU Vendor,GPU Sub-Vendor,GPU Device,GPU Sub Device,GPU Class,GPU Revision,GPU Slot,No. of GPUs,Total Memory Capacity,Quantity Of Memory Sticks Per Node,Memory Capacity Per Node (in GiB),Used Memory Capacity (in GiB),Available Memory Capacity,Total Storage Capacity,Used Storage Capacity,Available Storage Capacity,Total SSD Capacity,Used SSD Capacity,Available SSD Capacity,Total HDD Capacity,Used HDD Capacity,Available HDD Capacity,No. of SSDs,No. of HDDs,No. of NVMes,No. of M.2 SSDs,No. of M.2 HDDs,VM Count,Hypervisor Type,Hypervisor Version,LCM Version,Install Country,Install Zip,Last Pulse Date,Contract Coverage,Contract Start Date,Prior Contract End Date,Contract End Date,Primary Contact,CVM vCPU,CVM Memory,CVM Uptime,Customer Experience Manager (CXM),Theater,Region,Sub Region
+021ab9a7-2c6c-4f0c-81ff-648094a17e7c,"J105G357",ThinkAgile HX665 V3 CN,Not Found,"-","WC-CGY-NXE",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",00061755-a6a5-3a82-390b-043201f0fd0a,"J105G357","Lenovo","HX Genoa",Unknown,"Lenovo","KAE112O-2.11",2.11,31.25,"Lenovo","2.12","-","-","-","Not Found","-","Broadcom Inc. and subsidiaries(14e4)","1.10.2-218.0.67.0","225.0.151.0/pkg 225.1.103.0","eth0
+eth1","All NVMe","-","-","-","-","INTEL SSDPF2KX076T1O","9CV10420","-","-","-","-","64","64","2","32","AMD EPYC 9374F 32-Core Processor","Genoa",4300,"3850","ASPEED Technology, Inc.","ASPEED Technology, Inc.","ASPEED Graphics Family","Subsystem device 2000","Display controller:VGA compatible controller:VGA controller","82","0000:65:00.0","1",1511.02,"24","62.96",1037.05,473.96,94.03,22.32,71.71,No data received in last 24 hours,20.27,-,-,0,-,-,-,"13",-,-,45,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",16,64.00 GiB,206 days and 16:16:21,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+02d2a403-6931-442a-8c3a-3a0e0215aa42,"MXQ1031913",HPE DX360-4 G10,Not Found,"-","WC-CGY-NXC",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",0005bfe0-8958-715b-6f9b-d4f5ef1b0ce0,"MXQ1031913","HPE","DX Gen10",Unknown,"HPE","U32",2.62,62.50,"HPE","2.71.00","Adaptec",", 836259-001","5.00","Not Found","-","Intel Corporation(8086)","2.24.6","10.57.2","eth0
+eth1","All SSD","VO007680JWZJL","HPD4","-","-","-","-","MR000480GXBGH","HPG1","-","-","10","10","1","10","Intel(R) Xeon(R) Gold 5215 CPU @ 2.50GHz, Not Specified","Cascade Lake
+Unknown",4000,"2500","Matrox Electronics Systems Ltd.","Hewlett Packard Enterprise","MGA G200eH3","iLO5 VGA","Display controller:VGA compatible controller:VGA controller","2","0000:01:00.1","1",754.71,"12","62.89",503.57,251.14,28.78,17.55,11.23,27.94,15.65,14.35,-,0,-,4,-,"0",1,-,3,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",10,64.00 GiB,187 days and 23:03:36,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+0313afd1-43b2-4090-98bd-1619b527a085,"J105G35B",ThinkAgile HX665 V3 CN,Not Found,"-","WC-CGY-NXF",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",00061882-393a-e34f-6b7e-3a7c76724c80,"J105G35B","Lenovo","HX Genoa",Unknown,"Lenovo","KAE112O-2.11",2.11,31.25,"Lenovo","2.12","-","-","-","Not Found","-","Mellanox Technologies(15b3)","23.10-2.1.3","26.35.1012 (LNV0000000037)","eth0
+eth1","All NVMe","-","-","-","-","Micron_7450_MTFDKCB1T9TFR","E2MU200","-","-","-","-","64","64","2","32","AMD EPYC 9354 32-Core Processor","Genoa",3800,"3250","ASPEED Technology, Inc.
+NVIDIA Corporation","ASPEED Technology, Inc.
+NVIDIA Corporation","ASPEED Graphics Family
+GA107GL [A2 / A16]","Subsystem device 0000
+Subsystem device 14a9
+Subsystem device 2000","Display controller:3D controller
+Display controller:VGA compatible controller:VGA controller","161
+82","0000:45:00.0
+0000:45:00.4
+0000:45:00.5
+0000:45:00.6
+0000:45:00.7
+0000:45:01.0
+0000:45:01.1
+0000:45:01.2
+0000:45:01.3
+0000:45:01.4
+0000:45:01.5
+0000:45:01.6
+0000:45:01.7
+0000:45:02.0
+0000:45:02.1
+0000:45:02.2
+0000:45:02.3
+0000:46:00.0
+0000:46:00.4
+0000:46:00.5
+0000:46:00.6
+0000:46:00.7
+0000:46:01.0
+0000:46:01.1
+0000:46:01.2
+0000:46:01.3
+0000:46:01.4
+0000:46:01.5
+0000:46:01.6
+0000:46:01.7
+0000:46:02.0
+0000:46:02.1
+0000:46:02.2
+0000:46:02.3
+0000:47:00.0
+0000:47:00.4
+0000:47:00.5
+0000:47:00.6
+0000:47:00.7
+0000:47:01.0
+0000:47:01.1
+0000:47:01.2
+0000:47:01.3
+0000:47:01.4
+0000:47:01.5
+0000:47:01.6
+0000:47:01.7
+0000:47:02.0
+0000:47:02.1
+0000:47:02.2
+0000:47:02.3
+0000:48:00.0
+0000:48:00.4
+0000:48:00.5
+0000:48:00.6
+0000:48:00.7
+0000:48:01.0
+0000:48:01.1
+0000:48:01.2
+0000:48:01.3
+0000:48:01.4
+0000:48:01.5
+0000:48:01.6
+0000:48:01.7
+0000:48:02.0
+0000:48:02.1
+0000:48:02.2
+0000:48:02.3
+0000:65:00.0","69",755.01,"24","31.46",698.67,56.34,27.40,11.00,16.40,No data received in last 24 hours,9.95,-,-,0,-,-,-,"2",-,-,7,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",16,64.00 GiB,173 days and 04:31:00,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+068dc631-9c58-4aa8-93db-680ac21d1d4e,"OM21AS032038",NX-1175S-G7,NX-SWO,"Valhalla","WC-VAL-NXA",EXPIRED,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005d9f3-3eae-2c27-0c08-3cecefeec058,"22SG5E030166","Nutanix","NX G7",NX-1175S-G7,"American Megatrends Inc.","PW80.001",5.14,31.25,"SuperMicro","7.15.00","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.19.9, 2.24.6","0x800006d1, 255.65535.255, 6.20 0x800041f9 1.3534.0","eth0
+eth1
+eth2
+eth3","All SSD","SAMSUNG MZ7LH1T9HMLT-00005","HXT7B04Q","-","-","-","-","Micron_5300_MTFDDAV240TDS","D3MU001","-","-","8","8","1","8","Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz","Cascade Lake",4500,"2100","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0953","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",124.97,"4","31.24",50.28,74.69,3.04,0.79,2.26,3.49,0.71,3.04,-,0,-,2,-,"0",1,-,2,"AHV","20230302","3.2.1.71663","CANADA (CA)","Not Found",2025-10-22,"Production: 24x7 service; NBD parts",2022-01-28,"-",2025-01-27,"ryan.kuffler@wcap.ca",8,32.00 GiB,82 days and 05:55:06,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+0b1e8619-dd7b-4a9b-8129-63c1f4a7fc29,"J105G35F",ThinkAgile HX665 V3 CN,Not Found,"-","WC-CGY-NXF",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",00061882-393a-e34f-6b7e-3a7c76724c80,"J105G35F","Lenovo","HX Genoa",Unknown,"Lenovo","KAE112O-2.11",2.11,31.25,"Lenovo","2.12","-","-","-","Not Found","-","Mellanox Technologies(15b3)","23.10-2.1.3","26.35.1012 (LNV0000000037)","eth0
+eth1","All NVMe","-","-","-","-","Micron_7450_MTFDKCB1T9TFR","E2MU200","-","-","-","-","64","64","2","32","AMD EPYC 9354 32-Core Processor","Genoa",3800,"3250","ASPEED Technology, Inc.
+NVIDIA Corporation","ASPEED Technology, Inc.
+NVIDIA Corporation","ASPEED Graphics Family
+GA107GL [A2 / A16]","Subsystem device 0000
+Subsystem device 14a9
+Subsystem device 2000","Display controller:3D controller
+Display controller:VGA compatible controller:VGA controller","161
+82","0000:45:00.0
+0000:45:00.4
+0000:45:00.5
+0000:45:00.6
+0000:45:00.7
+0000:45:01.0
+0000:45:01.1
+0000:45:01.2
+0000:45:01.3
+0000:45:01.4
+0000:45:01.5
+0000:45:01.6
+0000:45:01.7
+0000:45:02.0
+0000:45:02.1
+0000:45:02.2
+0000:45:02.3
+0000:46:00.0
+0000:46:00.4
+0000:46:00.5
+0000:46:00.6
+0000:46:00.7
+0000:46:01.0
+0000:46:01.1
+0000:46:01.2
+0000:46:01.3
+0000:46:01.4
+0000:46:01.5
+0000:46:01.6
+0000:46:01.7
+0000:46:02.0
+0000:46:02.1
+0000:46:02.2
+0000:46:02.3
+0000:47:00.0
+0000:47:00.4
+0000:47:00.5
+0000:47:00.6
+0000:47:00.7
+0000:47:01.0
+0000:47:01.1
+0000:47:01.2
+0000:47:01.3
+0000:47:01.4
+0000:47:01.5
+0000:47:01.6
+0000:47:01.7
+0000:47:02.0
+0000:47:02.1
+0000:47:02.2
+0000:47:02.3
+0000:48:00.0
+0000:48:00.4
+0000:48:00.5
+0000:48:00.6
+0000:48:00.7
+0000:48:01.0
+0000:48:01.1
+0000:48:01.2
+0000:48:01.3
+0000:48:01.4
+0000:48:01.5
+0000:48:01.6
+0000:48:01.7
+0000:48:02.0
+0000:48:02.1
+0000:48:02.2
+0000:48:02.3
+0000:65:00.0","69",755.01,"24","31.46",702.09,52.92,27.40,11.31,16.09,No data received in last 24 hours,10.26,-,-,0,-,-,-,"2",-,-,6,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",16,64.00 GiB,173 days and 04:16:29,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+13e9dc8f-7c91-4fa2-a338-564250aa0b25,"2M222907YJ",HPE DX385-12 Gen10 Plus,Not Found,"-","WC-CGY-NXB",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",0005bc41-a88b-e6a0-6a7b-9440c9b3e5dc,"2M222907YJ","HPE","DX Gen10 Plus",Unknown,"HPE","A42",2.40,62.50,"HPE","2.48.00","Adaptec",", 836259-002
+836266-001","3.53","Not Found","-","Mellanox Technologies(15b3)","23.10-2.1.3","16.29.1016 (MT_0000000416)","eth0
+eth1","HDD + SSD","VK003840GWSRV","HPG4","MB012000JWDFD","HPD2","-","-","MR000480GXBGH","HPG1","-","-","32","32","2","16","AMD EPYC 7282 16-Core Processor","Rome",3700,"2800","Matrox Electronics Systems Ltd.","Hewlett Packard Enterprise","MGA G200eH3","iLO5 VGA","Display controller:VGA compatible controller:VGA controller","2","0000:61:00.1","1",1007.13,"32","31.47",212.71,794.42,120.62,74.86,45.77,6.98,3.98,3.52,109.14,63.38,53.81,2,10,"0",1,-,3,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",12,40.00 GiB,187 days and 03:07:35,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+1f49ae39-3a06-47cc-ae49-d0f03bc173ff,"OM225S042810",NX-1175S-G8,NX-SWO,"Calgary","WC-CGY-NXD",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005e704-225b-e742-16fd-3ceceffe1ca0,"22SH5N290339","Nutanix","NX G8",NX-1175S-G8,"American Megatrends International, LLC.","WW20.005",5.22,31.25,"SuperMicro","8.01.09","Broadcom / LSI","SAS3816(A0)","25.00.00.01","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 5.19.9","218.0.226.0/pkg 218.0.300.0, 0x800016dc, 1.3082.0","eth0
+eth1
+eth2
+eth3","All SSD","KRM61RUG3T84","0103","-","-","-","-","-","-","-","-","12","12","1","12","Intel(R) Xeon(R) Gold 5317 CPU @ 3.00GHz","Ice Lake",4500,"3000","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b62","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",502.83,"8","62.85",242.20,260.64,13.87,6.45,7.42,13.97,5.81,9.19,-,0,-,4,-,"0",-,-,9,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C 3C2",2025-10-22,"Production: 24x7 service; NBD parts",2022-08-09,"-",2026-12-07,"ryan.kuffler@wcap.ca",12,32.00 GiB,89 days and 03:36:24,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+20054619-0888-4217-808d-4962a9deccc9,"OM226S016685",NX-1175S-G8,NX-SWO,"Resthaven","WC-RST-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005e716-153b-a19e-276d-3ceceffe1e48,"22SG5N310011","Nutanix","NX G8",NX-1175S-G8,"American Megatrends International, LLC.","WW20.005",5.22,31.25,"SuperMicro","8.01.07","Broadcom / LSI","SAS3816(A0)","25.00.00.01","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 5.19.9","218.0.226.0/pkg 218.0.300.0, 0x80001373, 1.2829.0","eth0
+eth1
+eth2
+eth3","All SSD","SAMSUNG MZ7LH1T9HMLT-00005","HXT7B04Q","-","-","-","-","-","-","-","-","12","12","1","12","Intel(R) Xeon(R) Gold 5317 CPU @ 3.00GHz","Ice Lake",4500,"3000","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b62","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",124.92,"2","62.46",48.32,76.61,3.04,0.19,2.86,3.49,0.17,3.58,-,0,-,2,-,"0",-,-,3,"AHV","20230302","3.2.1.71663","CANADA (CA)","Not Found",2025-10-22,"Production: 24x7 service; NBD parts",2022-08-03,"2025-08-01",2026-08-01,"ryan.kuffler@wcap.ca",12,32.00 GiB,128 days and 17:06:00,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+22f2e8a7-ca98-431a-9aa4-cf8b4d559506,"J105G35A",ThinkAgile HX665 V3 CN,Not Found,"-","WC-CGY-NXF",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",00061882-393a-e34f-6b7e-3a7c76724c80,"J105G35A","Lenovo","HX Genoa",Unknown,"Lenovo","KAE112O-2.11",2.11,31.25,"Lenovo","2.12","-","-","-","Not Found","-","Mellanox Technologies(15b3)","23.10-2.1.3","26.35.1012 (LNV0000000037)","eth0
+eth1","All NVMe","-","-","-","-","Micron_7450_MTFDKCB1T9TFR","E2MU200","-","-","-","-","64","64","2","32","AMD EPYC 9354 32-Core Processor","Genoa",3800,"3250","ASPEED Technology, Inc.
+NVIDIA Corporation","ASPEED Technology, Inc.
+NVIDIA Corporation","ASPEED Graphics Family
+GA107GL [A2 / A16]","Subsystem device 0000
+Subsystem device 14a9
+Subsystem device 2000","Display controller:3D controller
+Display controller:VGA compatible controller:VGA controller","161
+82","0000:45:00.0
+0000:45:00.4
+0000:45:00.5
+0000:45:00.6
+0000:45:00.7
+0000:45:01.0
+0000:45:01.1
+0000:45:01.2
+0000:45:01.3
+0000:45:01.4
+0000:45:01.5
+0000:45:01.6
+0000:45:01.7
+0000:45:02.0
+0000:45:02.1
+0000:45:02.2
+0000:45:02.3
+0000:46:00.0
+0000:46:00.4
+0000:46:00.5
+0000:46:00.6
+0000:46:00.7
+0000:46:01.0
+0000:46:01.1
+0000:46:01.2
+0000:46:01.3
+0000:46:01.4
+0000:46:01.5
+0000:46:01.6
+0000:46:01.7
+0000:46:02.0
+0000:46:02.1
+0000:46:02.2
+0000:46:02.3
+0000:47:00.0
+0000:47:00.4
+0000:47:00.5
+0000:47:00.6
+0000:47:00.7
+0000:47:01.0
+0000:47:01.1
+0000:47:01.2
+0000:47:01.3
+0000:47:01.4
+0000:47:01.5
+0000:47:01.6
+0000:47:01.7
+0000:47:02.0
+0000:47:02.1
+0000:47:02.2
+0000:47:02.3
+0000:48:00.0
+0000:48:00.4
+0000:48:00.5
+0000:48:00.6
+0000:48:00.7
+0000:48:01.0
+0000:48:01.1
+0000:48:01.2
+0000:48:01.3
+0000:48:01.4
+0000:48:01.5
+0000:48:01.6
+0000:48:01.7
+0000:48:02.0
+0000:48:02.1
+0000:48:02.2
+0000:48:02.3
+0000:65:00.0","69",755.01,"24","31.46",450.13,304.87,27.41,11.22,16.19,No data received in last 24 hours,10.14,-,-,0,-,-,-,"2",-,-,6,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",16,64.00 GiB,173 days and 06:01:58,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+284d0444-a89e-431d-adfd-65cb5b7c6e03,"MXQ1031912",HPE DX360-4 G10,Not Found,"-","WC-CGY-NXC",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",0005bfe0-8958-715b-6f9b-d4f5ef1b0ce0,"MXQ1031912","HPE","DX Gen10",Unknown,"HPE","U32",2.62,62.50,"HPE","2.71.00","Adaptec",", 836259-001","5.00","Not Found","-","Intel Corporation(8086)","2.24.6","10.57.2","eth0
+eth1","HDD + SSD","VO007680JWZJL","HPD4","VO007680JWZJL","HPD4","-","-","MR000480GXBGH","HPG1","-","-","10","10","1","10","Intel(R) Xeon(R) Gold 5215 CPU @ 2.50GHz, Not Specified","Cascade Lake
+Unknown",4000,"2500","Matrox Electronics Systems Ltd.","Hewlett Packard Enterprise","MGA G200eH3","iLO5 VGA","Display controller:VGA compatible controller:VGA controller","2","0000:01:00.1","1",754.71,"12","62.89",429.00,325.70,28.76,16.47,12.29,27.94,14.71,15.29,20.95,0,22.50,4,2,"0",1,-,2,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",10,64.00 GiB,187 days and 23:00:48,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+29625a87-0129-4b06-b704-5becffd9c919,"i-0d390fd6c2b63f30d",AWS.i3en.metal,Not Found,"-","DR-AWS-NXA",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",00062138-280a-23fc-d265-1cc0ae5e57ab,"i-0d390fd6c2b63f30d","Not Found","Unknown",Unknown,"-","-",-,-,"-","-","-","-","-","Not Found","-","-","-","-","Not Found","Not Found","-","-","-","-","-","-","-","-","-","-","48","0","2","24","-","Not Found",-,"0","Not Found","Not Found","Not Found","Not Found","Not Found","Not Found","Not Found","0",755.02,"0","0.00",129.00,626.02,56.16,26.62,29.54,No data received in last 24 hours,23.91,-,-,0,-,-,-,"0",-,-,9,"AHV","10","3.1.1.62004","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",16,48.00 GiB,190 days and 06:36:11,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+2d1e75f4-1044-45f5-b4b8-7c49009c566f,"WM22BS018831",NX-1120S-G7,NX-SWO,"Calgary","WC-SUF-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",0006181b-b393-4a68-2042-3cecefdb3842,"24SH5G120059","Nutanix","NX G7",NX-1120S-G7,"American Megatrends Inc.","PV50.001",5.14,31.25,"SuperMicro","7.11.00","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.16.3, 2.24.6","1.63, 0x800009fa, 6.00 0x80003fc6 1.3353.0","eth0
+eth1
+eth2
+eth3
+eth4
+eth5
+eth6
+eth7","All SSD","SAMSUNG MZ7L31T9HBLT-00A07","JXTC404Q","-","-","-","-","INTEL SSDSCKKB240GZ","7CV10111","-","-","8","8","1","8","Intel(R) Xeon(R) D-2146NT CPU @ 2.30GHz","Sky Lake D",4000,"2300","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0986","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",250.88,"4","62.72",79.28,171.61,3.04,0.78,2.26,3.49,0.70,3.05,-,0,-,2,-,"0",1,-,3,"AHV","20230302","3.1.1.62004","CANADA (CA)","T2P 1G1",2025-10-22,"Production: 24x7 service; NBD parts",2024-04-16,"-",2027-04-15,"awolde@wcap.ca",8,32.00 GiB,Not Found,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+30a7407c-7f98-4df1-ab2e-c8e48dfa71f9,"NM191S027068",NX-1175S-G6,NX-SWO,"Swift Current","WC-SWC-NXA",EXPIRED,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",00063ca9-807d-dcef-0000-000000027ccb,"19SM59050146","Nutanix","NX G6",NX-1175S-G6,"American Megatrends Inc.","PW70.002",5.14,31.25,"SuperMicro","7.13.1","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086)","5.16.3","1.63, 0x800009fb, 1.1747.0","eth0
+eth1","HDD + SSD","SAMSUNG MZ7KM960HMJP-00005","GXM5304Q","ST8000NM0055-1RM112","SN05","-","-","INTEL SSDSCKJB240G7","N2010121","-","-","8","8","1","8","Intel(R) Xeon(R) Silver 4108 CPU @ 1.80GHz","Sky Lake",4500,"1800","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0953","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",124.97,"4","31.24",42.27,82.69,16.54,0.04,16.50,1.75,0.03,1.84,14.55,0.00,15.62,2,2,"0",1,-,3,"AHV","20230302","-","CANADA (CA)","S9H 4Y9",2025-10-22,"Production: 24x7 service; NBD parts",2019-02-12,"-",2025-01-05,"ryan.kuffler@wcap.ca",8,24.00 GiB,75 days and 20:30:01,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+31dcbb50-572a-46ac-a2d6-ac53dbe4ed5f,"OM239S044833",NX-1175S-G8,NX-SWO,"Calgary","WC-CGY-NXD",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005e704-225b-e742-16fd-3ceceffe1ca0,"23SG5N460002","Nutanix","NX G8",NX-1175S-G8,"American Megatrends International, LLC.","WW40.002",5.22,31.25,"SuperMicro","8.01.09","Broadcom / LSI","SAS3816(A0)","25.00.00.01","Not Found","-","Intel Corporation(8086), Mellanox Technologies(15b3)","5.19.9, 23.10-2.1.3","0x800016dc, 1.3082.0, 26.32.1010 (MT_0000000575)","eth0
+eth1
+eth2
+eth3","All SSD","SAMSUNG MZ7L33T8HBLT-00A07","JXTC404Q","-","-","-","-","-","-","-","-","12","12","1","12","Intel(R) Xeon(R) Gold 5317 CPU @ 3.00GHz","Ice Lake",4500,"3000","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b62","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",502.83,"8","62.85",227.15,275.68,13.84,7.20,6.64,13.97,6.48,8.52,-,0,-,4,-,"0",-,-,10,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C 3C2",2025-10-22,"Production: 24x7 service; NBD parts",2023-12-08,"-",2026-12-07,"awolde@wcap.ca",12,32.00 GiB,89 days and 03:33:26,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+3366ec47-a6af-4eb7-8a94-41cf37cf8216,"OM21BS052184",NX-1175S-G7,NX-SWO,"Valhalla","WC-VAL-NXA",EXPIRED,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005d9f3-3eae-2c27-0c08-3cecefeec058,"22SG5E030148","Nutanix","NX G7",NX-1175S-G7,"American Megatrends Inc.","PW80.001",5.14,31.25,"SuperMicro","7.15.00","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.19.9, 2.24.6","0x800006d1, 255.65535.255, 6.20 0x800041f9 1.3534.0","eth0
+eth1
+eth2
+eth3","All SSD","SAMSUNG MZ7LH1T9HMLT-00005","HXT7B04Q","-","-","-","-","Micron_5300_MTFDDAV240TDS","D3MU001","-","-","8","8","1","8","Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz","Cascade Lake",4500,"2100","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0953","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",124.97,"4","31.24",38.15,86.82,3.04,0.90,2.15,3.49,0.82,2.93,-,0,-,2,-,"0",1,-,1,"AHV","20230302","3.2.1.71663","CANADA (CA)","Not Found",2025-10-22,"Production: 24x7 service; NBD parts",2022-01-28,"-",2025-01-27,"ryan.kuffler@wcap.ca",8,32.00 GiB,82 days and 05:55:54,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+35212ae9-30f9-4fe3-b0e1-684e517e3c95,"WM251S000109",NX-1175S-G9,NX-SWO,"Calgary","WC-MUS-NXB",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",000631b7-bf0a-7a30-7263-7cc255eaabe0,"25SG5T050042","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW30.101",5.32,31.25,"SuperMicro","1.01.5","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086), Mellanox Technologies(15b3)","5.19.9, 23.10-2.1.3","0x8000172d, 1.3429.0, 26.39.3004 (MT_0000000575)","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","KIOXIA KCD8XRUG3T84","0105","-","-","-","-","8","8","1","8","INTEL(R) XEON(R) SILVER 4509Y","Not Found",4200,"2600","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",125.01,"4","31.25",42.23,82.78,6.57,0.13,6.45,No data received in last 24 hours,0.11,-,-,0,-,-,-,"2",-,-,2,"AHV","20230302","-","CANADA (CA)","T2P1G1",2025-10-22,"Production: 24x7 service; NBD parts",2025-02-06,"-",2028-02-05,"awolde@wcap.ca",8,32.00 GiB,174 days and 13:36:09,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+36a66108-b5c9-4641-88cc-91655468dfd0,"WM251S000272",NX-1175S-G9,NX-SWO,"Calgary","WC-GLP-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",00063373-2db4-cb89-6a84-7cc255eaac5e,"25SG5T050031","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW30.101",5.32,31.25,"SuperMicro","1.01.5","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086), Mellanox Technologies(15b3)","5.19.9, 23.10-2.1.3","0x8000172d, 1.3429.0, 26.39.3004 (MT_0000000575)","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","KIOXIA KCD8XRUG3T84","0105","-","-","-","-","8","8","1","8","INTEL(R) XEON(R) SILVER 4509Y","Not Found",4200,"2600","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",125.01,"4","31.25",38.15,86.86,6.57,0.03,6.55,No data received in last 24 hours,0.03,-,-,0,-,-,-,"2",-,-,1,"AHV","20230302","-","CANADA (CA)","T2P1G1",2025-10-22,"Production: 24x7 service; NBD parts",2025-02-04,"-",2028-02-03,"awolde@wcap.ca",8,32.00 GiB,63 days and 13:45:42,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+38111c14-6c46-4052-9619-27239d20de10,"OM226S016274",NX-1175S-G8,NX-SWO,"Kaybob","WC-KBP-NXB",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005e716-0b5a-1bf7-1c68-3ceceffe1b50,"22SH5N320149","Nutanix","NX G8",NX-1175S-G8,"American Megatrends International, LLC.","WW61.101",5.22,31.25,"SuperMicro","8.02.02","Broadcom / LSI","SAS3816(A0)","25.00.00.01","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 5.19.9","231.0.153.0/pkg 231.1.162.1, 0x8000172d, 1.3429.0","eth0
+eth1
+eth2
+eth3","HDD + SSD","KRM61RUG3T84","0105","WDC  WUH721818ALE6L4","PCGNW8C2","-","-","-","-","-","-","16","16","1","16","Intel(R) Xeon(R) Gold 6326 CPU @ 2.90GHz","Ice Lake",4500,"2900","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b62","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",502.83,"8","62.85",141.35,361.48,41.29,1.78,39.52,6.98,1.61,5.89,32.74,0.01,35.15,2,2,"0",-,-,6,"AHV","20230302","3.2.1.71663","CANADA (CA)","Not Found",2025-10-22,"Production: 24x7 service; NBD parts",2022-08-09,"2025-08-07",2026-08-07,"ryan.kuffler@wcap.ca",14,40.00 GiB,206 days and 05:39:59,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+3a323c1c-89d6-41ba-aa83-70cdca42ecfb,"J1059AZ0",HX3376,Not Found,"-","WC-WEY-NXB",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",00060a38-a283-4d16-03fb-72e284297081,"J1059AZ0","Lenovo","HX Epyc",Unknown,"Lenovo","D8E142D-3.60",3.60,31.25,"Lenovo","6.41","Broadcom / LSI","SAS3416(B0)","18.03.00.00","Not Found","-","Mellanox Technologies(15b3)","23.10-2.1.3","26.30.1004 (LNV0000000037)","eth0
+eth1","All SSD","SSDSC2KG019TZL       02JG584D7A44676LEN","7CV1LR16","-","-","-","-","-","-","ThinkSystem M.2 VD","MV.R00-0","12","12","1","12","AMD EPYC 7272 12-Core Processor, Not Installed","Rome",3200,"2900","Matrox Electronics Systems Ltd.","Emulex Corporation","MGA G200e [Pilot] ServerEngines (SEP1)","Subsystem device 0101","Display controller:VGA compatible controller:VGA controller","66","0000:c3:00.0","1",125.17,"8","15.65",96.79,28.37,6.55,2.31,4.24,6.98,2.08,5.42,-,0,-,4,-,"0",-,1,6,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",8,32.00 GiB,95 days and 03:50:53,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+3b057a91-401b-47d6-bfc8-5c10c988b510,"i-03152a766252337dc",AWS.i3en.metal,Not Found,"-","DR-AWS-NXA",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",00062138-280a-23fc-d265-1cc0ae5e57ab,"i-03152a766252337dc","Not Found","Unknown",Unknown,"-","-",-,-,"-","-","-","-","-","Not Found","-","-","-","-","Not Found","Not Found","-","-","-","-","-","-","-","-","-","-","48","0","2","24","-","Not Found",-,"0","Not Found","Not Found","Not Found","Not Found","Not Found","Not Found","Not Found","0",755.02,"0","0.00",102.58,652.45,56.12,26.32,29.80,No data received in last 24 hours,23.22,-,-,0,-,-,-,"0",-,-,4,"AHV","10","3.1.1.62004","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",16,48.00 GiB,125 days and 06:35:45,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+3c6bbd25-069d-4934-a772-26b613246b2a,"WM255S003084",NX-1175S-G9,NX-SWO,"Calgary","WC-SMK-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",00063ea0-53a3-de29-49ae-7cc255ed44cb,"25SH5T340027","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW31.001",5.32,31.25,"SuperMicro","1.01.5","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086), Mellanox Technologies(15b3)","5.19.9, 23.10-2.1.3","0x8000172d, 1.3429.0, 26.39.3004 (MT_0000000575)","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","KIOXIA KCD8XRUG3T84","0105","-","-","-","-","8","8","1","8","INTEL(R) XEON(R) SILVER 4509Y","Not Found",4200,"2600","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",125.01,"4","31.25",26.07,98.94,6.57,0.08,6.50,No data received in last 24 hours,0.07,-,-,0,-,-,-,"2",-,-,2,"AHV","20230302","-","CANADA (CA)","T2P 1G1",2025-10-22,"Production: 24x7 service; NBD parts",2025-09-03,"-",2028-09-02,"awolde@wcap.ca",8,20.00 GiB,3 days and 16:09:45,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+3c91a931-1488-4e93-8f30-c95c503fa680,"2M21020DDH",HPE DX385-12 Gen10 Plus,Not Found,"-","WC-CGY-NXB",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",0005bc41-a88b-e6a0-6a7b-9440c9b3e5dc,"2M21020DDH","HPE","DX Gen10 Plus",Unknown,"HPE","A42",2.56,62.50,"HPE","2.71.00","Adaptec",", 836259-001
+836266-001","5.00","Not Found","-","Mellanox Technologies(15b3)","23.10-2.1.3","16.32.1010 (MT_0000000416)","eth0
+eth1","HDD + SSD","VK003840GWSRV","HPG4","MB012000JWDFD","HPD3","-","-","MR000480GXBGH","HPG1","-","-","32","32","2","16","AMD EPYC 7282 16-Core Processor","Rome",4100,"2800","Matrox Electronics Systems Ltd.","Hewlett Packard Enterprise","MGA G200eH3","iLO5 VGA","Display controller:VGA compatible controller:VGA controller","2","0000:61:00.1","1",881.13,"28","31.47",151.59,729.54,120.74,74.66,46.08,6.98,4.47,3.03,109.14,63.44,53.74,2,10,"0",1,-,4,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",12,40.00 GiB,187 days and 03:04:31,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+42973eb5-b041-419a-b8ed-4c15ec66f07c,"WM241S008054",NX-1175S-G9,NX-SWO,"Calgary","WC-DUV-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",00061a29-6e0f-ec03-7d55-7cc255e24fe7,"24SH5T130072","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW10.201",5.31,31.25,"SuperMicro","1.00.10","Intel Corporation","-","-","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 5.19.9","223.0.161.0/pkg 223.1.96.0, 0x8000172d, 1.3429.0","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","SAMSUNG MZQL23T8HCLS-00A07","GDC5A02Q","-","-","-","-","8","8","1","8","Intel(R) Xeon(R) Gold 5415+","Sapphire Rapids",4000,"2900","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",250.92,"4","62.73",51.03,199.89,6.57,0.17,6.40,No data received in last 24 hours,0.15,-,-,0,-,-,-,"2",-,-,2,"AHV","20230302","3.1.1.62004","CANADA (CA)","T2P 1G1",2025-10-22,"Production: 24x7 service; NBD parts",2024-04-16,"-",2027-04-15,"awolde@wcap.ca",8,32.00 GiB,126 days and 00:15:12,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+472dcccd-96c5-4eda-8e7a-9907b0b2db1e,"WM241S008200",NX-1175S-G9,NX-SWO,"Calgary","WC-FOS-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",000619ff-ccac-366c-26f0-7cc255e24fc9,"24SH5T110081","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW31.001",5.32,31.25,"SuperMicro","1.01.05","Intel Corporation","-","-","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 5.19.9","231.0.153.0/pkg 231.1.162.1, 0x8000172d, 1.3429.0","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","SAMSUNG MZQL23T8HCLS-00A07","GDC5A02Q","-","-","-","-","8","8","1","8","Intel(R) Xeon(R) Gold 5415+","Sapphire Rapids",4200,"2900","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",250.92,"4","62.73",47.01,203.91,6.57,0.89,5.68,No data received in last 24 hours,0.81,-,-,0,-,-,-,"2",-,-,2,"AHV","20230302","3.1.1.62004","CANADA (CA)","T2P 1G1",2025-10-22,"Production: 24x7 service; NBD parts",2024-04-16,"-",2027-04-15,"awolde@wcap.ca",8,32.00 GiB,206 days and 21:26:25,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+47fe13f8-fd8e-4a5b-b390-dae2c1730813,"J105G35E",ThinkAgile HX665 V3 CN,Not Found,"-","WC-CGY-NXF",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",00061882-393a-e34f-6b7e-3a7c76724c80,"J105G35E","Lenovo","HX Genoa",Unknown,"Lenovo","KAE112O-2.11",2.11,31.25,"Lenovo","2.12","-","-","-","Not Found","-","Mellanox Technologies(15b3)","23.10-2.1.3","26.35.1012 (LNV0000000037)","eth0
+eth1","All NVMe","-","-","-","-","Micron_7450_MTFDKCB1T9TFR","E2MU200","-","-","-","-","64","64","2","32","AMD EPYC 9354 32-Core Processor","Genoa",3800,"3250","ASPEED Technology, Inc.
+NVIDIA Corporation","ASPEED Technology, Inc.
+NVIDIA Corporation","ASPEED Graphics Family
+GA107GL [A2 / A16]","Subsystem device 0000
+Subsystem device 14a9
+Subsystem device 2000","Display controller:3D controller
+Display controller:VGA compatible controller:VGA controller","161
+82","0000:45:00.0
+0000:45:00.4
+0000:45:00.5
+0000:45:00.6
+0000:45:00.7
+0000:45:01.0
+0000:45:01.1
+0000:45:01.2
+0000:45:01.3
+0000:45:01.4
+0000:45:01.5
+0000:45:01.6
+0000:45:01.7
+0000:45:02.0
+0000:45:02.1
+0000:45:02.2
+0000:45:02.3
+0000:46:00.0
+0000:46:00.4
+0000:46:00.5
+0000:46:00.6
+0000:46:00.7
+0000:46:01.0
+0000:46:01.1
+0000:46:01.2
+0000:46:01.3
+0000:46:01.4
+0000:46:01.5
+0000:46:01.6
+0000:46:01.7
+0000:46:02.0
+0000:46:02.1
+0000:46:02.2
+0000:46:02.3
+0000:47:00.0
+0000:47:00.4
+0000:47:00.5
+0000:47:00.6
+0000:47:00.7
+0000:47:01.0
+0000:47:01.1
+0000:47:01.2
+0000:47:01.3
+0000:47:01.4
+0000:47:01.5
+0000:47:01.6
+0000:47:01.7
+0000:47:02.0
+0000:47:02.1
+0000:47:02.2
+0000:47:02.3
+0000:48:00.0
+0000:48:00.4
+0000:48:00.5
+0000:48:00.6
+0000:48:00.7
+0000:48:01.0
+0000:48:01.1
+0000:48:01.2
+0000:48:01.3
+0000:48:01.4
+0000:48:01.5
+0000:48:01.6
+0000:48:01.7
+0000:48:02.0
+0000:48:02.1
+0000:48:02.2
+0000:48:02.3
+0000:65:00.0","69",755.01,"24","31.46",726.73,28.28,27.42,11.19,16.23,No data received in last 24 hours,10.11,-,-,0,-,-,-,"2",-,-,6,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",16,64.00 GiB,173 days and 08:28:14,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+4aec3f8a-c5c9-44b6-87f7-e270c41d99fc,"IM253S010254",NX-1175S-G9,NX-SWO,"Calgary","WC-SMK-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",00063ea0-53a3-de29-49ae-7cc255ed44cb,"25SH5T340055","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW31.001",5.32,31.25,"SuperMicro","1.01.5","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086), Mellanox Technologies(15b3)","5.19.9, 23.10-2.1.3","0x8000172d, 1.3429.0, 26.39.3004 (MT_0000000575)","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","KIOXIA KCD8XRUG3T84","0105","-","-","-","-","8","8","1","8","INTEL(R) XEON(R) SILVER 4509Y","Not Found",4200,"2600","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",125.01,"4","31.25",26.07,98.94,6.57,0.08,6.50,No data received in last 24 hours,0.07,-,-,0,-,-,-,"2",-,-,1,"AHV","20230302","-","CANADA (CA)","T2P 1G1",2025-10-22,"Production: 24x7 service; NBD parts",2025-09-03,"-",2028-09-02,"awolde@wcap.ca",8,20.00 GiB,3 days and 16:12:52,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+4e96d5af-1549-4fcb-be16-a7173f51d20c,"2M21020DDG",HPE DX385-12 Gen10 Plus,Not Found,"-","WC-CGY-NXB",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",0005bc41-a88b-e6a0-6a7b-9440c9b3e5dc,"2M21020DDG","HPE","DX Gen10 Plus",Unknown,"HPE","A42",2.56,62.50,"HPE","2.71.00","Adaptec",", 836259-001
+836266-001","5.00","Not Found","-","Mellanox Technologies(15b3)","23.10-2.1.3","16.32.1010 (MT_0000000416)","eth0
+eth1","HDD + SSD","VK003840GWSRV","HPG4","MB012000JWDFD","HPD3","-","-","MR000480GXBGH","HPG1","-","-","32","32","2","16","AMD EPYC 7282 16-Core Processor","Rome",4100,"2800","Matrox Electronics Systems Ltd.","Hewlett Packard Enterprise","MGA G200eH3","iLO5 VGA","Display controller:VGA compatible controller:VGA controller","2","0000:61:00.1","1",881.13,"28","31.47",115.24,765.89,120.64,73.75,46.89,6.98,4.28,3.22,109.14,62.69,54.50,2,10,"0",1,-,2,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",12,40.00 GiB,46 days and 15:35:22,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+50bc4911-ead4-42a7-884d-bca14b15889c,"J105G35G",ThinkAgile HX665 V3 CN,Not Found,"-","WC-CGY-NXF",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",00061882-393a-e34f-6b7e-3a7c76724c80,"J105G35G","Lenovo","HX Genoa",Unknown,"Lenovo","KAE112O-2.11",2.11,31.25,"Lenovo","2.12","-","-","-","Not Found","-","Mellanox Technologies(15b3)","23.10-2.1.3","26.35.1012 (LNV0000000037)","eth0
+eth1","All NVMe","-","-","-","-","Micron_7450_MTFDKCB1T9TFR","E2MU200","-","-","-","-","64","64","2","32","AMD EPYC 9354 32-Core Processor","Genoa",3800,"3250","ASPEED Technology, Inc.
+NVIDIA Corporation","ASPEED Technology, Inc.
+NVIDIA Corporation","ASPEED Graphics Family
+GA107GL [A2 / A16]","Subsystem device 0000
+Subsystem device 14a9
+Subsystem device 2000","Display controller:3D controller
+Display controller:VGA compatible controller:VGA controller","161
+82","0000:45:00.0
+0000:45:00.4
+0000:45:00.5
+0000:45:00.6
+0000:45:00.7
+0000:45:01.0
+0000:45:01.1
+0000:45:01.2
+0000:45:01.3
+0000:45:01.4
+0000:45:01.5
+0000:45:01.6
+0000:45:01.7
+0000:45:02.0
+0000:45:02.1
+0000:45:02.2
+0000:45:02.3
+0000:46:00.0
+0000:46:00.4
+0000:46:00.5
+0000:46:00.6
+0000:46:00.7
+0000:46:01.0
+0000:46:01.1
+0000:46:01.2
+0000:46:01.3
+0000:46:01.4
+0000:46:01.5
+0000:46:01.6
+0000:46:01.7
+0000:46:02.0
+0000:46:02.1
+0000:46:02.2
+0000:46:02.3
+0000:47:00.0
+0000:47:00.4
+0000:47:00.5
+0000:47:00.6
+0000:47:00.7
+0000:47:01.0
+0000:47:01.1
+0000:47:01.2
+0000:47:01.3
+0000:47:01.4
+0000:47:01.5
+0000:47:01.6
+0000:47:01.7
+0000:47:02.0
+0000:47:02.1
+0000:47:02.2
+0000:47:02.3
+0000:48:00.0
+0000:48:00.4
+0000:48:00.5
+0000:48:00.6
+0000:48:00.7
+0000:48:01.0
+0000:48:01.1
+0000:48:01.2
+0000:48:01.3
+0000:48:01.4
+0000:48:01.5
+0000:48:01.6
+0000:48:01.7
+0000:48:02.0
+0000:48:02.1
+0000:48:02.2
+0000:48:02.3
+0000:65:00.0","69",755.01,"24","31.46",490.19,264.82,27.38,11.16,16.22,No data received in last 24 hours,10.12,-,-,0,-,-,-,"2",-,-,5,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",16,64.00 GiB,173 days and 03:57:46,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+53d921e5-9ebd-48fe-b28e-3395a56d2941,"WM251S002018",NX-1175S-G9,NX-SWO,"Calgary","WC-MUS-NXB",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",000631b7-bf0a-7a30-7263-7cc255eaabe0,"25SG5T050058","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW30.101",5.32,31.25,"SuperMicro","1.01.5","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086), Mellanox Technologies(15b3)","5.19.9, 23.10-2.1.3","0x8000172d, 1.3429.0, 26.39.3004 (MT_0000000575)","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","KIOXIA KCD8XRUG3T84","0105","-","-","-","-","8","8","1","8","INTEL(R) XEON(R) SILVER 4509Y","Not Found",4200,"2600","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",125.01,"4","31.25",38.15,86.86,6.57,0.10,6.48,No data received in last 24 hours,0.09,-,-,0,-,-,-,"2",-,-,1,"AHV","20230302","-","CANADA (CA)","T2P1G1",2025-10-22,"Production: 24x7 service; NBD parts",2025-02-06,"-",2028-02-05,"awolde@wcap.ca",8,32.00 GiB,174 days and 13:36:48,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+57cc57fd-6031-4238-b09a-686cc2c71d43,"OM19BS011190",NX-1175S-G6,NX-SWO,"Gull Lake","WC-GLNNTNX01",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005a0fe-ace6-1f1b-0000-00000002b8a5,"19SM59520478","Nutanix","NX G6",NX-1175S-G6,"American Megatrends Inc.","PW70.002",5.14,31.25,"SuperMicro","7.13.01","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086)","5.16.3","1.63, 0x800009fb, 1.1747.0","eth0
+eth1","HDD + SSD","INTEL SSDSC2KG960G8","XCV10135","HGST HUS728T8TALE6L4","V8GNW9G0","-","-","INTEL SSDSCKKB240G8","XC311135","-","-","8","8","1","8","Intel(R) Xeon(R) Silver 4108 CPU @ 1.80GHz","Sky Lake",4500,"1800","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0953","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",250.87,"4","62.72",79.36,171.52,15.89,1.01,14.89,1.75,0.83,1.04,14.55,0.08,15.55,2,2,"0",1,-,4,"AHV","20230302","3.2.1.71663","CANADA (CA)","Not Found",2025-10-22,"Production: 24x7 service; NBD parts",2020-01-29,"2025-01-05",2025-12-31,"ryan.kuffler@wcap.ca",8,24.00 GiB,Not Found,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+5a858029-0e38-494a-8da9-3ad612213c26,"J105G35D",ThinkAgile HX665 V3 CN,Not Found,"-","WC-CGY-NXF",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",00061882-393a-e34f-6b7e-3a7c76724c80,"J105G35D","Lenovo","HX Genoa",Unknown,"Lenovo","KAE112O-2.11",2.11,31.25,"Lenovo","2.12","-","-","-","Not Found","-","Mellanox Technologies(15b3)","23.10-2.1.3","26.35.1012 (LNV0000000037)","eth0
+eth1","All NVMe","-","-","-","-","Micron_7450_MTFDKCB1T9TFR","E2MU200","-","-","-","-","64","64","2","32","AMD EPYC 9354 32-Core Processor","Genoa",3800,"3250","ASPEED Technology, Inc.
+NVIDIA Corporation","ASPEED Technology, Inc.
+NVIDIA Corporation","ASPEED Graphics Family
+GA107GL [A2 / A16]","Subsystem device 0000
+Subsystem device 14a9
+Subsystem device 2000","Display controller:3D controller
+Display controller:VGA compatible controller:VGA controller","161
+82","0000:45:00.0
+0000:45:00.4
+0000:45:00.5
+0000:45:00.6
+0000:45:00.7
+0000:45:01.0
+0000:45:01.1
+0000:45:01.2
+0000:45:01.3
+0000:45:01.4
+0000:45:01.5
+0000:45:01.6
+0000:45:01.7
+0000:45:02.0
+0000:45:02.1
+0000:45:02.2
+0000:45:02.3
+0000:46:00.0
+0000:46:00.4
+0000:46:00.5
+0000:46:00.6
+0000:46:00.7
+0000:46:01.0
+0000:46:01.1
+0000:46:01.2
+0000:46:01.3
+0000:46:01.4
+0000:46:01.5
+0000:46:01.6
+0000:46:01.7
+0000:46:02.0
+0000:46:02.1
+0000:46:02.2
+0000:46:02.3
+0000:47:00.0
+0000:47:00.4
+0000:47:00.5
+0000:47:00.6
+0000:47:00.7
+0000:47:01.0
+0000:47:01.1
+0000:47:01.2
+0000:47:01.3
+0000:47:01.4
+0000:47:01.5
+0000:47:01.6
+0000:47:01.7
+0000:47:02.0
+0000:47:02.1
+0000:47:02.2
+0000:47:02.3
+0000:48:00.0
+0000:48:00.4
+0000:48:00.5
+0000:48:00.6
+0000:48:00.7
+0000:48:01.0
+0000:48:01.1
+0000:48:01.2
+0000:48:01.3
+0000:48:01.4
+0000:48:01.5
+0000:48:01.6
+0000:48:01.7
+0000:48:02.0
+0000:48:02.1
+0000:48:02.2
+0000:48:02.3
+0000:65:00.0","69",755.01,"24","31.46",647.33,107.67,27.39,11.16,16.24,No data received in last 24 hours,10.13,-,-,0,-,-,-,"2",-,-,6,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",16,64.00 GiB,173 days and 05:08:41,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+6674d08f-7010-43e9-9fe1-a4997755fe03,"WM251S000225",NX-1175S-G9,NX-SWO,"Calgary","WC-MUS-NXB",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",000631b7-bf0a-7a30-7263-7cc255eaabe0,"25SG5T050045","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW30.101",5.32,31.25,"SuperMicro","1.01.5","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086), Mellanox Technologies(15b3)","5.19.9, 23.10-2.1.3","0x8000172d, 1.3429.0, 26.39.3004 (MT_0000000575)","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","KIOXIA KCD8XRUG3T84","0105","-","-","-","-","8","8","1","8","INTEL(R) XEON(R) SILVER 4509Y","Not Found",4200,"2600","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",125.01,"4","31.25",74.50,50.51,6.57,0.13,6.44,No data received in last 24 hours,0.12,-,-,0,-,-,-,"2",-,-,3,"AHV","20230302","-","CANADA (CA)","T2P1G1",2025-10-22,"Production: 24x7 service; NBD parts",2025-02-06,"-",2028-02-05,"awolde@wcap.ca",8,32.00 GiB,174 days and 13:34:01,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+699b2af4-4b5b-4042-84e7-94e100fd5144,"WM253S001173",NX-1175S-G9,NX-SWO,"Calgary","WC-GCK-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",00063e9d-48cc-f8c3-5293-7cc255ec2d38,"25SH5T280132","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW31.001",5.32,31.25,"SuperMicro","1.01.5","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086), Mellanox Technologies(15b3)","5.19.9, 23.10-2.1.3","0x8000172d, 1.3429.0, 26.39.3004 (MT_0000000575)","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","KIOXIA KCD8XRUG3T84","0105","-","-","-","-","8","8","1","8","INTEL(R) XEON(R) SILVER 4509Y","Not Found",4200,"2600","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",125.01,"4","31.25",38.15,86.86,6.57,0.04,6.54,No data received in last 24 hours,0.04,-,-,0,-,-,-,"2",-,-,1,"AHV","20230302","-","CANADA (CA)","T2P 1G1",2025-10-22,"Production: 24x7 service; NBD parts",2025-07-24,"-",2028-07-23,"awolde@wcap.ca",8,32.00 GiB,55 days and 16:46:57,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+6a79ab25-6c24-4ffd-a930-898897d02f68,"OM226S016305",NX-1175S-G8,NX-SWO,"Kaybob","WC-KBP-NXB",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005e716-0b5a-1bf7-1c68-3ceceffe1b50,"22SH5N320144","Nutanix","NX G8",NX-1175S-G8,"American Megatrends International, LLC.","WW61.101",5.22,31.25,"SuperMicro","8.02.02","Broadcom / LSI","SAS3816(A0)","25.00.00.01","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 5.19.9","231.0.153.0/pkg 231.1.162.1, 0x8000172d, 1.3429.0","eth0
+eth1
+eth2
+eth3","HDD + SSD","KRM61RUG3T84","0105","WDC  WUH721818ALE6L4","PCGNW8C2","-","-","-","-","-","-","16","16","1","16","Intel(R) Xeon(R) Gold 6326 CPU @ 2.90GHz","Ice Lake",4500,"2900","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b62","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",502.83,"8","62.85",153.39,349.44,41.29,0.84,40.46,6.98,0.75,6.75,32.74,0.01,35.15,2,2,"0",-,-,5,"AHV","20230302","3.2.1.71663","CANADA (CA)","Not Found",2025-10-22,"Production: 24x7 service; NBD parts",2022-08-09,"2025-08-07",2026-08-07,"ryan.kuffler@wcap.ca",14,40.00 GiB,206 days and 07:04:26,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+6a80386d-6886-46dd-b2b4-1f6be7778119,"J105G35C",ThinkAgile HX665 V3 CN,Not Found,"-","WC-CGY-NXF",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",00061882-393a-e34f-6b7e-3a7c76724c80,"J105G35C","Lenovo","HX Genoa",Unknown,"Lenovo","KAE112O-2.11",2.11,31.25,"Lenovo","2.12","-","-","-","Not Found","-","Mellanox Technologies(15b3)","23.10-2.1.3","26.35.1012 (LNV0000000037)","eth0
+eth1","All NVMe","-","-","-","-","Micron_7450_MTFDKCB1T9TFR","E2MU200","-","-","-","-","64","64","2","32","AMD EPYC 9354 32-Core Processor","Genoa",3800,"3250","ASPEED Technology, Inc.
+NVIDIA Corporation","ASPEED Technology, Inc.
+NVIDIA Corporation","ASPEED Graphics Family
+GA107GL [A2 / A16]","Subsystem device 0000
+Subsystem device 14a9
+Subsystem device 2000","Display controller:3D controller
+Display controller:VGA compatible controller:VGA controller","161
+82","0000:45:00.0
+0000:45:00.4
+0000:45:00.5
+0000:45:00.6
+0000:45:00.7
+0000:45:01.0
+0000:45:01.1
+0000:45:01.2
+0000:45:01.3
+0000:45:01.4
+0000:45:01.5
+0000:45:01.6
+0000:45:01.7
+0000:45:02.0
+0000:45:02.1
+0000:45:02.2
+0000:45:02.3
+0000:46:00.0
+0000:46:00.4
+0000:46:00.5
+0000:46:00.6
+0000:46:00.7
+0000:46:01.0
+0000:46:01.1
+0000:46:01.2
+0000:46:01.3
+0000:46:01.4
+0000:46:01.5
+0000:46:01.6
+0000:46:01.7
+0000:46:02.0
+0000:46:02.1
+0000:46:02.2
+0000:46:02.3
+0000:47:00.0
+0000:47:00.4
+0000:47:00.5
+0000:47:00.6
+0000:47:00.7
+0000:47:01.0
+0000:47:01.1
+0000:47:01.2
+0000:47:01.3
+0000:47:01.4
+0000:47:01.5
+0000:47:01.6
+0000:47:01.7
+0000:47:02.0
+0000:47:02.1
+0000:47:02.2
+0000:47:02.3
+0000:48:00.0
+0000:48:00.4
+0000:48:00.5
+0000:48:00.6
+0000:48:00.7
+0000:48:01.0
+0000:48:01.1
+0000:48:01.2
+0000:48:01.3
+0000:48:01.4
+0000:48:01.5
+0000:48:01.6
+0000:48:01.7
+0000:48:02.0
+0000:48:02.1
+0000:48:02.2
+0000:48:02.3
+0000:65:00.0","69",755.01,"24","31.46",432.82,322.19,27.42,11.15,16.27,No data received in last 24 hours,10.11,-,-,0,-,-,-,"2",-,-,4,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",16,64.00 GiB,173 days and 04:50:31,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+6b9e2759-89b7-45be-90d3-7065f32bdd0a,"WM241S008194",NX-1175S-G9,NX-SWO,"Calgary","WC-KER-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",000619ac-5b08-796a-65ea-7cc255e25073,"24SH5T130252","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW10.201",5.31,31.25,"SuperMicro","1.00.10","Intel Corporation","-","-","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 5.19.9","223.0.161.0/pkg 223.1.96.0, 0x8000172d, 1.3429.0","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","SAMSUNG MZQL23T8HCLS-00A07","GDC5A02Q","-","-","-","-","8","8","1","8","Intel(R) Xeon(R) Gold 5415+","Sapphire Rapids",4000,"2900","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",250.92,"4","62.73",53.10,197.82,6.57,0.24,6.33,No data received in last 24 hours,0.22,-,-,0,-,-,-,"2",-,-,3,"AHV","20230302","3.1.1.62004","CANADA (CA)","T2P 1G1",2025-10-22,"Production: 24x7 service; NBD parts",2024-04-12,"-",2027-04-11,"awolde@wcap.ca",8,32.00 GiB,207 days and 19:10:05,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+70b58f99-aa61-4129-9289-bc16bb23ba54,"OM196S020623",NX-1175S-G6,NX-SWO,"Goodlow","WC-BDLNTNX01",EXPIRED,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005902b-e433-72e8-0000-00000002a6e3,"19SM59310202","Nutanix","NX G6",NX-1175S-G6,"American Megatrends Inc.","PW70.002",5.14,31.25,"SuperMicro","7.13.01","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086)","5.16.3","1.63, 0x800009fb, 1.1747.0","eth0
+eth1","HDD + SSD","SAMSUNG MZ7KH960HAJR-00005","HXM7A04Q","ST8000NM0055-1RM112","SN05","-","-","Micron_5100_MTFDDAV240TCB","D0MU071","-","-","8","8","1","8","Intel(R) Xeon(R) Silver 4108 CPU @ 1.80GHz","Sky Lake",4500,"1800","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0953","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",124.97,"4","31.24",36.24,88.73,15.89,0.25,15.64,1.75,0.22,1.66,14.55,0.01,15.62,2,2,"0",1,-,3,"AHV","20230302","3.2.1.71663","CANADA (CA)","V0C 1S0",2025-10-22,"Production: 24x7 service; NBD parts",2019-08-08,"-",2025-01-05,"ryan.kuffler@wcap.ca",6,20.00 GiB,Not Found,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+7618b1dd-313a-41d5-a452-9f41c4b4611c,"WM251S000142",NX-1175S-G9,NX-SWO,"Calgary","WC-GLP-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",00063373-2db4-cb89-6a84-7cc255eaac5e,"25SG5T050013","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW30.101",5.32,31.25,"SuperMicro","1.01.5","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086), Mellanox Technologies(15b3)","5.19.9, 23.10-2.1.3","0x8000172d, 1.3429.0, 26.39.3004 (MT_0000000575)","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","KIOXIA KCD8XRUG3T84","0105","-","-","-","-","8","8","1","8","INTEL(R) XEON(R) SILVER 4509Y","Not Found",4200,"2600","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",125.01,"4","31.25",38.15,86.86,6.57,0.03,6.54,No data received in last 24 hours,0.03,-,-,0,-,-,-,"2",-,-,1,"AHV","20230302","-","CANADA (CA)","T2P1G1",2025-10-22,"Production: 24x7 service; NBD parts",2025-02-04,"-",2028-02-03,"awolde@wcap.ca",8,32.00 GiB,63 days and 13:45:47,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+81096dd6-d0f9-4da0-84d6-dc24eb8e4d56,"OM196S020694",NX-1175S-G6,NX-SWO,"Rocky Mountain House","WC-RMHNTNX01",EXPIRED,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005902a-f77c-9576-0000-00000002a6eb,"19SM59310210","Nutanix","NX G6",NX-1175S-G6,"American Megatrends Inc.","PW70.002",5.14,31.25,"SuperMicro","7.13.01","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086)","5.16.3","1.63, 0x800009fb, 1.1747.0","eth0
+eth1","HDD + SSD","SAMSUNG MZ7KH960HAJR-00005","HXM7A04Q","ST8000NM0055-1RM112","SN05","-","-","Micron_5100_MTFDDAV240TCB","D0MU071","-","-","8","8","1","8","Intel(R) Xeon(R) Silver 4108 CPU @ 1.80GHz","Sky Lake",4500,"1800","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0953","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",124.97,"4","31.24",38.19,86.77,15.89,2.21,13.68,1.75,0.65,1.22,14.55,1.36,14.27,2,2,"0",1,-,2,"AHV","20230302","3.2.1.71663","CANADA (CA)","T0M 0C0",2025-10-22,"Production: 24x7 service; NBD parts",2019-08-08,"-",2025-01-05,"ryan.kuffler@wcap.ca",6,20.00 GiB,Not Found,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+8166e4ca-6e14-47b5-8468-9615d4d63d61,"WM241S008196",NX-1175S-G9,NX-SWO,"Calgary","WC-OLDS-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",00061a02-c6d8-af73-118f-7cc255e25075,"24SH5T130264","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW30.101",5.32,31.25,"SuperMicro","1.01.05","Intel Corporation","-","-","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 5.19.9","223.0.161.0/pkg 223.1.96.0, 0x8000172d, 1.3429.0","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","SAMSUNG MZQL23T8HCLS-00A07","GDC5A02Q","-","-","-","-","8","8","1","8","Intel(R) Xeon(R) Gold 5415+","Sapphire Rapids",4200,"2900","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",250.92,"4","62.73",47.01,203.91,6.57,0.12,6.45,No data received in last 24 hours,0.11,-,-,0,-,-,-,"2",-,-,2,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2P 1G1",2025-10-22,"Production: 24x7 service; NBD parts",2024-04-12,"-",2027-04-11,"awolde@wcap.ca",8,32.00 GiB,209 days and 13:19:59,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+847848c5-3366-4996-b85d-fa46fb69efe7,"WM22BS018942",NX-1120S-G7,NX-SWO,"Musreau","WC-KWA-NXB",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",000610ba-e6e5-b3ee-69b2-3cecefdb38b1,"23SH5G300469","Nutanix","NX G7",NX-1120S-G7,"American Megatrends Inc.","PV50.001",5.14,31.25,"SuperMicro","7.11.00","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.16.3, 2.24.6","1.63, 0x800009fa, 5.50 0x80003351 1.3082.0","eth0
+eth1
+eth2
+eth3
+eth4
+eth5
+eth6
+eth7","All SSD","SAMSUNG MZ7L31T9HBLT-00A07","JXTC304Q","-","-","-","-","INTEL SSDSCKKB240GZ","7CV10111","-","-","8","8","1","8","Intel(R) Xeon(R) D-2146NT CPU @ 2.30GHz","Sky Lake D",4000,"2300","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0986","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",250.88,"4","62.72",47.01,203.87,3.04,0.44,2.61,3.49,0.40,3.35,-,0,-,2,-,"0",1,-,2,"AHV","20230302","3.2.1.71663","CANADA (CA)","Not Found",2025-10-22,"Production: 24x7 service; NBD parts",2023-08-09,"-",2026-08-08,"awolde@wcap.ca",8,32.00 GiB,28 days and 23:02:51,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+866c6fe1-fa6b-4880-98f6-d1b213b0323a,"WM253S001182",NX-1175S-G9,NX-SWO,"Calgary","WC-GCK-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",00063e9d-48cc-f8c3-5293-7cc255ec2d38,"25SH5T280089","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW31.001",5.32,31.25,"SuperMicro","1.01.5","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086), Mellanox Technologies(15b3)","5.19.9, 23.10-2.1.3","0x8000172d, 1.3429.0, 26.39.3004 (MT_0000000575)","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","KIOXIA KCD8XRUG3T84","0105","-","-","-","-","8","8","1","8","INTEL(R) XEON(R) SILVER 4509Y","Not Found",4200,"2600","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",125.01,"4","31.25",38.15,86.86,6.57,0.05,6.52,No data received in last 24 hours,0.05,-,-,0,-,-,-,"2",-,-,1,"AHV","20230302","-","CANADA (CA)","T2P 1G1",2025-10-22,"Production: 24x7 service; NBD parts",2025-07-24,"-",2028-07-23,"awolde@wcap.ca",8,32.00 GiB,55 days and 16:44:16,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+8977f3d2-733d-45f8-aa2d-37e828cc5fcb,"OM226S016473",NX-1175S-G8,NX-SWO,"Calgary","WC-CGY-NXD",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005e704-225b-e742-16fd-3ceceffe1ca0,"22SH5N290314","Nutanix","NX G8",NX-1175S-G8,"American Megatrends International, LLC.","WW20.005",5.22,31.25,"SuperMicro","8.01.09","Broadcom / LSI","SAS3816(A0)","25.00.00.01","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 5.19.9","218.0.226.0/pkg 218.0.300.0, 0x800016dc, 1.3082.0","eth0
+eth1
+eth2
+eth3","All SSD","KRM61RUG3T84","0103","-","-","-","-","-","-","-","-","12","12","1","12","Intel(R) Xeon(R) Gold 5317 CPU @ 3.00GHz","Ice Lake",4500,"3000","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b62","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",502.83,"8","62.85",254.48,248.35,13.86,7.28,6.57,13.97,6.44,8.56,-,0,-,4,-,"0",-,-,15,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C 3C2",2025-10-22,"Production: 24x7 service; NBD parts",2022-08-09,"-",2026-12-07,"ryan.kuffler@wcap.ca",12,32.00 GiB,89 days and 03:17:36,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+8d1da491-c749-4257-9293-ff8173007396,"2M21020DDF",HPE DX385-12 Gen10 Plus,Not Found,"-","WC-CGY-NXB",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",0005bc41-a88b-e6a0-6a7b-9440c9b3e5dc,"2M21020DDF","HPE","DX Gen10 Plus",Unknown,"HPE","A42",2.56,62.50,"HPE","2.71.00","Adaptec",", 836259-001
+836266-001","5.00","Not Found","-","Mellanox Technologies(15b3)","23.10-2.1.3","16.32.1010 (MT_0000000416)","eth0
+eth1","HDD + SSD","VK003840GWSRV","HPG4","MB012000JWDFD","HPD3","-","-","MR000480GXBGH","HPG1","-","-","32","32","2","16","AMD EPYC 7282 16-Core Processor","Rome",4100,"2800","Matrox Electronics Systems Ltd.","Hewlett Packard Enterprise","MGA G200eH3","iLO5 VGA","Display controller:VGA compatible controller:VGA controller","2","0000:61:00.1","1",881.13,"28","31.47",185.83,695.30,120.82,74.25,46.57,6.98,4.10,3.40,109.14,63.34,53.85,2,10,"0",1,-,4,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",12,40.00 GiB,187 days and 03:04:16,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+903b6afb-c3aa-439a-b003-3ea2aecaebf4,"J105G358",ThinkAgile HX665 V3 CN,Not Found,"-","WC-CGY-NXE",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",00061755-a6a5-3a82-390b-043201f0fd0a,"J105G358","Lenovo","HX Genoa",Unknown,"Lenovo","KAE112O-2.11",2.11,31.25,"Lenovo","2.12","-","-","-","Not Found","-","Broadcom Inc. and subsidiaries(14e4)","1.10.2-218.0.67.0","225.0.151.0/pkg 225.1.103.0","eth0
+eth1","All NVMe","-","-","-","-","INTEL SSDPF2KX076T1O","9CV10420","-","-","-","-","64","64","2","32","AMD EPYC 9374F 32-Core Processor","Genoa",4300,"3850","ASPEED Technology, Inc.","ASPEED Technology, Inc.","ASPEED Graphics Family","Subsystem device 2000","Display controller:VGA compatible controller:VGA controller","82","0000:65:00.0","1",1511.02,"24","62.96",1082.77,428.25,94.09,23.58,70.50,No data received in last 24 hours,21.11,-,-,0,-,-,-,"13",-,-,41,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",16,64.00 GiB,206 days and 16:58:50,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+91ae9687-b7c0-4040-a41b-1ac79b3bfc4b,"WM255S003290",NX-1175S-G9,NX-SWO,"Calgary","WC-SMK-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",00063ea0-53a3-de29-49ae-7cc255ed44cb,"25SH5T340006","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW31.001",5.32,31.25,"SuperMicro","1.01.5","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086), Mellanox Technologies(15b3)","5.19.9, 23.10-2.1.3","0x8000172d, 1.3429.0, 26.39.3004 (MT_0000000575)","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","KIOXIA KCD8XRUG3T84","0105","-","-","-","-","8","8","1","8","INTEL(R) XEON(R) SILVER 4509Y","Not Found",4200,"2600","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",125.01,"4","31.25",26.07,98.94,6.57,0.00,6.57,No data received in last 24 hours,0.00,-,-,0,-,-,-,"2",-,-,1,"AHV","20230302","-","CANADA (CA)","T2P 1G1",2025-10-22,"Production: 24x7 service; NBD parts",2025-09-03,"-",2028-09-02,"awolde@wcap.ca",8,20.00 GiB,3 days and 16:22:31,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+93b8320f-caba-4671-9342-1b6df1ef63a0,"MXQ2060C32",HPE DX360-4 G10,Not Found,"-","WC-CGY-NXC",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",0005bfe0-8958-715b-6f9b-d4f5ef1b0ce0,"MXQ2060C32","HPE","DX Gen10",Unknown,"HPE","U32",2.62,62.50,"HPE","2.71.00","Adaptec",", 836259-001","5.00","Not Found","-","Intel Corporation(8086), Mellanox Technologies(15b3)","2.24.6, 23.10-2.1.3","10.57.2, 14.32.1010 (HP_2690110034)","eth0
+eth1
+eth2
+eth3","All SSD","VO007680JWZJL","HPD4","-","-","-","-","MR000480GXBGH","HPG1","-","-","10","10","1","10","Intel(R) Xeon(R) Gold 5215 CPU @ 2.50GHz, Not Specified","Cascade Lake
+Unknown",4000,"2500","Matrox Electronics Systems Ltd.","Hewlett Packard Enterprise","MGA G200eH3","iLO5 VGA","Display controller:VGA compatible controller:VGA controller","2","0000:01:00.1","1",754.71,"12","62.89",328.17,426.54,28.76,17.44,11.32,27.94,14.93,15.07,-,0,-,4,-,"0",1,-,4,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",10,64.00 GiB,187 days and 23:00:11,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+96ac0f95-3203-4403-ad0a-a4d772b85bab,"OM226S016276",NX-1175S-G8,NX-SWO,"Kaybob","WC-KBP-NXB",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005e716-0b5a-1bf7-1c68-3ceceffe1b50,"22SH5N320139","Nutanix","NX G8",NX-1175S-G8,"American Megatrends International, LLC.","WW61.101",5.22,31.25,"SuperMicro","8.02.02","Broadcom / LSI","SAS3816(A0)","25.00.00.01","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 5.19.9","231.0.153.0/pkg 231.1.162.1, 0x8000172d, 1.3429.0","eth0
+eth1
+eth2
+eth3","HDD + SSD","KRM61RUG3T84","0105","WDC  WUH721818ALE6L4","PCGNW8C2","-","-","-","-","-","-","16","16","1","16","Intel(R) Xeon(R) Gold 6326 CPU @ 2.90GHz","Ice Lake",4500,"2900","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b62","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",502.83,"8","62.85",167.54,335.29,41.29,2.04,39.25,6.98,1.84,5.66,32.74,0.01,35.15,2,2,"0",-,-,6,"AHV","20230302","3.2.1.71663","CANADA (CA)","Not Found",2025-10-22,"Production: 24x7 service; NBD parts",2022-08-09,"2025-08-07",2026-08-07,"ryan.kuffler@wcap.ca",14,40.00 GiB,206 days and 03:15:29,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+9e44a86b-24e2-4a56-94e8-fe1e2057e9c4,"WM241S008024",NX-1175S-G9,NX-SWO,"Calgary","WC-FOS-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",000619ff-ccac-366c-26f0-7cc255e24fc9,"24SH5T130075","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW31.001",5.32,31.25,"SuperMicro","1.01.05","Intel Corporation","-","-","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 5.19.9","231.0.153.0/pkg 231.1.162.1, 0x8000172d, 1.3429.0","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","SAMSUNG MZQL23T8HCLS-00A07","GDC5A02Q","-","-","-","-","8","8","1","8","Intel(R) Xeon(R) Gold 5415+","Sapphire Rapids",4200,"2900","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",250.92,"4","62.73",67.28,183.64,6.57,1.54,5.03,No data received in last 24 hours,1.40,-,-,0,-,-,-,"2",-,-,4,"AHV","20230302","3.1.1.62004","CANADA (CA)","T2P 1G1",2025-10-22,"Production: 24x7 service; NBD parts",2024-04-16,"-",2027-04-15,"awolde@wcap.ca",8,32.00 GiB,206 days and 21:29:32,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+a1a63989-df13-49cb-ae8b-55ce248aa607,"WM241S008096",NX-1175S-G9,NX-SWO,"Calgary","WC-FOS-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",000619ff-ccac-366c-26f0-7cc255e24fc9,"24SH5T130073","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW31.001",5.32,31.25,"SuperMicro","1.01.05","Intel Corporation","-","-","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 5.19.9","231.0.153.0/pkg 231.1.162.1, 0x8000172d, 1.3429.0","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","SAMSUNG MZQL23T8HCLS-00A07","GDC5A02Q","-","-","-","-","8","8","1","8","Intel(R) Xeon(R) Gold 5415+","Sapphire Rapids",4200,"2900","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",250.92,"4","62.73",51.03,199.88,6.57,0.84,5.73,No data received in last 24 hours,0.77,-,-,0,-,-,-,"2",-,-,2,"AHV","20230302","3.1.1.62004","CANADA (CA)","T2P 1G1",2025-10-22,"Production: 24x7 service; NBD parts",2024-04-16,"-",2027-04-15,"awolde@wcap.ca",8,32.00 GiB,206 days and 21:25:32,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+a2e18876-a117-4368-9e35-1810e181317f,"OM212S028937",NX-1175S-G7,NX-SWO,"Weyburn","WC-WEY-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005c575-5610-8b63-6cd3-3cecef5abbeb,"21FM5E140100","Nutanix","NX G7",NX-1175S-G7,"American Megatrends Inc.","PW60.001",5.14,31.25,"SuperMicro","7.11.00","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.19.9, 2.24.6","0x800006d1, 255.65535.255, 5.15 0x800027e2 1.2829.0","eth0
+eth1
+eth2
+eth3","HDD + SSD","INTEL SSDSC2KB038T8","XCV10135","ST8000NM000A-2KE101","SN03","-","-","Micron_5300_MTFDDAV240TDS","D3MU001","-","-","12","12","1","12","Intel(R) Xeon(R) Silver 4214R CPU @ 2.40GHz","Cascade Lake",4500,"2400","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0953","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",375.89,"6","62.65",211.38,164.51,21.51,9.35,12.15,6.98,4.85,2.65,14.55,3.65,11.97,2,2,"0",1,-,12,"AHV","20230302","3.2.1.71663","CANADA (CA)","Not Found",2025-10-22,"Production: 24x7 service; NBD parts",2021-04-09,"2025-04-08",2026-04-07,"ryan.kuffler@wcap.ca",12,28.00 GiB,88 days and 03:41:58,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+a56a13e7-76bc-42fc-a8cd-fbfbf70c6b98,"J105G35H",ThinkAgile HX665 V3 CN,Not Found,"-","WC-CGY-NXF",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",00061882-393a-e34f-6b7e-3a7c76724c80,"J105G35H","Lenovo","HX Genoa",Unknown,"Lenovo","KAE112O-2.11",2.11,31.25,"Lenovo","2.12","-","-","-","Not Found","-","Mellanox Technologies(15b3)","23.10-2.1.3","26.35.1012 (LNV0000000037)","eth0
+eth1","All NVMe","-","-","-","-","Micron_7450_MTFDKCB1T9TFR","E2MU200","-","-","-","-","64","64","2","32","AMD EPYC 9354 32-Core Processor","Genoa",3800,"3250","ASPEED Technology, Inc.
+NVIDIA Corporation","ASPEED Technology, Inc.
+NVIDIA Corporation","ASPEED Graphics Family
+GA107GL [A2 / A16]","Subsystem device 0000
+Subsystem device 14a9
+Subsystem device 2000","Display controller:3D controller
+Display controller:VGA compatible controller:VGA controller","161
+82","0000:45:00.0
+0000:45:00.4
+0000:45:00.5
+0000:45:00.6
+0000:45:00.7
+0000:45:01.0
+0000:45:01.1
+0000:45:01.2
+0000:45:01.3
+0000:45:01.4
+0000:45:01.5
+0000:45:01.6
+0000:45:01.7
+0000:45:02.0
+0000:45:02.1
+0000:45:02.2
+0000:45:02.3
+0000:46:00.0
+0000:46:00.4
+0000:46:00.5
+0000:46:00.6
+0000:46:00.7
+0000:46:01.0
+0000:46:01.1
+0000:46:01.2
+0000:46:01.3
+0000:46:01.4
+0000:46:01.5
+0000:46:01.6
+0000:46:01.7
+0000:46:02.0
+0000:46:02.1
+0000:46:02.2
+0000:46:02.3
+0000:47:00.0
+0000:47:00.4
+0000:47:00.5
+0000:47:00.6
+0000:47:00.7
+0000:47:01.0
+0000:47:01.1
+0000:47:01.2
+0000:47:01.3
+0000:47:01.4
+0000:47:01.5
+0000:47:01.6
+0000:47:01.7
+0000:47:02.0
+0000:47:02.1
+0000:47:02.2
+0000:47:02.3
+0000:48:00.0
+0000:48:00.4
+0000:48:00.5
+0000:48:00.6
+0000:48:00.7
+0000:48:01.0
+0000:48:01.1
+0000:48:01.2
+0000:48:01.3
+0000:48:01.4
+0000:48:01.5
+0000:48:01.6
+0000:48:01.7
+0000:48:02.0
+0000:48:02.1
+0000:48:02.2
+0000:48:02.3
+0000:65:00.0","69",755.01,"24","31.46",318.20,436.81,27.38,8.28,19.10,No data received in last 24 hours,7.64,-,-,0,-,-,-,"2",-,-,3,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",16,64.00 GiB,20 days and 16:03:26,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+a5aecebc-ebbe-4bfd-b3a6-9b6b6d8139f6,"i-059edfa6d013c190a",AWS.i3en.metal,Not Found,"-","DR-AWS-NXA",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",00062138-280a-23fc-d265-1cc0ae5e57ab,"i-059edfa6d013c190a","Not Found","Unknown",Unknown,"-","-",-,-,"-","-","-","-","-","Not Found","-","-","-","-","Not Found","Not Found","-","-","-","-","-","-","-","-","-","-","48","0","2","24","-","Not Found",-,"0","Not Found","Not Found","Not Found","Not Found","Not Found","Not Found","Not Found","0",755.02,"0","0.00",120.99,634.03,56.15,25.93,30.22,No data received in last 24 hours,23.08,-,-,0,-,-,-,"0",-,-,10,"AHV","10","3.1.1.62004","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",16,48.00 GiB,190 days and 06:32:07,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+b0e36c96-283d-4203-ae1b-03a47e8a2d5f,"WM253S001061",NX-1175S-G9,NX-SWO,"Calgary","WC-GCK-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",00063e9d-48cc-f8c3-5293-7cc255ec2d38,"25SH5T280099","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW31.001",5.32,31.25,"SuperMicro","1.01.5","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086), Mellanox Technologies(15b3)","5.19.9, 23.10-2.1.3","0x8000172d, 1.3429.0, 26.39.3004 (MT_0000000575)","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","KIOXIA KCD8XRUG3T84","0105","-","-","-","-","8","8","1","8","INTEL(R) XEON(R) SILVER 4509Y","Not Found",4200,"2600","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",125.01,"4","31.25",70.42,54.59,6.57,0.06,6.51,No data received in last 24 hours,0.06,-,-,0,-,-,-,"2",-,-,2,"AHV","20230302","-","CANADA (CA)","T2P 1G1",2025-10-22,"Production: 24x7 service; NBD parts",2025-07-24,"-",2028-07-23,"awolde@wcap.ca",8,32.00 GiB,55 days and 16:46:26,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+b138a067-b526-46f5-84d2-b7f6dd4fa1d0,"OM225S042714",NX-1175S-G8,NX-SWO,"Calgary","WC-CGY-NXD",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005e704-225b-e742-16fd-3ceceffe1ca0,"22SH5N290276","Nutanix","NX G8",NX-1175S-G8,"American Megatrends International, LLC.","WW20.005",5.22,31.25,"SuperMicro","8.01.09","Broadcom / LSI","SAS3816(A0)","25.00.00.01","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 5.19.9","218.0.226.0/pkg 218.0.300.0, 0x800016dc, 1.3082.0","eth0
+eth1
+eth2
+eth3","All SSD","KRM61RUG3T84","0103","-","-","-","-","-","-","-","-","12","12","1","12","Intel(R) Xeon(R) Gold 5317 CPU @ 3.00GHz","Ice Lake",4500,"3000","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b62","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",502.83,"8","62.85",160.58,342.25,13.84,7.25,6.59,13.97,6.54,8.46,-,0,-,4,-,"0",-,-,8,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C 3C2",2025-10-22,"Production: 24x7 service; NBD parts",2022-08-09,"-",2026-12-07,"ryan.kuffler@wcap.ca",12,32.00 GiB,89 days and 03:35:47,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+b92dab43-cb07-4fb4-ae1a-94708557e61b,"WM241S004139",NX-1175S-G9,NX-SWO,"Calgary","WC-EST-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",00061972-1b06-3393-1190-7cc255e1e208,"24SH5T130247","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW10.201",5.31,31.25,"SuperMicro","1.00.10","Intel Corporation","-","-","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 5.19.9","223.0.161.0/pkg 223.1.96.0, 0x8000172d, 1.3429.0","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","SAMSUNG MZQL23T8HCLS-00A07","GDC5A02Q","-","-","-","-","8","8","1","8","Intel(R) Xeon(R) Gold 5415+","Sapphire Rapids",4000,"2900","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",250.92,"4","62.73",59.14,191.78,6.57,0.16,6.42,No data received in last 24 hours,0.14,-,-,0,-,-,-,"2",-,-,3,"AHV","20230302","3.1.1.62004","CANADA (CA)","T2P 1G1",2025-10-22,"Production: 24x7 service; NBD parts",2024-04-12,"-",2027-04-11,"awolde@wcap.ca",8,32.00 GiB,207 days and 14:12:36,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+c14892ee-0932-4df3-82ba-4f7fcdbde7b4,"WM22BS018962",NX-1120S-G7,NX-SWO,"Calgary","WC-BUT-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",000619c2-e438-a495-7e41-3cecefdb38c5,"24SH5G120062","Nutanix","NX G7",NX-1120S-G7,"American Megatrends Inc.","PV50.001",5.14,31.25,"SuperMicro","7.11.00","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.16.3, 2.24.6","1.63, 0x800009fa, 6.00 0x80003fc6 1.3353.0","eth0
+eth1
+eth2
+eth3
+eth4
+eth5
+eth6
+eth7","All SSD","SAMSUNG MZ7L31T9HBLT-00A07","JXTC404Q","-","-","-","-","INTEL SSDSCKKB240GZ","7CV10111","-","-","8","8","1","8","Intel(R) Xeon(R) D-2146NT CPU @ 2.30GHz","Sky Lake D",4000,"2300","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0986","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",250.88,"4","62.72",79.28,171.61,3.04,0.24,2.80,3.49,0.22,3.53,-,0,-,2,-,"0",1,-,3,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2P 1G1",2025-10-22,"Production: 24x7 service; NBD parts",2024-04-16,"-",2027-04-15,"awolde@wcap.ca",8,32.00 GiB,107 days and 16:58:44,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+c2c818e2-d56b-4d0a-837b-93e66eb7da29,"J105G359",ThinkAgile HX665 V3 CN,Not Found,"-","WC-CGY-NXE",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",00061755-a6a5-3a82-390b-043201f0fd0a,"J105G359","Lenovo","HX Genoa",Unknown,"Lenovo","KAE112O-2.11",2.11,31.25,"Lenovo","2.12","-","-","-","Not Found","-","Broadcom Inc. and subsidiaries(14e4)","1.10.2-218.0.67.0","225.0.151.0/pkg 225.1.103.0","eth0
+eth1","All NVMe","-","-","-","-","INTEL SSDPF2KX076T1O","9CV10420","-","-","-","-","64","64","2","32","AMD EPYC 9374F 32-Core Processor","Genoa",4300,"3850","ASPEED Technology, Inc.","ASPEED Technology, Inc.","ASPEED Graphics Family","Subsystem device 2000","Display controller:VGA compatible controller:VGA controller","82","0000:65:00.0","1",1511.02,"24","62.96",1140.71,370.30,94.09,21.56,72.54,No data received in last 24 hours,19.55,-,-,0,-,-,-,"13",-,-,45,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",16,64.00 GiB,206 days and 17:00:47,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+c5be7be4-ea8c-484e-9be1-00d8a88ba852,"WM228S010458",NX-1120S-G7,NX-SWO,"Wapiti","WC-WAP-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0006051a-66b0-8597-37b6-3cecefd475d3,"23SH5G300466","Nutanix","NX G7",NX-1120S-G7,"American Megatrends Inc.","PV50.001",5.14,31.25,"SuperMicro","7.11.00","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.16.3, 2.24.6","1.63, 0x800009fa, 5.50 0x80003351 1.3082.0","eth0
+eth1
+eth2
+eth3
+eth4
+eth5
+eth6
+eth7","All SSD","SAMSUNG MZ7L31T9HBLT-00A07","JXTC304Q","-","-","-","-","INTEL SSDSCKKB240GZ","7CV10111","-","-","8","8","1","8","Intel(R) Xeon(R) D-2146NT CPU @ 2.30GHz","Sky Lake D",4000,"2300","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0986","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",250.88,"4","62.72",79.28,171.60,3.04,0.29,2.76,3.49,0.26,3.49,-,0,-,2,-,"0",1,-,3,"AHV","20230302","3.2.1.71663","CANADA (CA)","Not Found",2025-10-22,"Production: 24x7 service; NBD parts",2023-08-08,"-",2026-08-07,"awolde@wcap.ca",8,32.00 GiB,188 days and 07:22:33,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+c70788b6-8a3c-4bee-af5c-32f955a3f612,"WM251S000127",NX-1175S-G9,NX-SWO,"Calgary","WC-CGY-NXD",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005e704-225b-e742-16fd-3ceceffe1ca0,"25SG5T080122","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW30.101",5.32,31.25,"SuperMicro","1.01.05","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086), Mellanox Technologies(15b3)","5.19.9, 23.10-2.1.3","0x8000172d, 1.3429.0, 26.39.3004 (MT_0000000575)","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","SAMSUNG MZQL23T8HCLS-00A07","GDC5A02Q","-","-","-","-","16","16","1","16","INTEL(R) XEON(R) GOLD 6526Y","Not Found",4200,"2800","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",502.90,"8","62.86",476.35,26.55,13.87,6.87,7.01,No data received in last 24 hours,6.19,-,-,0,-,-,-,"4",-,-,20,"AHV","20230302","3.2.1.71663","CANADA (CA)","T2C 3C2",2025-10-22,"Production: 24x7 service; NBD parts",2025-02-28,"-",2026-11-27,"awolde@wcap.ca",12,48.00 GiB,89 days and 03:33:11,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+cba765e6-9941-4776-910a-2d540d76943f,"J105G356",ThinkAgile HX665 V3 CN,Not Found,"-","WC-CGY-NXE",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",00061755-a6a5-3a82-390b-043201f0fd0a,"J105G356","Lenovo","HX Genoa",Unknown,"Lenovo","KAE112O-2.11",2.11,31.25,"Lenovo","2.12","-","-","-","Not Found","-","Broadcom Inc. and subsidiaries(14e4)","1.10.2-218.0.67.0","225.0.151.0/pkg 225.1.103.0","eth0
+eth1","All NVMe","-","-","-","-","INTEL SSDPF2KX076T1O","9CV10420","-","-","-","-","64","64","2","32","AMD EPYC 9374F 32-Core Processor","Genoa",4300,"3850","ASPEED Technology, Inc.","ASPEED Technology, Inc.","ASPEED Graphics Family","Subsystem device 2000","Display controller:VGA compatible controller:VGA controller","82","0000:65:00.0","1",1511.02,"24","62.96",1073.49,437.53,94.05,26.15,67.90,No data received in last 24 hours,23.93,-,-,0,-,-,-,"13",-,-,54,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",16,64.00 GiB,206 days and 17:01:03,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+d20edeb0-d186-4a6a-a0a1-8afc9012e201,"WM247S002139",NX-1175S-G9,NX-SWO,"Weyburn","WC-WEY-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005c575-5610-8b63-6cd3-3cecef5abbeb,"24SH5T320510","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW20.004",5.32,31.25,"SuperMicro","1.00.10","Intel Corporation, Broadcom / LSI",", SAS3816(A0)",", 25.00.00.01","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.19.9, 1.13.7","0x8000172d, 1.3429.0, 4.20 0x800177b4 1.3346.0","eth0
+eth1
+eth2
+eth3","HDD + NVMe","-","-","HGST HUS728T8TALE6L4","V8GNW9U0","SAMSUNG MZQL23T8HCLS-00A07","GDC5A02Q","-","-","-","-","12","12","1","12","Intel(R) Xeon(R) Silver 4410Y","Sapphire Rapids",4200,"2000","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",376.67,"6","62.78",191.56,185.11,21.91,5.07,16.84,No data received in last 24 hours,4.15,-,14.55,0.46,15.17,-,2,"2",-,-,15,"AHV","20230302","3.2.1.71663","CANADA (CA)","S4H 3N7",2025-10-22,"Production: 24x7 service; NBD parts",2024-09-03,"-",2027-09-02,"awolde@wcap.ca",12,28.00 GiB,27 days and 03:40:08,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+db08e43f-0859-4c89-b31b-bb25ed2e8af9,"WM251S000235",NX-1175S-G9,NX-SWO,"Calgary","WC-GLP-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Long View Systems - Canada","Ingram Micro Canada",00063373-2db4-cb89-6a84-7cc255eaac5e,"25SG5T050033","Nutanix","NX G9",NX-1175S-G9,"American Megatrends International, LLC.","EW30.101",5.32,31.25,"SuperMicro","1.01.5","Intel Corporation","-","-","Not Found","-","Intel Corporation(8086), Mellanox Technologies(15b3)","5.19.9, 23.10-2.1.3","0x8000172d, 1.3429.0, 26.39.3004 (MT_0000000575)","eth0
+eth1
+eth2
+eth3","All NVMe","-","-","-","-","KIOXIA KCD8XRUG3T84","0105","-","-","-","-","8","8","1","8","INTEL(R) XEON(R) SILVER 4509Y","Not Found",4200,"2600","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1c51","Display controller:VGA compatible controller:VGA controller","82","0000:03:00.0","1",125.01,"4","31.25",70.42,54.59,6.57,0.05,6.52,No data received in last 24 hours,0.05,-,-,0,-,-,-,"2",-,-,2,"AHV","20230302","-","CANADA (CA)","T2P1G1",2025-10-22,"Production: 24x7 service; NBD parts",2025-02-04,"-",2028-02-03,"awolde@wcap.ca",8,32.00 GiB,63 days and 13:44:00,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+dce501a7-7502-4e0a-b019-6296ca642d8b,"OM225S042657",NX-1175S-G8,NX-SWO,"Kaybob","WC-KBP-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005e712-d27c-1010-206a-3ceceffd92e0,"22SG5N300039","Nutanix","NX G8",NX-1175S-G8,"American Megatrends International, LLC.","WW20.005",5.22,31.25,"SuperMicro","8.01.07","Broadcom / LSI","SAS3816(A0)","25.00.00.01","Not Found","-","Broadcom Inc. and subsidiaries(14e4), Intel Corporation(8086)","1.10.2-226.0.141.0, 5.19.9","218.0.226.0/pkg 218.0.300.0, 0x80001373, 1.2829.0","eth0
+eth1
+eth2
+eth3","All SSD","SAMSUNG MZ7LH1T9HMLT-00005","HXT7B04Q","-","-","-","-","-","-","-","-","12","12","1","12","Intel(R) Xeon(R) Gold 5317 CPU @ 3.00GHz","Ice Lake",4500,"3000","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 1b62","Display controller:VGA compatible controller:VGA controller","82","0000:04:00.0","1",124.92,"2","62.46",60.45,64.48,3.04,0.33,2.71,3.49,0.30,3.45,-,0,-,2,-,"0",-,-,4,"AHV","20230302","3.2.1.71663","CANADA (CA)","Not Found",2025-10-22,"Production: 24x7 service; NBD parts",2022-08-03,"2025-08-01",2026-08-01,"ryan.kuffler@wcap.ca",12,32.00 GiB,206 days and 02:57:09,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+e3564935-76b5-487b-bdfc-2c07ae4e4a37,"MXQ1031914",HPE DX360-4 G10,Not Found,"-","WC-CGY-NXC",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",0005bfe0-8958-715b-6f9b-d4f5ef1b0ce0,"MXQ1031914","HPE","DX Gen10",Unknown,"HPE","U32",2.62,62.50,"HPE","2.71.00","Adaptec",", 836259-001","5.00","Not Found","-","Intel Corporation(8086)","2.24.6","10.57.2","eth0
+eth1","All SSD","VO007680JWZJL","HPD4","-","-","-","-","MR000480GXBGH","HPG1","-","-","10","10","1","10","Intel(R) Xeon(R) Gold 5215 CPU @ 2.50GHz, Not Specified","Cascade Lake
+Unknown",4000,"2500","Matrox Electronics Systems Ltd.","Hewlett Packard Enterprise","MGA G200eH3","iLO5 VGA","Display controller:VGA compatible controller:VGA controller","2","0000:01:00.1","1",754.71,"12","62.89",434.81,319.89,28.78,16.46,12.32,27.94,13.63,16.37,-,0,-,4,-,"0",1,-,14,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",10,64.00 GiB,187 days and 23:04:12,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+e810a878-4c0a-4153-a0ef-1ca14cdaf43e,"OM19BS009004",NX-1175S-G6,NX-SWO,"Cynthia","WC-CYNNTNX01",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",00059f6d-e733-a513-0000-00000002b8cd,"19SM59520518","Nutanix","NX G6",NX-1175S-G6,"American Megatrends Inc.","PW70.002",5.14,31.25,"SuperMicro","7.13.01","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086)","5.16.3","1.63, 0x800009fb, 1.1747.0","eth0
+eth1","HDD + SSD","INTEL SSDSC2KG960G8","XCV10135","HGST HUS728T8TALE6L4","V8GNW9G0","-","-","INTEL SSDSCKKB240G8","XC311135","-","-","8","8","1","8","Intel(R) Xeon(R) Silver 4108 CPU @ 1.80GHz","Sky Lake",4500,"1800","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0953","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",250.87,"4","62.72",39.00,211.87,15.89,0.34,15.55,1.75,0.30,1.58,14.55,0.01,15.61,2,2,"0",1,-,3,"AHV","20230302","3.2.1.71663","CANADA (CA)","Not Found",2025-10-22,"Production: 24x7 service; NBD parts",2020-01-29,"2025-01-05",2025-12-31,"ryan.kuffler@wcap.ca",8,20.00 GiB,5 days and 03:18:10,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+ecb76f5d-abc8-47dd-843f-543becef3f6f,"WM22BS018931",NX-1120S-G7,NX-SWO,"Sturgeon Lake","WC-STR-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",00061057-fe1d-855f-4235-3cecefdb38a6,"23SH5G300474","Nutanix","NX G7",NX-1120S-G7,"American Megatrends Inc.","PV50.001",5.14,31.25,"SuperMicro","7.11.00","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.16.3, 2.24.6","1.63, 0x800009fa, 5.50 0x80003351 1.3082.0","eth0
+eth1
+eth2
+eth3
+eth4
+eth5
+eth6
+eth7","All SSD","SAMSUNG MZ7L31T9HBLT-00A07","JXTC304Q","-","-","-","-","INTEL SSDSCKKB240GZ","7CV10111","-","-","8","8","1","8","Intel(R) Xeon(R) D-2146NT CPU @ 2.30GHz","Sky Lake D",4000,"2300","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0986","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",250.88,"4","62.72",87.44,163.44,3.04,0.56,2.48,3.49,0.51,3.24,-,0,-,2,-,"0",1,-,5,"AHV","20230302","3.2.1.71663","CANADA (CA)","Not Found",2025-10-22,"Production: 24x7 service; NBD parts",2023-08-09,"-",2026-08-08,"ryan.kuffler@wcap.ca",8,32.00 GiB,Not Found,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+ef6f8bca-859e-49b0-bb31-b3b65cb1b2a4,"OM212S028857",NX-1175S-G7,NX-SWO,"Weyburn","WC-WEY-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005c575-5610-8b63-6cd3-3cecef5abbeb,"21FM5E140099","Nutanix","NX G7",NX-1175S-G7,"American Megatrends Inc.","PW60.001",5.14,31.25,"SuperMicro","7.11.00","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.19.9, 2.24.6","0x800006d1, 255.65535.255, 5.15 0x800027e2 1.2829.0","eth0
+eth1
+eth2
+eth3","HDD + SSD","INTEL SSDSC2KB038T8","XCV10135","ST8000NM000A-2KE101","SN03","-","-","Micron_5300_MTFDDAV240TDS","D3MU001","-","-","12","12","1","12","Intel(R) Xeon(R) Silver 4214R CPU @ 2.40GHz","Cascade Lake",4500,"2400","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0953","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",375.89,"6","62.65",221.56,154.32,21.51,8.83,12.68,6.98,4.43,3.07,14.55,3.55,12.07,2,2,"0",1,-,14,"AHV","20230302","3.2.1.71663","CANADA (CA)","Not Found",2025-10-22,"Production: 24x7 service; NBD parts",2021-04-09,"2025-04-08",2026-04-07,"ryan.kuffler@wcap.ca",12,28.00 GiB,88 days and 03:42:44,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+f272ada0-ff2d-4e2b-bf9c-492391e4c949,"OM212S028838",NX-1175S-G7,NX-SWO,"Weyburn","WC-WEY-NXA",Under Support,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005c575-5610-8b63-6cd3-3cecef5abbeb,"21FM5E140102","Nutanix","NX G7",NX-1175S-G7,"American Megatrends Inc.","PW60.001",5.14,31.25,"SuperMicro","7.11.00","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.19.9, 2.24.6","0x800006d1, 255.65535.255, 5.15 0x800027e2 1.2829.0","eth0
+eth1
+eth2
+eth3","HDD + SSD","INTEL SSDSC2KB038T8","XCV10135","ST8000NM000A-2KE101","SN03","-","-","Micron_5300_MTFDDAV240TDS","D3MU001","-","-","12","12","1","12","Intel(R) Xeon(R) Silver 4214R CPU @ 2.40GHz","Cascade Lake",4500,"2400","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0953","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",375.89,"6","62.65",253.88,122.00,21.51,9.06,12.45,6.98,4.88,2.62,14.55,3.36,12.26,2,2,"0",1,-,16,"AHV","20230302","3.2.1.71663","CANADA (CA)","Not Found",2025-10-22,"Production: 24x7 service; NBD parts",2021-04-09,"2025-04-08",2026-04-07,"ryan.kuffler@wcap.ca",12,28.00 GiB,88 days and 03:42:20,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+fa6586f3-e275-4488-9e6b-666e46c00946,"OM21BS052138",NX-1175S-G7,NX-SWO,"Valhalla","WC-VAL-NXA",EXPIRED,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",0005d9f3-3eae-2c27-0c08-3cecefeec058,"22SG5E030147","Nutanix","NX G7",NX-1175S-G7,"American Megatrends Inc.","PW80.001",5.14,31.25,"SuperMicro","7.15.00","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086), Intel Corporation(8086)","5.19.9, 2.24.6","0x800006d1, 255.65535.255, 6.20 0x800041f9 1.3534.0","eth0
+eth1
+eth2
+eth3","All SSD","SAMSUNG MZ7LH1T9HMLT-00005","HXT7B04Q","-","-","-","-","Micron_5300_MTFDDAV240TDS","D3MU001","-","-","8","8","1","8","Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz","Cascade Lake",4500,"2100","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0953","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",124.97,"4","31.24",102.64,22.33,3.04,0.35,2.69,3.49,0.32,3.43,-,0,-,2,-,"0",1,-,2,"AHV","20230302","3.2.1.71663","CANADA (CA)","Not Found",2025-10-22,"Production: 24x7 service; NBD parts",2022-01-28,"-",2025-01-27,"ryan.kuffler@wcap.ca",8,32.00 GiB,82 days and 05:56:49,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+fb51bad5-f5a2-470b-924c-766e6b5f7a86,"JZ00L80N",ThinkAgile HX665 V3 CN,Not Found,"-","WC-CGY-NXE",Not Found,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Not Found","Not Found",00061755-a6a5-3a82-390b-043201f0fd0a,"JZ00L80N","Lenovo","HX Genoa",Unknown,"Lenovo","KAE112O-2.11",2.11,31.25,"Lenovo","3.20","-","-","-","Not Found","-","Broadcom Inc. and subsidiaries(14e4)","1.10.2-218.0.67.0","225.0.151.0/pkg 225.1.103.0","eth0
+eth1","All NVMe","-","-","-","-","Micron_7450_MTFDKCC7T6TFR","E2MU200","-","-","-","-","64","64","2","32","AMD EPYC 9374F 32-Core Processor","Genoa",4300,"3850","ASPEED Technology, Inc.","ASPEED Technology, Inc.","ASPEED Graphics Family","Subsystem device 2000","Display controller:VGA compatible controller:VGA controller","82","0000:65:00.0","1",1511.02,"24","62.96",1107.74,403.28,88.09,16.25,71.84,No data received in last 24 hours,13.88,-,-,0,-,-,-,"12",-,-,39,"AHV","20230302","3.2.1.71663","Not Found","Not Found",2025-10-22,"-",-,"-",-,"-",16,63.00 GiB,128 days and 17:03:03,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"
+fe1cf0bb-6f1f-42d3-836c-13ac55a071ef,"NM191S027231",NX-1175S-G6,NX-SWO,"Kakwa","WC-KWA-NXA",EXPIRED,"WhiteCap Resources","Scott Sefcik","scott.sefcik@nutanix.com","Ironclad TEK Inc.","Ingram Micro Canada",000581e3-76ec-96d8-0000-000000027cc9,"19SM59050144","Nutanix","NX G6",NX-1175S-G6,"American Megatrends Inc.","PW70.002",5.14,31.25,"SuperMicro","7.13.01","Broadcom / LSI","SAS3008(C0)","16.00.10.00","Not Found","-","Intel Corporation(8086)","5.16.3","1.63, 0x800009fb, 1.1747.0","eth0
+eth1","HDD + SSD","SAMSUNG MZ7KM960HMJP-00005","GXM5304Q","ST8000NM0055-1RM112","SN05","-","-","INTEL SSDSCKJB240G7","N2010121","-","-","8","8","1","8","Intel(R) Xeon(R) Silver 4108 CPU @ 1.80GHz","Sky Lake",4500,"1800","ASPEED Technology, Inc.","Super Micro Computer Inc","ASPEED Graphics Family","Subsystem device 0953","Display controller:VGA compatible controller:VGA controller","65","0000:03:00.0","1",124.97,"4","31.24",58.33,66.63,15.77,0.20,15.57,1.75,0.18,1.70,14.55,0.01,15.62,2,2,"0",1,-,2,"AHV","20230302","3.2.1.71663","CANADA (CA)","Not Found",2025-10-22,"Production: 24x7 service; NBD parts",2019-02-12,"-",2025-01-05,"ryan.kuffler@wcap.ca",6,20.00 GiB,106 days and 16:12:52,"-","Americas","Americas North Enterprise & Canada","Canada Enterprise/Comm West"

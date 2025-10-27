@@ -18,7 +18,10 @@
       "Bash(copy servicesai-service.env.example servicesai-service.env)",
       "Bash(timeout:*)",
       "Bash(python:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(node -e:*)",
+      "Bash(npm run health:*)",
+      "Bash(dir /b \"C:\\Users\\DaemonBehr\\GitHub\\cs720\\frontend\\public\")"
     ],
     "deny": [],
     "ask": []

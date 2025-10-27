@@ -34,7 +34,24 @@ export const useAccountStore = create<AccountStore>()(
       set({ loading: true, error: null });
 
       try {
-        const accounts = await DatabaseService.getAccounts();
+        // Fetch accounts from backend API
+        const response = await fetch('/api/accounts');
+
+        if (!response.ok) {
+          throw new Error(`Failed to load accounts: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        const accounts: Account[] = data.accounts.map((acc: any) => ({
+          id: acc.id,
+          name: acc.name,
+          industry: '', // Will be populated from dashboard data
+          status: 'active',
+          siteCount: 0, // Will be populated from dashboard data
+          lastModified: acc.updatedAt || acc.createdAt,
+          lastSyncTime: acc.createdAt
+        }));
+
         set({ accounts, loading: false });
       } catch (error) {
         console.error('Error loading accounts:', error);
@@ -49,13 +66,45 @@ export const useAccountStore = create<AccountStore>()(
       set({ loading: true, error: null });
 
       try {
-        // Load dashboard data from local database
-        const dashboardData = await DatabaseService.getDashboardData(accountId);
+        // Fetch account details and stats from API
+        const [statsRes, clustersRes, casesRes, utilizationRes] = await Promise.all([
+          fetch(`/api/accounts/${accountId}/stats`),
+          fetch(`/api/accounts/${accountId}/clusters`),
+          fetch(`/api/accounts/${accountId}/cases?limit=10`),
+          fetch(`/api/accounts/${accountId}/utilization`)
+        ]);
 
+        if (!statsRes.ok || !clustersRes.ok || !casesRes.ok || !utilizationRes.ok) {
+          throw new Error('Failed to load account data');
+        }
+
+        const [statsData, clustersData, casesData, utilizationData] = await Promise.all([
+          statsRes.json(),
+          clustersRes.json(),
+          casesRes.json(),
+          utilizationRes.json()
+        ]);
+
+        // Transform the data to match DashboardData structure
         const currentAccountData: DashboardData = {
           accountId,
-          ...dashboardData,
-          lastSyncTime: new Date().toISOString()
+          priorities: [],
+          upcomingDates: [],
+          projects: [],
+          customerIssues: casesData.cases?.map((c: any) => ({
+            id: c.caseNumber,
+            title: `Case ${c.caseNumber}${c.product ? ` - ${c.product}` : ''}`,
+            severity: c.severity || 'medium',
+            status: c.status || 'open',
+            createdDate: c.createdDate,
+            resolvedDate: c.closedDate
+          })) || [],
+          tickets: [],
+          industryIntelligence: [],
+          lastSyncTime: new Date().toISOString(),
+          stats: statsData.stats,
+          clusters: clustersData.clusters,
+          utilization: utilizationData.utilization
         };
 
         set({ currentAccountData, loading: false });
