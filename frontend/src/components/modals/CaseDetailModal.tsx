@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Modal from '../ui/Modal';
 import LoadingSpinner from '../ui/LoadingSpinner';
 
@@ -32,13 +32,7 @@ export default function CaseDetailModal({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (isOpen && caseNumber) {
-      fetchCaseDetails();
-    }
-  }, [isOpen, caseNumber]);
-
-  const fetchCaseDetails = async () => {
+  const fetchCaseDetails = useCallback(async () => {
     setLoading(true);
     setError(null);
 
@@ -58,7 +52,13 @@ export default function CaseDetailModal({
     } finally {
       setLoading(false);
     }
-  };
+  }, [accountId, caseNumber]);
+
+  useEffect(() => {
+    if (isOpen && caseNumber) {
+      fetchCaseDetails();
+    }
+  }, [isOpen, caseNumber, fetchCaseDetails]);
 
   const getSeverityColor = (severity: string | null) => {
     if (!severity) return 'bg-gray-500/20 text-gray-400';

@@ -42,7 +42,7 @@ export const useAccountStore = create<AccountStore>()(
         }
 
         const data = await response.json();
-        const accounts: Account[] = data.accounts.map((acc: any) => ({
+        const accounts: Account[] = data.accounts.map((acc: { id: string; name: string; updatedAt?: string; createdAt: string }) => ({
           id: acc.id,
           name: acc.name,
           industry: '', // Will be populated from dashboard data
@@ -91,7 +91,7 @@ export const useAccountStore = create<AccountStore>()(
           priorities: [],
           upcomingDates: [],
           projects: [],
-          customerIssues: casesData.cases?.map((c: any) => ({
+          customerIssues: casesData.cases?.map((c: { caseNumber: string; product?: string; severity?: string; status?: string; createdDate: string; closedDate?: string }) => ({
             id: c.caseNumber,
             title: `Case ${c.caseNumber}${c.product ? ` - ${c.product}` : ''}`,
             severity: c.severity || 'medium',

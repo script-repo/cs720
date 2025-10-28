@@ -42,7 +42,7 @@ export default function Sync() {
     }
   };
 
-  const getOverallProgress = (job: any) => {
+  const getOverallProgress = (job: { progress: { salesforce: { total: number; processed: number }; onedrive: { total: number; processed: number }; businessIntelligence: { total: number; processed: number } } }) => {
     const { salesforce, onedrive, businessIntelligence } = job.progress;
     const total = salesforce.total + onedrive.total + businessIntelligence.total;
     const processed = salesforce.processed + onedrive.processed + businessIntelligence.processed;
@@ -275,10 +275,10 @@ export default function Sync() {
                   <label key={source.id} className="flex items-center">
                     <input
                       type="checkbox"
-                      checked={syncSources.includes(source.id as any)}
+                      checked={syncSources.includes(source.id as 'salesforce' | 'onedrive' | 'bi')}
                       onChange={(e) => {
                         if (e.target.checked) {
-                          setSyncSources([...syncSources, source.id as any]);
+                          setSyncSources([...syncSources, source.id as 'salesforce' | 'onedrive' | 'bi']);
                         } else {
                           setSyncSources(syncSources.filter(s => s !== source.id));
                         }

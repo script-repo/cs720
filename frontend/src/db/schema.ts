@@ -153,7 +153,7 @@ export class DatabaseService {
     tickets?: Ticket[];
     industryIntelligence?: IndustryIntelligence[];
   }): Promise<void> {
-    const operations: Promise<any>[] = [];
+    const operations: Promise<void>[] = [];
 
     if (data.priorities) {
       operations.push(db.priorities.bulkPut(data.priorities));
@@ -289,7 +289,8 @@ export class DatabaseService {
     let totalSize = 0;
 
     for (const tableName of tables) {
-      const count = await (db as any)[tableName].count();
+      const table = db[tableName as keyof CS720Database] as Table;
+      const count = await table.count();
       // Rough estimate: 1KB per record
       const size = count * 1024;
       breakdown[tableName] = size;

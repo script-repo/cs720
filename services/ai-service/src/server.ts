@@ -88,7 +88,7 @@ interface QueryRequest {
 interface ChatRequest {
   message: string;
   accountId?: string;
-  context?: any;
+  context?: unknown;
   stream?: boolean;
 }
 
@@ -192,14 +192,15 @@ app.post(AI_SERVICE_ROUTES.QUERY, async (req: Request, res: Response) => {
         },
       });
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     console.error('❌ Query error:', error);
     res.status(500).json({
       success: false,
       error: {
         message: 'AI query failed',
         code: 'LLM_REQUEST_FAILED',
-        details: error.message,
+        details: errorMessage,
       },
       timestamp: new Date().toISOString(),
     });
@@ -271,14 +272,15 @@ app.post(AI_SERVICE_ROUTES.CHAT, async (req: Request, res: Response) => {
         },
       });
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     console.error('❌ Chat error:', error);
     res.status(500).json({
       success: false,
       error: {
         message: 'Chat failed',
         code: 'LLM_REQUEST_FAILED',
-        details: error.message,
+        details: errorMessage,
       },
       timestamp: new Date().toISOString(),
     });
@@ -297,14 +299,15 @@ app.get(AI_SERVICE_ROUTES.MODELS, async (req: Request, res: Response) => {
       data: models,
       timestamp: new Date().toISOString(),
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     console.error('❌ Failed to fetch models:', error);
     res.status(500).json({
       success: false,
       error: {
         message: 'Failed to fetch models',
         code: 'LLM_ERROR',
-        details: error.message,
+        details: errorMessage,
       },
       timestamp: new Date().toISOString(),
     });
@@ -345,7 +348,7 @@ app.use((req: Request, res: Response) => {
   });
 });
 
-app.use((err: Error, req: Request, res: Response, next: any) => {
+app.use((err: Error, req: Request, res: Response, _next: unknown) => {
   console.error('❌ Unhandled error:', err);
   res.status(500).json({
     success: false,

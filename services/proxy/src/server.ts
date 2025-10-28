@@ -84,7 +84,7 @@ interface ProxyRequestBody {
     stream?: boolean;
     temperature?: number;
     max_tokens?: number;
-    [key: string]: any;
+    [key: string]: unknown;
   };
 }
 
@@ -161,6 +161,7 @@ app.post(PROXY_ROUTES.PROXY, async (req: Request, res: Response) => {
       const decoder = new TextDecoder();
 
       try {
+        // eslint-disable-next-line no-constant-condition
         while (true) {
           const { done, value } = await reader.read();
 
@@ -181,14 +182,15 @@ app.post(PROXY_ROUTES.PROXY, async (req: Request, res: Response) => {
       const data = await response.json();
       res.json(data);
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     console.error('❌ Proxy error:', error);
     res.status(500).json({
       success: false,
       error: {
         message: 'Proxy server error',
         code: 'PROXY_ERROR',
-        details: error.message,
+        details: errorMessage,
       },
       timestamp: new Date().toISOString(),
     });
@@ -300,14 +302,15 @@ app.post(PROXY_ROUTES.HEALTH_REMOTE, async (req: Request, res: Response) => {
         timestamp: new Date().toISOString(),
       });
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     const latency = Date.now() - startTime;
-    console.log(`❌ Remote endpoint error: ${error.message}`);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.log(`❌ Remote endpoint error: ${errorMessage}`);
     return res.json({
       success: true,
       data: {
         status: 'unavailable',
-        message: error.message,
+        message: errorMessage,
         latency,
       },
       timestamp: new Date().toISOString(),
@@ -332,7 +335,7 @@ app.use((req: Request, res: Response) => {
 });
 
 // Global error handler
-app.use((err: Error, req: Request, res: Response, next: any) => {
+app.use((err: Error, req: Request, res: Response, _next: unknown) => {
   console.error('❌ Unhandled error:', err);
   res.status(500).json({
     success: false,

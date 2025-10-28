@@ -176,8 +176,8 @@ export interface DashboardData {
     cases: number;
     licenses: number;
   };
-  clusters?: any[];
-  utilization?: any[];
+  clusters?: unknown[];
+  utilization?: unknown[];
 }
 
 export interface UserPreferences {

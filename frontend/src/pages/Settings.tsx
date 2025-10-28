@@ -62,7 +62,7 @@ export default function Settings() {
                   ...localPreferences,
                   sync: {
                     ...localPreferences.sync,
-                    frequency: e.target.value as any
+                    frequency: e.target.value as 'manual' | 'daily' | 'hourly'
                   }
                 })}
                 className="input w-full"
@@ -83,7 +83,7 @@ export default function Settings() {
                   ...localPreferences,
                   sync: {
                     ...localPreferences.sync,
-                    accountScope: e.target.value as any
+                    accountScope: e.target.value as 'all' | 'selected'
                   }
                 })}
                 className="input w-full"
@@ -115,7 +115,7 @@ export default function Settings() {
                     ...localPreferences,
                     ai: {
                       ...localPreferences.ai,
-                      preferredModel: e.target.value as any
+                      preferredModel: e.target.value as 'ollama' | 'openai'
                     }
                   })}
                   className="input w-full"
@@ -310,7 +310,7 @@ export default function Settings() {
                   ...localPreferences,
                   ui: {
                     ...localPreferences.ui,
-                    theme: e.target.value as any
+                    theme: e.target.value as 'dark' | 'light'
                   }
                 })}
                 className="input w-full"

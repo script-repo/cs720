@@ -40,11 +40,12 @@ export class OllamaClient {
         latency,
         model: models.length > 0 ? models[0].name : undefined,
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to connect to Ollama';
       return {
         backend: 'ollama',
         available: false,
-        error: error.message || 'Failed to connect to Ollama',
+        error: errorMessage,
       };
     }
   }
@@ -61,10 +62,11 @@ export class OllamaClient {
       }
 
       const data = await response.json();
-      return (data.models || []).map((m: any) => m.name);
-    } catch (error: any) {
+      return (data.models || []).map((m: { name: string }) => m.name);
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       console.error('Failed to list Ollama models:', error);
-      throw new Error(`Ollama list models failed: ${error.message}`);
+      throw new Error(`Ollama list models failed: ${errorMessage}`);
     }
   }
 
@@ -116,7 +118,7 @@ export class OllamaClient {
       if (stream) {
         // For streaming, return the raw response body
         // The caller will handle streaming
-        return response.body as any;
+        return response.body as unknown as string;
       } else {
         // For non-streaming, collect all chunks
         let fullResponse = '';
@@ -166,9 +168,10 @@ export class OllamaClient {
           body.on('error', reject);
         });
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       console.error('Ollama chat error:', error);
-      throw new Error(`Ollama chat failed: ${error.message}`);
+      throw new Error(`Ollama chat failed: ${errorMessage}`);
     }
   }
 
@@ -194,9 +197,10 @@ export class OllamaClient {
 
       const data = await response.json();
       return data.embedding || [];
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       console.error('Ollama embedding error:', error);
-      throw new Error(`Ollama embedding failed: ${error.message}`);
+      throw new Error(`Ollama embedding failed: ${errorMessage}`);
     }
   }
 }

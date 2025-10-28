@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Modal from '../ui/Modal';
 import LoadingSpinner from '../ui/LoadingSpinner';
 
@@ -42,13 +42,7 @@ export default function ClusterDetailModal({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (isOpen && clusterId) {
-      fetchClusterDetails();
-    }
-  }, [isOpen, clusterId]);
-
-  const fetchClusterDetails = async () => {
+  const fetchClusterDetails = useCallback(async () => {
     setLoading(true);
     setError(null);
 
@@ -68,7 +62,13 @@ export default function ClusterDetailModal({
     } finally {
       setLoading(false);
     }
-  };
+  }, [accountId, clusterId]);
+
+  useEffect(() => {
+    if (isOpen && clusterId) {
+      fetchClusterDetails();
+    }
+  }, [isOpen, clusterId, fetchClusterDetails]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Cluster Details" size="lg">

@@ -197,8 +197,6 @@ export const useSyncStore = create<SyncStore>()(
     subscribeToSyncUpdates: (jobId: string) => {
       // Placeholder for SSE implementation
       // In a real implementation, this would establish an EventSource connection
-      let pollInterval: NodeJS.Timeout;
-
       const pollSyncStatus = async () => {
         try {
           const response = await fetch(`/api/sync/status/${jobId}`);
@@ -252,7 +250,7 @@ export const useSyncStore = create<SyncStore>()(
       };
 
       // Start polling every 2 seconds
-      pollInterval = setInterval(pollSyncStatus, 2000);
+      const pollInterval = setInterval(pollSyncStatus, 2000);
 
       // Initial poll
       pollSyncStatus();

@@ -87,11 +87,12 @@ export class ProxyClient {
         latency,
         error: 'No remote endpoint configured',
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to connect to proxy';
       return {
         backend: 'proxy',
         available: false,
-        error: error.message || 'Failed to connect to proxy',
+        error: errorMessage,
       };
     }
   }
@@ -149,10 +150,10 @@ export class ProxyClient {
 
       if (stream) {
         // For streaming, return the raw response body
-        return response.body as any;
+        return response.body as unknown as string;
       } else {
         // For non-streaming, parse JSON response
-        const data: any = await response.json();
+        const data: { choices?: Array<{ message: { content: string } }> } = await response.json();
 
         // OpenAI-compatible response format
         if (data.choices && data.choices.length > 0) {
@@ -161,9 +162,10 @@ export class ProxyClient {
 
         throw new Error('Unexpected response format from OpenAI-compatible API');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       console.error('Proxy chat error:', error);
-      throw new Error(`Proxy chat failed: ${error.message}`);
+      throw new Error(`Proxy chat failed: ${errorMessage}`);
     }
   }
 
@@ -221,7 +223,7 @@ export class ProxyClient {
       throw new Error('No response body received from proxy');
     }
 
-    const getReader = (bodyStream as any)?.getReader?.bind(bodyStream);
+    const getReader = (bodyStream as { getReader?: () => ReadableStreamDefaultReader })?.getReader?.bind(bodyStream);
 
     if (typeof getReader === 'function') {
       const reader = getReader();
