@@ -28,14 +28,26 @@ export default function AIPanel() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!query.trim() || isTyping) return;
+    console.log('[AIPanel] Form submitted');
+
+    if (!query.trim() || isTyping) {
+      console.log('[AIPanel] Validation failed:', { query, isTyping });
+      return;
+    }
 
     const queryToSend = query.trim();
     setQuery('');
 
     // Use account ID if available, otherwise use 'general' for non-account-specific queries
     const accountId = currentAccount?.id || 'general';
-    await sendMessage(accountId, queryToSend);
+    console.log('[AIPanel] Calling sendMessage:', { accountId, queryToSend });
+
+    try {
+      await sendMessage(accountId, queryToSend);
+      console.log('[AIPanel] sendMessage completed');
+    } catch (error) {
+      console.error('[AIPanel] sendMessage failed:', error);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

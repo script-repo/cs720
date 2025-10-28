@@ -2,6 +2,19 @@ import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import type { Account, ToastMessage, LoadingState } from '@/types';
 
+// Fallback UUID generator for browsers that don't support crypto.randomUUID
+function generateUUID(): string {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  // Fallback implementation
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
 interface AppStore {
   // App state
   isOnline: boolean;
@@ -53,7 +66,7 @@ export const useAppStore = create<AppStore>()(
 
     // Toast actions
     addToast: (toast) => {
-      const id = crypto.randomUUID();
+      const id = generateUUID();
       const newToast: ToastMessage = {
         id,
         ...toast,

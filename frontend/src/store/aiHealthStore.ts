@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { usePreferencesStore } from './preferencesStore';
 
 export type ServiceStatus = 'available' | 'unavailable' | 'degraded' | 'checking';
 
@@ -125,22 +126,15 @@ export const useAIHealthStore = create<AIHealthStore>((set, get) => ({
         console.error('NAI health check failed:', error);
       }
 
-      // 4. Check Web (Perplexity API) - verify if API key is configured
-      try {
-        const preferencesResponse = await fetch('/api/config/preferences');
-        if (preferencesResponse.ok) {
-          const preferencesData = await preferencesResponse.json();
-          const perplexityApiKey = preferencesData.preferences?.ai?.perplexityApiKey;
+      // 4. Check Web (Perplexity API) using locally stored user preferences
+      const preferencesState = usePreferencesStore.getState();
+      const perplexityApiKey = preferencesState.preferences?.ai?.perplexityApiKey?.trim();
 
-          // Web is "available" if Perplexity API key is configured
-          results.web = {
-            status: perplexityApiKey && perplexityApiKey.trim() !== '' ? 'available' : 'unavailable',
-            lastCheck: new Date().toISOString(),
-          };
-        }
-      } catch (error) {
-        console.error('Web health check failed:', error);
-      }
+      results.web = {
+        status: perplexityApiKey ? 'available' : 'unavailable',
+        lastCheck: new Date().toISOString(),
+        errorMessage: perplexityApiKey ? undefined : 'Perplexity API key not configured',
+      };
 
       set({
         ...results,

@@ -1,3 +1,5 @@
+import '../polyfills/fetch';
+
 interface LLMResponse {
   content: string;
   sources: string[];
@@ -24,6 +26,22 @@ interface LLMHealth {
   proxy: {
     available: boolean;
     responseTime?: number;
+  };
+}
+
+function createTimeoutSignal(timeoutMs: number) {
+  if (typeof AbortController === 'function') {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+    return {
+      signal: controller.signal,
+      cancel: () => clearTimeout(timeout),
+    };
+  }
+
+  return {
+    signal: undefined,
+    cancel: () => {},
   };
 }
 
@@ -787,24 +805,29 @@ Use web search data to supplement or update the customer context data.
     // Check Ollama
     try {
       const startTime = Date.now();
-      const response = await fetch(`${this.ollamaBaseUrl}/api/tags`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-        signal: AbortSignal.timeout(3000)
-      });
+      const timeout = createTimeoutSignal(3000);
+      try {
+        const response = await fetch(`${this.ollamaBaseUrl}/api/tags`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+          signal: timeout.signal
+        });
 
-      if (response.ok) {
-        health.local.available = true;
-        health.local.responseTime = Date.now() - startTime;
+        if (response.ok) {
+          health.local.available = true;
+          health.local.responseTime = Date.now() - startTime;
 
-        // Check if configured model is available
-        const data: any = await response.json();
-        const models = data.models || [];
-        const hasModel = models.some((model: any) => model.name.includes(this.ollamaModel));
+          // Check if configured model is available
+          const data: any = await response.json();
+          const models = data.models || [];
+          const hasModel = models.some((model: any) => model.name.includes(this.ollamaModel));
 
-        if (!hasModel && models.length > 0) {
-          health.local.model = models[0]?.name || 'none';
+          if (!hasModel && models.length > 0) {
+            health.local.model = models[0]?.name || 'none';
+          }
         }
+      } finally {
+        timeout.cancel();
       }
     } catch (error) {
       console.error('Ollama health check failed:', error);
@@ -814,14 +837,19 @@ Use web search data to supplement or update the customer context data.
     try {
       const startTime = Date.now();
       const proxyHealthUrl = this.proxyUrl.replace('/proxy', '/health');
-      const response = await fetch(proxyHealthUrl, {
-        method: 'GET',
-        signal: AbortSignal.timeout(3000)
-      });
+      const timeout = createTimeoutSignal(3000);
+      try {
+        const response = await fetch(proxyHealthUrl, {
+          method: 'GET',
+          signal: timeout.signal
+        });
 
-      if (response.ok) {
-        health.proxy.available = true;
-        health.proxy.responseTime = Date.now() - startTime;
+        if (response.ok) {
+          health.proxy.available = true;
+          health.proxy.responseTime = Date.now() - startTime;
+        }
+      } finally {
+        timeout.cancel();
       }
     } catch (error) {
       console.error('Proxy health check failed:', error);
@@ -833,46 +861,51 @@ Use web search data to supplement or update the customer context data.
         const startTime = Date.now();
         console.log('[Health] Checking NAI endpoint:', naiBaseUrl);
 
-        const response = await fetch(`${this.proxyUrl.replace('/proxy', '/health/remote')}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            endpoint: naiBaseUrl,
-            apiKey: naiApiKey,
-            model: naiModel
-          }),
-          signal: AbortSignal.timeout(8000)
-        });
+        const timeout = createTimeoutSignal(8000);
+        try {
+          const response = await fetch(`${this.proxyUrl.replace('/proxy', '/health/remote')}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              endpoint: naiBaseUrl,
+              apiKey: naiApiKey,
+              model: naiModel
+            }),
+            signal: timeout.signal
+          });
 
-        if (response.ok) {
-          const result: any = await response.json();
-          console.log('[Health] NAI health check response:', result);
+          if (response.ok) {
+            const result: any = await response.json();
+            console.log('[Health] NAI health check response:', result);
 
-          // Proxy returns { success: true, data: { status: 'available'|'degraded'|'unavailable', latency: 123 } }
-          if (result.success && result.data) {
-            if (result.data.status === 'available') {
-              health.external.available = true;
-              health.external.degraded = false;
-              health.external.responseTime = result.data.latency || (Date.now() - startTime);
-              console.log('[Health] NAI endpoint is available');
-            } else if (result.data.status === 'degraded') {
-              // Endpoint is reachable but returning errors (e.g., NAI-10021)
-              health.external.available = true;
-              health.external.degraded = true;
-              health.external.responseTime = result.data.latency || (Date.now() - startTime);
-              health.external.errorMessage = result.data.message || 'Endpoint degraded';
-              health.external.errorCode = result.data.errorCode;
-              console.log('[Health] NAI endpoint is degraded:', result.data.message);
+            // Proxy returns { success: true, data: { status: 'available'|'degraded'|'unavailable', latency: 123 } }
+            if (result.success && result.data) {
+              if (result.data.status === 'available') {
+                health.external.available = true;
+                health.external.degraded = false;
+                health.external.responseTime = result.data.latency || (Date.now() - startTime);
+                console.log('[Health] NAI endpoint is available');
+              } else if (result.data.status === 'degraded') {
+                // Endpoint is reachable but returning errors (e.g., NAI-10021)
+                health.external.available = true;
+                health.external.degraded = true;
+                health.external.responseTime = result.data.latency || (Date.now() - startTime);
+                health.external.errorMessage = result.data.message || 'Endpoint degraded';
+                health.external.errorCode = result.data.errorCode;
+                console.log('[Health] NAI endpoint is degraded:', result.data.message);
+              } else {
+                console.log('[Health] NAI endpoint is unavailable:', result.data?.message);
+              }
             } else {
               console.log('[Health] NAI endpoint is unavailable:', result.data?.message);
             }
           } else {
-            console.log('[Health] NAI endpoint is unavailable:', result.data?.message);
+            console.error('[Health] NAI health check HTTP error:', response.status, response.statusText);
           }
-        } else {
-          console.error('[Health] NAI health check HTTP error:', response.status, response.statusText);
+        } finally {
+          timeout.cancel();
         }
       } catch (error) {
         console.error('[Health] NAI/OpenAI-compatible API health check failed:', error);

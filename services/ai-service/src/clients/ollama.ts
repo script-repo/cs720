@@ -3,6 +3,7 @@
  * Direct integration with local Ollama LLM service
  */
 
+import fetch from 'node-fetch';
 import { ChatMessage, LLMConfig, LLMHealthStatus } from '@cs720/shared';
 
 export class OllamaClient {
@@ -19,9 +20,7 @@ export class OllamaClient {
     const startTime = Date.now();
 
     try {
-      const response = await fetch(`${this.baseUrl}/api/tags`, {
-        signal: AbortSignal.timeout(5000),
-      });
+      const response = await fetch(`${this.baseUrl}/api/tags`);
 
       if (!response.ok) {
         return {
@@ -121,33 +120,51 @@ export class OllamaClient {
       } else {
         // For non-streaming, collect all chunks
         let fullResponse = '';
-        const reader = response.body?.getReader();
-        const decoder = new TextDecoder();
+        const body = response.body;
 
-        if (!reader) {
-          throw new Error('Failed to get response reader');
+        if (!body) {
+          throw new Error('No response body');
         }
 
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
+        // node-fetch v2 returns a Node.js stream
+        return new Promise((resolve, reject) => {
+          let buffer = '';
 
-          const chunk = decoder.decode(value, { stream: true });
-          const lines = chunk.split('\n').filter((line) => line.trim());
+          body.on('data', (chunk: Buffer) => {
+            buffer += chunk.toString();
+            const lines = buffer.split('\n');
+            buffer = lines.pop() || ''; // Keep incomplete line in buffer
 
-          for (const line of lines) {
-            try {
-              const data = JSON.parse(line);
-              if (data.message?.content) {
-                fullResponse += data.message.content;
+            for (const line of lines) {
+              if (!line.trim()) continue;
+              try {
+                const data = JSON.parse(line);
+                if (data.message?.content) {
+                  fullResponse += data.message.content;
+                }
+              } catch {
+                // Skip invalid JSON lines
               }
-            } catch {
-              // Skip invalid JSON lines
             }
-          }
-        }
+          });
 
-        return fullResponse;
+          body.on('end', () => {
+            // Process any remaining data in buffer
+            if (buffer.trim()) {
+              try {
+                const data = JSON.parse(buffer);
+                if (data.message?.content) {
+                  fullResponse += data.message.content;
+                }
+              } catch {
+                // Skip invalid JSON
+              }
+            }
+            resolve(fullResponse);
+          });
+
+          body.on('error', reject);
+        });
       }
     } catch (error: any) {
       console.error('Ollama chat error:', error);

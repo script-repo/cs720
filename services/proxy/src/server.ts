@@ -8,7 +8,7 @@
  */
 
 import express, { Request, Response } from 'express';
-import cors from 'cors';
+import cors, { CorsOptions } from 'cors';
 import { CORS_CONFIG, DEFAULT_PORTS, PROXY_ROUTES } from '@cs720/shared';
 
 const app = express();
@@ -19,17 +19,48 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 // Middleware
 // ============================================================================
 
-// Enable CORS
-app.use(
-  cors({
-    origin: NODE_ENV === 'production'
-      ? CORS_CONFIG.ALLOWED_ORIGINS
-      : '*',
-    methods: CORS_CONFIG.ALLOWED_METHODS,
-    allowedHeaders: CORS_CONFIG.ALLOWED_HEADERS,
-    maxAge: CORS_CONFIG.MAX_AGE,
-  })
-);
+const ALLOWED_ORIGINS = new Set<string>([...CORS_CONFIG.ALLOWED_ORIGINS]);
+
+const corsOptions: CorsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || ALLOWED_ORIGINS.has(origin)) {
+      return callback(null, true);
+    }
+    console.warn(`[CORS] Blocked origin: ${origin}`);
+    return callback(new Error('Not allowed by CORS'));
+  },
+  methods: [...CORS_CONFIG.ALLOWED_METHODS],
+  allowedHeaders: [...CORS_CONFIG.ALLOWED_HEADERS],
+  credentials: true,
+  maxAge: CORS_CONFIG.MAX_AGE,
+  optionsSuccessStatus: 204,
+};
+
+function createTimeoutSignal(timeoutMs: number) {
+  if (typeof AbortController === 'function') {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+    return {
+      signal: controller.signal,
+      cancel: () => clearTimeout(timeout),
+    };
+  }
+
+  return {
+    signal: undefined,
+    cancel: () => {},
+  };
+}
+
+// Allow private network requests (Chrome Private Network Access)
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Private-Network', 'true');
+  next();
+});
+
+// Enable CORS (including preflight)
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // Parse JSON bodies
 app.use(express.json());
@@ -207,20 +238,26 @@ app.post(PROXY_ROUTES.HEALTH_REMOTE, async (req: Request, res: Response) => {
     // Always test actual chat completion with the configured model
     // This ensures we catch model-specific errors like NAI-10021
     console.log(`🔍 Testing chat completion with model: ${model || 'gpt-3.5-turbo'}`);
-    const response = await fetch(`${endpoint}/chat/completions`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: model || 'gpt-3.5-turbo',
-        messages: [{ role: 'user', content: 'test' }],
-        max_tokens: 1,
-        stream: false,
-      }),
-      signal: AbortSignal.timeout(5000),
-    });
+    const timeout = createTimeoutSignal(5000);
+    let response;
+    try {
+      response = await fetch(`${endpoint}/chat/completions`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: model || 'gpt-3.5-turbo',
+          messages: [{ role: 'user', content: 'test' }],
+          max_tokens: 1,
+          stream: false,
+        }),
+        signal: timeout.signal,
+      });
+    } finally {
+      timeout.cancel();
+    }
 
     const latency = Date.now() - startTime;
 

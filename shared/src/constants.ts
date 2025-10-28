@@ -97,7 +97,7 @@ export const AI_SERVICE_ROUTES = {
 export const DEFAULTS = {
   // LLM
   LLM_BACKEND: 'ollama' as const,
-  LLM_MODEL: 'llama2',
+  LLM_MODEL: 'gemma3:4b-it-qat',
   LLM_TEMPERATURE: 0.7,
   LLM_MAX_TOKENS: 2048,
 
@@ -270,6 +270,6 @@ export const CORS_CONFIG = {
     'http://127.0.0.1:5173',
   ],
   ALLOWED_METHODS: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  ALLOWED_HEADERS: ['Content-Type', 'Authorization'],
+  ALLOWED_HEADERS: ['Content-Type', 'Authorization', 'Access-Control-Request-Private-Network'],
   MAX_AGE: 86400, // 24 hours
 } as const;

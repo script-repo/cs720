@@ -1,6 +1,20 @@
 import { FastifyInstance } from 'fastify';
 import { getDatabase } from '../db/database';
 
+interface CaseDetails {
+  caseNumber: string;
+  accountId: string;
+  clusterId?: string | null;
+  status: string;
+  severity: string;
+  product: string;
+  openedDate: string | null;
+  closedDate: string | null;
+  createdAt: string;
+  clusterName?: string | null;
+  [key: string]: unknown;
+}
+
 export async function accountRoutes(fastify: FastifyInstance) {
 
   // Get all accounts
@@ -304,7 +318,7 @@ export async function accountRoutes(fastify: FastifyInstance) {
           created_at as createdAt
         FROM cases
         WHERE case_number = ? AND account_name_normalized = ?
-      `).get(caseNumber, accountId);
+      `).get(caseNumber, accountId) as CaseDetails | undefined;
 
       if (!caseData) {
         return reply.status(404).send({
@@ -319,7 +333,7 @@ export async function accountRoutes(fastify: FastifyInstance) {
           SELECT cluster_name as name
           FROM clusters
           WHERE cluster_uuid = ?
-        `).get(caseData.clusterId);
+        `).get(caseData.clusterId) as { name?: string } | undefined;
 
         caseData.clusterName = cluster?.name || null;
       }

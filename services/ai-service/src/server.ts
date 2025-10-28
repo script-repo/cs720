@@ -8,7 +8,7 @@
  */
 
 import express, { Request, Response } from 'express';
-import cors from 'cors';
+import cors, { CorsOptions } from 'cors';
 import {
   CORS_CONFIG,
   DEFAULT_PORTS,
@@ -42,14 +42,31 @@ const proxyClient = new ProxyClient(
 // Middleware
 // ============================================================================
 
-app.use(
-  cors({
-    origin: NODE_ENV === 'production' ? CORS_CONFIG.ALLOWED_ORIGINS : '*',
-    methods: CORS_CONFIG.ALLOWED_METHODS,
-    allowedHeaders: CORS_CONFIG.ALLOWED_HEADERS,
-    maxAge: CORS_CONFIG.MAX_AGE,
-  })
-);
+const ALLOWED_ORIGINS = new Set<string>([...CORS_CONFIG.ALLOWED_ORIGINS]);
+
+const corsOptions: CorsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || ALLOWED_ORIGINS.has(origin)) {
+      return callback(null, true);
+    }
+    console.warn(`[CORS] Blocked origin: ${origin}`);
+    return callback(new Error('Not allowed by CORS'));
+  },
+  methods: [...CORS_CONFIG.ALLOWED_METHODS],
+  allowedHeaders: [...CORS_CONFIG.ALLOWED_HEADERS],
+  credentials: true,
+  maxAge: CORS_CONFIG.MAX_AGE,
+  optionsSuccessStatus: 204,
+};
+
+// Allow Chrome Private Network Access preflight
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Private-Network', 'true');
+  next();
+});
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 app.use(express.json());
 

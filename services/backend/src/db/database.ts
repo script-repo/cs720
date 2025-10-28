@@ -3,7 +3,14 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const DB_PATH = process.env.DB_PATH || path.join(__dirname, '../../.cs720/cs720.db');
-const SCHEMA_PATH = path.join(__dirname, 'schema.sql');
+
+const SCHEMA_PATH = (() => {
+  const localPath = path.join(__dirname, 'schema.sql');
+  if (fs.existsSync(localPath)) {
+    return localPath;
+  }
+  return path.join(__dirname, '../../src/db/schema.sql');
+})();
 
 let db: Database.Database | null = null;
 

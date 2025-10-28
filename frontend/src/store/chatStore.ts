@@ -4,6 +4,19 @@ import type { ChatMessage } from '@/types';
 import { DatabaseService } from '@/db/schema';
 import { toast } from './appStore';
 
+// Fallback UUID generator for browsers that don't support crypto.randomUUID
+function generateUUID(): string {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  // Fallback implementation
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
 interface ChatStore {
   // State
   messages: ChatMessage[];
@@ -48,12 +61,14 @@ export const useChatStore = create<ChatStore>()(
     sendMessage: async (accountId: string, query: string) => {
       if (!query.trim()) return;
 
+      console.log('[ChatStore] Starting sendMessage:', { accountId, query });
+
       set({ isTyping: true, error: null });
       const startTime = Date.now();
 
       // Add user message immediately
       const userMessage: ChatMessage = {
-        id: crypto.randomUUID(),
+        id: generateUUID(),
         accountId,
         query,
         response: '', // Will be filled by AI
@@ -65,15 +80,14 @@ export const useChatStore = create<ChatStore>()(
         }
       };
 
+      console.log('[ChatStore] Adding user message to state');
       set((state) => ({
         messages: [...state.messages, userMessage]
       }));
 
-      // Create placeholder AI message for streaming
-      let aiMessageId = '';
-      let fullResponse = '';
-
       try {
+        console.log('[ChatStore] Calling API endpoint: /api/ai/query');
+        // Use simple non-streaming API call
         const response = await fetch('/api/ai/query', {
           method: 'POST',
           headers: {
@@ -82,121 +96,53 @@ export const useChatStore = create<ChatStore>()(
           body: JSON.stringify({
             accountId,
             query,
-            stream: true  // Request streaming
+            stream: false
           }),
         });
+
+        console.log('[ChatStore] Response status:', response.status);
 
         if (!response.ok) {
           throw new Error(`AI query failed: ${response.statusText}`);
         }
 
-        // Handle streaming response
-        const reader = response.body?.getReader();
-        const decoder = new TextDecoder();
+        const result = await response.json();
+        const responseTime = Date.now() - startTime;
 
-        if (!reader) {
-          throw new Error('No response body');
-        }
+        console.log('[ChatStore] API result:', result);
 
-        let placeholderAdded = false;
-
-        while (true) {
-          const { done, value } = await reader.read();
-
-          if (done) break;
-
-          const chunk = decoder.decode(value, { stream: true });
-          const lines = chunk.split('\n').filter(line => line.trim() && line.startsWith('data: '));
-
-          for (const line of lines) {
-            try {
-              const data = JSON.parse(line.substring(6)); // Remove 'data: ' prefix
-
-              if (data.type === 'start') {
-                // Initialize AI message placeholder
-                aiMessageId = data.id;
-                const placeholderMessage: ChatMessage = {
-                  id: aiMessageId,
-                  accountId,
-                  query,
-                  response: '',
-                  sources: [],
-                  timestamp: new Date().toISOString(),
-                  model: 'streaming...',
-                  metadata: {
-                    responseTime: 0
-                  }
-                };
-
-                set((state) => ({
-                  messages: [...state.messages, placeholderMessage]
-                }));
-                placeholderAdded = true;
-
-              } else if (data.type === 'content') {
-                // Append content chunk
-                fullResponse += data.content;
-
-                if (placeholderAdded) {
-                  set((state) => {
-                    const messages = [...state.messages];
-                    const lastIndex = messages.length - 1;
-                    if (messages[lastIndex]?.id === aiMessageId) {
-                      messages[lastIndex] = {
-                        ...messages[lastIndex],
-                        response: fullResponse
-                      };
-                    }
-                    return { messages };
-                  });
-                }
-
-              } else if (data.type === 'done') {
-                // Finalize message with metadata
-                const responseTime = Date.now() - startTime;
-
-                const finalMessage: ChatMessage = {
-                  id: aiMessageId,
-                  accountId,
-                  query,
-                  response: fullResponse,
-                  sources: data.sources || [],
-                  timestamp: new Date().toISOString(),
-                  model: data.metadata.model,
-                  metadata: {
-                    responseTime,
-                    confidence: data.metadata.confidence
-                  }
-                };
-
-                set((state) => {
-                  const messages = [...state.messages];
-                  const lastIndex = messages.length - 1;
-                  if (messages[lastIndex]?.id === aiMessageId) {
-                    messages[lastIndex] = finalMessage;
-                  }
-                  return { messages, isTyping: false };
-                });
-
-                // Save to database
-                await DatabaseService.saveChatMessage(finalMessage);
-
-              } else if (data.type === 'error') {
-                throw new Error(data.error);
-              }
-            } catch (e) {
-              console.error('Error parsing SSE message:', e);
-            }
+        // Create AI response message
+        const aiMessage: ChatMessage = {
+          id: result.id || generateUUID(),
+          accountId,
+          query,
+          response: result.content,
+          sources: result.sources || [],
+          timestamp: new Date().toISOString(),
+          model: result.metadata?.model || 'unknown',
+          metadata: {
+            responseTime: result.metadata?.responseTime || responseTime
           }
-        }
+        };
+
+        console.log('[ChatStore] Adding AI message to state');
+        set((state) => ({
+          messages: [...state.messages, aiMessage],
+          isTyping: false
+        }));
+
+        // Save to database
+        console.log('[ChatStore] Saving to database');
+        await DatabaseService.saveChatMessage(aiMessage);
+        console.log('[ChatStore] Message saved successfully');
 
       } catch (error) {
-        console.error('Error sending message:', error);
+        console.error('[ChatStore] Error sending message:', error);
         const errorMessage = error instanceof Error ? error.message : 'Failed to send message';
 
         // Create error response
         const errorResponse: ChatMessage = {
-          id: crypto.randomUUID(),
+          id: generateUUID(),
           accountId,
           query,
           response: `Sorry, I encountered an error: ${errorMessage}. Please try again.`,

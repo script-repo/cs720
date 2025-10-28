@@ -3,6 +3,7 @@
  * Integration with OpenAI-compatible APIs via CORS proxy
  */
 
+import fetch from 'node-fetch';
 import { ChatMessage, LLMConfig, LLMHealthStatus } from '@cs720/shared';
 
 export class ProxyClient {
@@ -36,9 +37,7 @@ export class ProxyClient {
 
     try {
       // First check if proxy server is running
-      const proxyResponse = await fetch(`${this.proxyUrl}/health`, {
-        signal: AbortSignal.timeout(5000),
-      });
+      const proxyResponse = await fetch(`${this.proxyUrl}/health`);
 
       if (!proxyResponse.ok) {
         return {
@@ -59,7 +58,6 @@ export class ProxyClient {
             endpoint: this.endpoint,
             apiKey: this.apiKey,
           }),
-          signal: AbortSignal.timeout(10000),
         });
 
         if (!remoteResponse.ok) {
@@ -154,7 +152,7 @@ export class ProxyClient {
         return response.body as any;
       } else {
         // For non-streaming, parse JSON response
-        const data = await response.json();
+        const data: any = await response.json();
 
         // OpenAI-compatible response format
         if (data.choices && data.choices.length > 0) {
@@ -216,40 +214,73 @@ export class ProxyClient {
       throw new Error(`Proxy request failed: ${response.status}`);
     }
 
-    const reader = response.body?.getReader();
-    if (!reader) {
-      throw new Error('Failed to get response reader');
-    }
-
     const decoder = new TextDecoder();
 
-    try {
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
+    const bodyStream = response.body;
+    if (!bodyStream) {
+      throw new Error('No response body received from proxy');
+    }
 
-        const chunk = decoder.decode(value, { stream: true });
-        const lines = chunk.split('\n').filter((line) => line.trim());
+    const getReader = (bodyStream as any)?.getReader?.bind(bodyStream);
 
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            const data = line.slice(6);
-            if (data === '[DONE]') continue;
+    if (typeof getReader === 'function') {
+      const reader = getReader();
+      try {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
 
-            try {
-              const parsed = JSON.parse(data);
-              const content = parsed.choices?.[0]?.delta?.content;
-              if (content) {
-                yield content;
+          const chunk = decoder.decode(value, { stream: true });
+          const lines = chunk.split('\n').filter((line) => line.trim());
+
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              const data = line.slice(6);
+              if (data === '[DONE]') continue;
+
+              try {
+                const parsed = JSON.parse(data);
+                const content = parsed.choices?.[0]?.delta?.content;
+                if (content) {
+                  yield content;
+                }
+              } catch {
+                // Skip invalid JSON
               }
-            } catch {
-              // Skip invalid JSON
             }
           }
         }
+      } finally {
+        reader.releaseLock();
       }
-    } finally {
-      reader.releaseLock();
+      return;
+    }
+
+    const nodeStream = bodyStream as unknown as AsyncIterable<Buffer>;
+    for await (const chunk of nodeStream) {
+      const text = decoder.decode(chunk, { stream: true });
+      const lines = text.split('\n').filter((line) => line.trim());
+
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) {
+          continue;
+        }
+
+        const data = line.slice(6);
+        if (data === '[DONE]') {
+          continue;
+        }
+
+        try {
+          const parsed = JSON.parse(data);
+          const content = parsed.choices?.[0]?.delta?.content;
+          if (content) {
+            yield content;
+          }
+        } catch {
+          // Ignore invalid chunks
+        }
+      }
     }
   }
 }

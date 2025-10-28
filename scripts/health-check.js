@@ -5,6 +5,10 @@
  * Checks the health of all services
  */
 
+const http = require('http');
+const https = require('https');
+const { URL } = require('url');
+
 const SERVICES = {
   frontend: { name: 'Frontend', url: 'http://localhost:3000/health' },
   backend: { name: 'Backend API', url: 'http://localhost:3001/health' },
@@ -22,37 +26,62 @@ const colors = {
   cyan: '\x1b[36m',
 };
 
-async function checkService(name, url) {
+function checkService(name, url) {
   const startTime = Date.now();
 
-  try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 5000);
+  return new Promise((resolve) => {
+    let parsedUrl;
 
-    const response = await fetch(url, {
-      signal: controller.signal,
-      headers: { 'Accept': 'application/json' },
+    try {
+      parsedUrl = new URL(url);
+    } catch (error) {
+      console.log(`${colors.red}✗${colors.reset} ${name.padEnd(20)} ${colors.red}UNAVAILABLE${colors.reset}`);
+      return resolve({ status: 'unavailable' });
+    }
+
+    const isHttps = parsedUrl.protocol === 'https:';
+    const client = isHttps ? https : http;
+
+    const request = client.request(
+      {
+        hostname: parsedUrl.hostname,
+        port: parsedUrl.port || (isHttps ? 443 : 80),
+        path: parsedUrl.pathname + parsedUrl.search,
+        method: 'GET',
+        headers: { Accept: 'application/json' },
+      },
+      (response) => {
+        const latency = Date.now() - startTime;
+        const statusCode = response.statusCode || 0;
+
+        if (statusCode >= 200 && statusCode < 300) {
+          console.log(`${colors.green}✓${colors.reset} ${name.padEnd(20)} ${colors.cyan}HEALTHY${colors.reset} (${latency}ms)`);
+          resolve({ status: 'healthy', latency });
+        } else {
+          console.log(`${colors.yellow}⚠${colors.reset} ${name.padEnd(20)} ${colors.yellow}DEGRADED${colors.reset} (HTTP ${statusCode})`);
+          resolve({ status: 'degraded', latency });
+        }
+
+        response.resume(); // drain data
+      }
+    );
+
+    request.setTimeout(5000, () => {
+      request.destroy(new Error('timeout'));
     });
 
-    clearTimeout(timeout);
-    const latency = Date.now() - startTime;
+    request.on('error', (error) => {
+      if (error.message === 'timeout') {
+        console.log(`${colors.red}✗${colors.reset} ${name.padEnd(20)} ${colors.red}TIMEOUT${colors.reset}`);
+        resolve({ status: 'timeout' });
+      } else {
+        console.log(`${colors.red}✗${colors.reset} ${name.padEnd(20)} ${colors.red}UNAVAILABLE${colors.reset}`);
+        resolve({ status: 'unavailable' });
+      }
+    });
 
-    if (response.ok) {
-      console.log(`${colors.green}✓${colors.reset} ${name.padEnd(20)} ${colors.cyan}HEALTHY${colors.reset} (${latency}ms)`);
-      return { status: 'healthy', latency };
-    } else {
-      console.log(`${colors.yellow}⚠${colors.reset} ${name.padEnd(20)} ${colors.yellow}DEGRADED${colors.reset} (HTTP ${response.status})`);
-      return { status: 'degraded', latency };
-    }
-  } catch (error) {
-    if (error.name === 'AbortError') {
-      console.log(`${colors.red}✗${colors.reset} ${name.padEnd(20)} ${colors.red}TIMEOUT${colors.reset}`);
-      return { status: 'timeout' };
-    } else {
-      console.log(`${colors.red}✗${colors.reset} ${name.padEnd(20)} ${colors.red}UNAVAILABLE${colors.reset}`);
-      return { status: 'unavailable' };
-    }
-  }
+    request.end();
+  });
 }
 
 async function main() {

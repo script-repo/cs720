@@ -118,20 +118,25 @@ export const usePreferencesStore = create<PreferencesStore>()(
           set({ preferences: updatedPreferences, error: null });
 
           try {
-            // Save to IndexedDB
+            // Save to IndexedDB (primary storage when backend is unavailable)
             await DatabaseService.savePreferences(updatedPreferences);
 
-            // Update API
-            const response = await fetch('/api/config/preferences', {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(updatedPreferences),
-            });
+            // Try to update API, but don't fail if backend is unavailable
+            try {
+              const response = await fetch('/api/config/preferences', {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedPreferences),
+              });
 
-            if (!response.ok) {
-              throw new Error(`Failed to update preferences: ${response.statusText}`);
+              if (!response.ok && response.status !== 404) {
+                console.warn('Backend unavailable, preferences saved locally only');
+              }
+            } catch (backendError) {
+              // Backend service not running - that's OK, we saved locally
+              console.info('Backend service unavailable, preferences saved locally');
             }
 
             // Apply theme changes immediately
@@ -139,7 +144,7 @@ export const usePreferencesStore = create<PreferencesStore>()(
               applyTheme(updates.ui.theme);
             }
 
-            toast.success('Preferences updated');
+            toast.success('Preferences saved');
 
           } catch (error) {
             console.error('Error updating preferences:', error);
@@ -147,7 +152,7 @@ export const usePreferencesStore = create<PreferencesStore>()(
             // Revert optimistic update
             set({ preferences: currentPreferences });
 
-            const errorMessage = error instanceof Error ? error.message : 'Failed to update preferences';
+            const errorMessage = error instanceof Error ? error.message : 'Failed to save preferences';
             set({ error: errorMessage });
             toast.error(errorMessage);
           }

@@ -1,3 +1,5 @@
+import './polyfills/fetch';
+
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import multipart from '@fastify/multipart';
@@ -27,9 +29,28 @@ const fastify = Fastify({
 
 // Register plugins
 async function registerPlugins() {
-  // CORS
+  // CORS - Allow connections from localhost and network IPs
   await fastify.register(cors, {
-    origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
+    origin: (origin, cb) => {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) {
+        cb(null, true);
+        return;
+      }
+
+      // Allow localhost and any IP address on port 3000
+      if (
+        origin.startsWith('http://localhost:') ||
+        origin.startsWith('http://127.0.0.1:') ||
+        /^http:\/\/\d+\.\d+\.\d+\.\d+:3000$/.test(origin)
+      ) {
+        cb(null, true);
+        return;
+      }
+
+      // Reject other origins
+      cb(new Error('Not allowed by CORS'), false);
+    },
     credentials: true
   });
 
@@ -40,6 +61,12 @@ async function registerPlugins() {
   await fastify.register(staticFiles, {
     root: path.join(__dirname, '../public'),
     prefix: '/public/'
+  });
+
+  // Allow Chrome Private Network Access
+  fastify.addHook('onSend', async (request, reply, payload) => {
+    reply.header('Access-Control-Allow-Private-Network', 'true');
+    return payload;
   });
 }
 
@@ -70,7 +97,7 @@ async function start() {
     await registerPlugins();
     await registerRoutes();
 
-    const host = process.env.HOST || 'localhost';
+    const host = process.env.HOST || '0.0.0.0'; // Bind to all interfaces
     const port = parseInt(process.env.PORT || '3001');
 
     await fastify.listen({ host, port });

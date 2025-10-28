@@ -21,7 +21,16 @@
       "Bash(cat:*)",
       "Bash(node -e:*)",
       "Bash(npm run health:*)",
-      "Bash(dir /b \"C:\\Users\\DaemonBehr\\GitHub\\cs720\\frontend\\public\")"
+      "Bash(dir /b \"C:\\Users\\DaemonBehr\\GitHub\\cs720\\frontend\\public\")",
+      "Bash(pkill:*)",
+      "Bash(node --version:*)",
+      "Bash(python3:*)",
+      "Bash(kill:*)",
+      "Bash(lsof:*)",
+      "Bash(xargs kill -9)",
+      "Bash(ss:*)",
+      "Read(//tmp/**)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []
