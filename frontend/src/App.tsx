@@ -4,6 +4,7 @@ import Layout from '@/components/layout/Layout';
 import Dashboard from '@/pages/Dashboard';
 import Settings from '@/pages/Settings';
 import Sync from '@/pages/Sync';
+import PromptLibrary from '@/pages/PromptLibrary';
 import { usePreferencesStore } from '@/store/preferencesStore';
 import { useAppStore } from '@/store/appStore';
 import ToastContainer from '@/components/ui/ToastContainer';
@@ -43,8 +44,9 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Navigate to="/dashboard" replace />} />
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="settings" element={<Settings />} />
           <Route path="sync" element={<Sync />} />
+          <Route path="prompts" element={<PromptLibrary />} />
+          <Route path="settings" element={<Settings />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Route>
       </Routes>

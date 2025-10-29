@@ -6,7 +6,8 @@ import {
   MagnifyingGlassIcon,
   Cog6ToothIcon,
   ArrowPathIcon,
-  HomeIcon
+  HomeIcon,
+  BookmarkIcon
 } from '@/components/icons';
 import { useAccountStore } from '@/store/accountStore';
 import { useAppStore } from '@/store/appStore';
@@ -46,6 +47,12 @@ export default function Sidebar() {
       href: '/sync',
       icon: ArrowPathIcon,
       current: location.pathname === '/sync'
+    },
+    {
+      name: 'Prompt Library',
+      href: '/prompts',
+      icon: BookmarkIcon,
+      current: location.pathname === '/prompts'
     },
     {
       name: 'Settings',

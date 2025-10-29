@@ -30,7 +30,17 @@
       "Bash(xargs kill -9)",
       "Bash(ss:*)",
       "Read(//tmp/**)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(cp:*)",
+      "Bash(for:*)",
+      "Bash(do echo \"=== Check $i ===\")",
+      "Bash(done)",
+      "Bash(awk:*)",
+      "Bash(xargs kill)",
+      "Bash(chmod:*)",
+      "Bash(/home/nutanix/cs720/scripts/verify-services.sh)",
+      "Bash(git commit:*)",
+      "Bash(npx eslint:*)"
     ],
     "deny": [],
     "ask": []

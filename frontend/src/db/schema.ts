@@ -10,7 +10,8 @@ import type {
   IndustryIntelligence,
   ChatMessage,
   SyncJob,
-  UserPreferences
+  UserPreferences,
+  PromptTemplate
 } from '@/types';
 
 export class CS720Database extends Dexie {
@@ -26,10 +27,12 @@ export class CS720Database extends Dexie {
   chatMessages!: Table<ChatMessage>;
   syncJobs!: Table<SyncJob>;
   preferences!: Table<UserPreferences & { id: string }>;
+  promptTemplates!: Table<PromptTemplate>;
 
   constructor() {
     super('CS720Database');
 
+    // Version 1: Original schema
     this.version(1).stores({
       accounts: 'id, name, industry, status, lastModified, salesforceId',
       documents: 'id, accountId, title, type, source, lastModified, [accountId+type]',
@@ -42,6 +45,22 @@ export class CS720Database extends Dexie {
       chatMessages: 'id, accountId, timestamp, model, [accountId+timestamp]',
       syncJobs: 'id, type, status, startTime, endTime',
       preferences: 'id'
+    });
+
+    // Version 2: Add promptTemplates table
+    this.version(2).stores({
+      accounts: 'id, name, industry, status, lastModified, salesforceId',
+      documents: 'id, accountId, title, type, source, lastModified, [accountId+type]',
+      priorities: 'id, accountId, priority, status, dueDate, [accountId+priority]',
+      upcomingDates: 'id, accountId, date, type, [accountId+date]',
+      projects: 'id, accountId, status, startDate, dueDate, [accountId+status]',
+      customerIssues: 'id, accountId, severity, status, createdDate, [accountId+severity]',
+      tickets: 'id, accountId, priority, status, createdDate, [accountId+priority]',
+      industryIntelligence: 'id, accountId, industry, lastUpdated',
+      chatMessages: 'id, accountId, timestamp, model, [accountId+timestamp]',
+      syncJobs: 'id, type, status, startTime, endTime',
+      preferences: 'id',
+      promptTemplates: 'id, name, command, createdAt'
     });
   }
 }
@@ -195,6 +214,39 @@ export class DatabaseService {
 
   static async clearChatHistory(accountId: string): Promise<void> {
     await db.chatMessages.where('accountId').equals(accountId).delete();
+  }
+
+  // Prompt template operations
+  static async getPromptTemplates(): Promise<PromptTemplate[]> {
+    const templates = await db.promptTemplates.toArray();
+    return templates.sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  static async getPromptTemplate(id: string): Promise<PromptTemplate | undefined> {
+    return await db.promptTemplates.get(id);
+  }
+
+  static async getPromptTemplateByCommand(command: string): Promise<PromptTemplate | undefined> {
+    return await db.promptTemplates.where('command').equals(command).first();
+  }
+
+  static async savePromptTemplate(template: PromptTemplate): Promise<void> {
+    await db.promptTemplates.put(template);
+  }
+
+  static async deletePromptTemplate(id: string): Promise<void> {
+    await db.promptTemplates.delete(id);
+  }
+
+  static async searchPromptTemplates(query: string): Promise<PromptTemplate[]> {
+    const templates = await db.promptTemplates.toArray();
+    const lowercaseQuery = query.toLowerCase();
+
+    return templates.filter(template =>
+      template.name.toLowerCase().includes(lowercaseQuery) ||
+      template.command.toLowerCase().includes(lowercaseQuery) ||
+      template.description?.toLowerCase().includes(lowercaseQuery)
+    );
   }
 
   // Sync operations

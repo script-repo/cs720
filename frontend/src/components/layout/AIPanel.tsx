@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
-import { useAppStore } from '@/store/appStore';
+import { useAppStore, toast } from '@/store/appStore';
 import { useChatStore } from '@/store/chatStore';
+import { usePromptStore } from '@/store/promptStore';
 import { PaperAirplaneIcon, XMarkIcon } from '@/components/icons';
 import Button from '@/components/ui/Button';
 import ChatMessage from '@/components/chat/ChatMessage';
@@ -8,10 +9,21 @@ import ChatMessage from '@/components/chat/ChatMessage';
 export default function AIPanel() {
   const [query, setQuery] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
+  const [showAutocomplete, setShowAutocomplete] = useState(false);
+  const [selectedAutocompleteIndex, setSelectedAutocompleteIndex] = useState(0);
+  const [showSaveModal, setShowSaveModal] = useState(false);
+  const [saveFormData, setSaveFormData] = useState({
+    name: '',
+    command: '',
+    description: '',
+    prompt: ''
+  });
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const { currentAccount } = useAppStore();
   const { messages, isTyping, sendMessage, loadChatHistory } = useChatStore();
+  const { templates, getTemplateByCommand, addTemplate, loading: promptLoading } = usePromptStore();
 
   // Load chat history when account changes
   useEffect(() => {
@@ -25,6 +37,84 @@ export default function AIPanel() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
 
+  // Filter templates based on query
+  const getMatchingTemplates = () => {
+    if (!query.startsWith('/')) return [];
+
+    const searchTerm = query.toLowerCase();
+    return templates.filter(template =>
+      template.command.toLowerCase().startsWith(searchTerm)
+    );
+  };
+
+  const matchingTemplates = getMatchingTemplates();
+
+  // Show/hide autocomplete based on query and matches
+  useEffect(() => {
+    if (query.startsWith('/') && matchingTemplates.length > 0) {
+      setShowAutocomplete(true);
+      setSelectedAutocompleteIndex(0);
+    } else {
+      setShowAutocomplete(false);
+    }
+  }, [query, matchingTemplates.length]);
+
+  const applyTemplate = (command: string) => {
+    const template = getTemplateByCommand(command);
+    if (template) {
+      setQuery(template.prompt);
+      setShowAutocomplete(false);
+      textareaRef.current?.focus();
+    }
+  };
+
+  const handleSavePrompt = (prompt: string) => {
+    setSaveFormData({
+      name: '',
+      command: '',
+      description: '',
+      prompt: prompt
+    });
+    setShowSaveModal(true);
+  };
+
+  const handleCloseSaveModal = () => {
+    setShowSaveModal(false);
+    setSaveFormData({
+      name: '',
+      command: '',
+      description: '',
+      prompt: ''
+    });
+  };
+
+  const handleSaveSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!saveFormData.name.trim() || !saveFormData.command.trim() || !saveFormData.prompt.trim()) {
+      toast.error('Name, command, and prompt are required');
+      return;
+    }
+
+    if (!saveFormData.command.startsWith('/')) {
+      toast.error('Command must start with /');
+      return;
+    }
+
+    try {
+      await addTemplate(
+        saveFormData.name,
+        saveFormData.command,
+        saveFormData.prompt,
+        saveFormData.description || undefined
+      );
+      toast.success('Prompt template saved successfully');
+      handleCloseSaveModal();
+    } catch (error) {
+      // Error already handled in store
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -35,8 +125,18 @@ export default function AIPanel() {
       return;
     }
 
-    const queryToSend = query.trim();
+    let queryToSend = query.trim();
+
+    // Check if query is a slash command
+    if (queryToSend.startsWith('/')) {
+      const template = getTemplateByCommand(queryToSend);
+      if (template) {
+        queryToSend = template.prompt;
+      }
+    }
+
     setQuery('');
+    setShowAutocomplete(false);
 
     // Use account ID if available, otherwise use 'general' for non-account-specific queries
     const accountId = currentAccount?.id || 'general';
@@ -51,8 +151,53 @@ export default function AIPanel() {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    // Handle autocomplete navigation
+    if (showAutocomplete && matchingTemplates.length > 0) {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setSelectedAutocompleteIndex(prev =>
+          prev < matchingTemplates.length - 1 ? prev + 1 : 0
+        );
+        return;
+      }
+
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setSelectedAutocompleteIndex(prev =>
+          prev > 0 ? prev - 1 : matchingTemplates.length - 1
+        );
+        return;
+      }
+
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        const selectedTemplate = matchingTemplates[selectedAutocompleteIndex];
+        if (selectedTemplate) {
+          applyTemplate(selectedTemplate.command);
+        }
+        return;
+      }
+
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        setShowAutocomplete(false);
+        return;
+      }
+    }
+
+    // Handle normal Enter key
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
+
+      // If autocomplete is showing and Enter is pressed, apply the selected template
+      if (showAutocomplete && matchingTemplates.length > 0) {
+        const selectedTemplate = matchingTemplates[selectedAutocompleteIndex];
+        if (selectedTemplate) {
+          applyTemplate(selectedTemplate.command);
+        }
+        return;
+      }
+
       handleSubmit(e);
     }
   };
@@ -130,7 +275,7 @@ export default function AIPanel() {
         ) : (
           <>
             {messages.map((message) => (
-              <ChatMessage key={message.id} message={message} />
+              <ChatMessage key={message.id} message={message} onSavePrompt={handleSavePrompt} />
             ))}
             {isTyping && (
               <div className="flex items-center space-x-2 text-gray-400">
@@ -148,13 +293,50 @@ export default function AIPanel() {
       </div>
 
       {/* Input */}
-      <div className="p-4 border-t border-gray-700">
+      <div className="p-4 border-t border-gray-700 relative">
+        {/* Autocomplete Dropdown */}
+        {showAutocomplete && matchingTemplates.length > 0 && (
+          <div className="absolute bottom-full left-4 right-4 mb-2 bg-gray-800 border border-gray-600 rounded-lg shadow-xl max-h-60 overflow-y-auto z-50">
+            {matchingTemplates.map((template, index) => (
+              <button
+                key={template.id}
+                type="button"
+                onClick={() => applyTemplate(template.command)}
+                className={`
+                  w-full text-left px-4 py-3 border-b border-gray-700 last:border-b-0
+                  hover:bg-gray-700 transition-colors
+                  ${index === selectedAutocompleteIndex ? 'bg-gray-700' : ''}
+                `}
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <code className="px-2 py-0.5 bg-primary-500/20 text-primary-400 rounded text-sm font-mono">
+                    {template.command}
+                  </code>
+                  <span className="text-white font-medium">{template.name}</span>
+                </div>
+                {template.description && (
+                  <p className="text-xs text-gray-400 line-clamp-1">{template.description}</p>
+                )}
+                <p className="text-xs text-gray-500 mt-1 line-clamp-2 font-mono">
+                  {template.prompt.length > 100
+                    ? `${template.prompt.substring(0, 100)}...`
+                    : template.prompt}
+                </p>
+              </button>
+            ))}
+            <div className="px-4 py-2 bg-gray-900 text-xs text-gray-500 border-t border-gray-700">
+              Use ↑↓ to navigate, Tab or Enter to select, Esc to dismiss
+            </div>
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="flex space-x-2">
           <textarea
+            ref={textareaRef}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Ask a question..."
+            placeholder="Ask a question or type / for templates..."
             rows={2}
             className="flex-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none"
             disabled={isTyping}
@@ -170,9 +352,100 @@ export default function AIPanel() {
           </Button>
         </form>
         <p className="text-xs text-gray-500 mt-2">
-          Press Enter to send, Shift+Enter for new line
+          Press Enter to send, Shift+Enter for new line, / for templates
         </p>
       </div>
+
+      {/* Save Prompt Modal */}
+      {showSaveModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
+          <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <h2 className="text-2xl font-bold text-white mb-6">
+                Save Prompt as Template
+              </h2>
+              <form onSubmit={handleSaveSubmit}>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-white mb-2">
+                      Template Name *
+                    </label>
+                    <input
+                      type="text"
+                      value={saveFormData.name}
+                      onChange={(e) => setSaveFormData({ ...saveFormData, name: e.target.value })}
+                      placeholder="e.g., Company Overview Research"
+                      className="input w-full"
+                      required
+                      autoFocus
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-white mb-2">
+                      Slash Command *
+                    </label>
+                    <input
+                      type="text"
+                      value={saveFormData.command}
+                      onChange={(e) => setSaveFormData({ ...saveFormData, command: e.target.value })}
+                      placeholder="e.g., /company-overview"
+                      className="input w-full font-mono"
+                      required
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                      Must start with / and contain no spaces
+                    </p>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-white mb-2">
+                      Description (Optional)
+                    </label>
+                    <input
+                      type="text"
+                      value={saveFormData.description}
+                      onChange={(e) => setSaveFormData({ ...saveFormData, description: e.target.value })}
+                      placeholder="Brief description of what this prompt does"
+                      className="input w-full"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-white mb-2">
+                      Prompt Text *
+                    </label>
+                    <textarea
+                      value={saveFormData.prompt}
+                      onChange={(e) => setSaveFormData({ ...saveFormData, prompt: e.target.value })}
+                      placeholder="Enter the full prompt text here..."
+                      className="input w-full font-mono"
+                      rows={8}
+                      required
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                      This is the prompt text from your message. You can edit it if needed.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-3 mt-6">
+                  <Button type="submit" variant="primary" disabled={promptLoading}>
+                    Save Template
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    onClick={handleCloseSaveModal}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

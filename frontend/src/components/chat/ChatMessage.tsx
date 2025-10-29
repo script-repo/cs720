@@ -3,10 +3,11 @@ import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import type { ChatMessage as ChatMessageType } from '@/types';
-import { UserIcon, ClockIcon } from '@/components/icons';
+import { UserIcon, ClockIcon, BookmarkIcon } from '@/components/icons';
 
 interface ChatMessageProps {
   message: ChatMessageType;
+  onSavePrompt?: (prompt: string) => void;
 }
 
 interface ParsedResponse {
@@ -105,7 +106,7 @@ function CollapsibleSection({ title, content, icon }: { title: string; content: 
   );
 }
 
-export default function ChatMessage({ message }: ChatMessageProps) {
+export default function ChatMessage({ message, onSavePrompt }: ChatMessageProps) {
   const isUser = message.model === 'user';
   const isError = message.model === 'error';
   const parsed = !isUser && !isError ? parseResponse(message.response) : null;
@@ -235,6 +236,21 @@ export default function ChatMessage({ message }: ChatMessageProps) {
           }`}>
             <ClockIcon className="w-3 h-3" />
             <span>{format(new Date(message.timestamp), 'HH:mm')}</span>
+
+            {/* Save button for user messages */}
+            {isUser && onSavePrompt && (
+              <>
+                <span>•</span>
+                <button
+                  onClick={() => onSavePrompt(message.query)}
+                  className="flex items-center space-x-1 hover:text-primary-400 transition-colors"
+                  title="Save as template"
+                >
+                  <BookmarkIcon className="w-3 h-3" />
+                  <span>Save</span>
+                </button>
+              </>
+            )}
 
             {!isUser && !isError && (
               <>

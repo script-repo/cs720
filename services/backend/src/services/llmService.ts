@@ -438,13 +438,50 @@ class LLMService {
   private shouldUseWebSearch(query: string): boolean {
     // Detect if query would benefit from web search
     const webSearchKeywords = [
-      'latest', 'recent', 'news', 'current', 'today',
-      'industry', 'trend', 'market', 'competitor',
-      'what is', 'who is', 'how to', 'explain'
+      // Time-sensitive
+      'latest', 'recent', 'news', 'current', 'today', 'now', 'update',
+      'yesterday', 'last week', 'this month', 'this year',
+      // Market/Business
+      'industry', 'trend', 'market', 'competitor', 'competitor',
+      'company', 'business', 'enterprise', 'startup', 'vendor',
+      // Information seeking
+      'what is', 'who is', 'how to', 'explain', 'tell me about',
+      'what are', 'where is', 'when did', 'why is', 'how does',
+      'search', 'find', 'look up', 'research',
+      // Technology
+      'technology', 'product', 'solution', 'platform', 'software',
+      'hardware', 'cloud', 'saas', 'ai', 'ml', 'data',
+      // Strategy
+      'strategy', 'plan', 'approach', 'initiative', 'roadmap',
+      'compare', 'versus', 'vs', 'alternative', 'option',
+      // Financial
+      'revenue', 'funding', 'valuation', 'ipo', 'acquisition',
+      'investment', 'financial', 'earnings', 'profit'
     ];
 
     const lowerQuery = query.toLowerCase();
-    return webSearchKeywords.some(keyword => lowerQuery.includes(keyword));
+
+    // Check for keywords
+    if (webSearchKeywords.some(keyword => lowerQuery.includes(keyword))) {
+      return true;
+    }
+
+    // Check if query is a question (starts with question words or ends with ?)
+    if (lowerQuery.match(/^(what|who|where|when|why|how|is|are|can|could|would|should|do|does)/)) {
+      return true;
+    }
+
+    if (lowerQuery.includes('?')) {
+      return true;
+    }
+
+    // Default: use web search for queries longer than 5 words (likely needs context)
+    const wordCount = query.trim().split(/\s+/).length;
+    if (wordCount >= 5) {
+      return true;
+    }
+
+    return false;
   }
 
   private async performWebSearch(query: string, apiKey: string, model: string = 'sonar'): Promise<any> {

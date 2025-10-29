@@ -130,6 +130,16 @@ export interface ChatMessage {
   };
 }
 
+export interface PromptTemplate {
+  id: string;
+  name: string;
+  command: string; // e.g., "/company-overview"
+  prompt: string;
+  description?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface SyncJob {
   id: string;
   type: 'manual' | 'scheduled';
