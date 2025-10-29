@@ -58,7 +58,8 @@ export const useAIHealthStore = create<AIHealthStore>((set, get) => ({
     try {
       // 1. Check AI Service health (which checks Ollama)
       try {
-        const aiResponse = await fetch('http://localhost:3003/health');
+        const hostname = window.location.hostname;
+        const aiResponse = await fetch(`http://${hostname}:3003/health`);
         if (aiResponse.ok) {
           const aiData = await aiResponse.json();
           const backends = aiData.data?.backends;
@@ -77,8 +78,9 @@ export const useAIHealthStore = create<AIHealthStore>((set, get) => ({
 
       // 2. Check Proxy Service directly
       try {
+        const hostname = window.location.hostname;
         const proxyStart = Date.now();
-        const proxyResponse = await fetch('http://localhost:3002/health');
+        const proxyResponse = await fetch(`http://${hostname}:3002/health`);
         if (proxyResponse.ok) {
           const proxyLatency = Date.now() - proxyStart;
           results.proxy = {

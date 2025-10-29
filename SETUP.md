@@ -182,7 +182,39 @@ This starts:
 
 ## Troubleshooting 🔧
 
+### Quick Health Check
+
+```bash
+# Verify all services are running and healthy
+npm run verify
+
+# Setup missing .env files automatically
+npm run setup:env
+```
+
 ### Common Issues
+
+**"Ollama badge shows red in UI"**
+- **Symptoms:** Ollama works via curl, but UI shows red badge
+- **Cause:** AI service (port 3003) is not running
+- **Fix:**
+  ```bash
+  npm run verify               # Check which services are down
+  npm run dev:ai               # Start AI service
+  # Or restart all: npm run dev
+  ```
+
+**"CORS errors when accessing from different machine"**
+- **Symptoms:** `ERR_CONNECTION_REFUSED` or CORS blocked in browser console
+- **Cause:** In production mode, CORS is restricted. In development, it should work automatically.
+- **Fix:**
+  - Verify `NODE_ENV=development` in all service .env files
+  - Services automatically allow any origin in development mode
+  - Access via: `http://<your-vm-ip>:3000`
+
+**"Missing .env file"**
+- **Fix:** Run `npm run setup:env` to auto-create from examples
+- Or manually: `cp services/<service>/.env.example services/<service>/.env`
 
 **"Failed to start backend"**
 - Check that Node.js 20+ is installed: `node --version`
@@ -196,7 +228,8 @@ This starts:
 **"AI queries not working"**
 - For local AI: Make sure `ollama serve` is running
 - For OpenAI: Verify API key is correct and has usage remaining
-- Check http://localhost:3001/api/ai/health for status
+- Check http://localhost:3003/health for AI service status
+- Verify Ollama model name matches: `curl http://localhost:11434/api/tags`
 
 **"Sync not working"**
 - Ensure OAuth authentication completed successfully

@@ -30,15 +30,23 @@ const fastify = Fastify({
 // Register plugins
 async function registerPlugins() {
   // CORS - Allow connections from localhost and network IPs
+  const isDevelopment = process.env.NODE_ENV === 'development';
+
   await fastify.register(cors, {
     origin: (origin, cb) => {
-      // Allow requests with no origin (like mobile apps or curl requests)
+      // In development, allow any origin for easier testing across different IPs/hostnames
+      if (isDevelopment) {
+        cb(null, true);
+        return;
+      }
+
+      // In production: Allow requests with no origin (like mobile apps or curl requests)
       if (!origin) {
         cb(null, true);
         return;
       }
 
-      // Allow localhost and any IP address on port 3000
+      // In production: Allow localhost and any IP address on port 3000
       if (
         origin.startsWith('http://localhost:') ||
         origin.startsWith('http://127.0.0.1:') ||
@@ -48,7 +56,7 @@ async function registerPlugins() {
         return;
       }
 
-      // Reject other origins
+      // Reject other origins in production
       cb(new Error('Not allowed by CORS'), false);
     },
     credentials: true

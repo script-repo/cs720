@@ -34,7 +34,10 @@
     "start:backend": "cd services/backend && npm start",
     "start:proxy": "cd services/proxy && npm start",
     "start:ai": "cd services/ai-service && npm start",
-    "health": "node scripts/health-check.js"
+    "health": "node scripts/health-check.js",
+    "verify": "bash scripts/verify-services.sh",
+    "setup:env": "bash scripts/setup-env.sh",
+    "predev": "npm run setup:env"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

@@ -43,9 +43,15 @@ const proxyClient = new ProxyClient(
 // ============================================================================
 
 const ALLOWED_ORIGINS = new Set<string>([...CORS_CONFIG.ALLOWED_ORIGINS]);
+const isDevelopment = NODE_ENV === 'development';
 
 const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
+    // In development, allow any origin for easier testing across different IPs/hostnames
+    if (isDevelopment) {
+      return callback(null, true);
+    }
+    // In production, strictly enforce whitelist
     if (!origin || ALLOWED_ORIGINS.has(origin)) {
       return callback(null, true);
     }
@@ -151,7 +157,7 @@ app.post(AI_SERVICE_ROUTES.QUERY, async (req: Request, res: Response) => {
   console.log(`🤖 Query request - Backend: ${llmConfig.backend}, Model: ${llmConfig.model}`);
 
   try {
-    let response: string;
+    let response: string | NodeJS.ReadableStream;
 
     // Try primary backend
     if (llmConfig.backend === 'ollama') {
@@ -175,17 +181,24 @@ app.post(AI_SERVICE_ROUTES.QUERY, async (req: Request, res: Response) => {
     }
 
     if (stream) {
-      // Streaming is handled by the client
+      // Set streaming headers
       res.setHeader('Content-Type', 'text/event-stream');
       res.setHeader('Cache-Control', 'no-cache');
       res.setHeader('Connection', 'keep-alive');
-      res.write(response);
-      res.end();
+      res.setHeader('X-Accel-Buffering', 'no'); // Disable nginx buffering
+
+      // Pipe the stream to response
+      if (typeof response !== 'string') {
+        (response as NodeJS.ReadableStream).pipe(res);
+      } else {
+        res.write(response);
+        res.end();
+      }
     } else {
       res.json({
         success: true,
         data: {
-          answer: response,
+          answer: response as string,
           model: llmConfig.model,
           backend: llmConfig.backend,
           timestamp: new Date().toISOString(),

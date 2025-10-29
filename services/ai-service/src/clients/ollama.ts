@@ -77,7 +77,7 @@ export class OllamaClient {
     messages: ChatMessage[],
     config: LLMConfig,
     stream: boolean = false
-  ): Promise<string> {
+  ): Promise<string | NodeJS.ReadableStream> {
     try {
       const ollamaMessages = messages.map((msg) => ({
         role: msg.role === 'assistant' ? 'assistant' : 'user',
@@ -116,9 +116,12 @@ export class OllamaClient {
       }
 
       if (stream) {
-        // For streaming, return the raw response body
-        // The caller will handle streaming
-        return response.body as unknown as string;
+        // For streaming, return the raw response body stream
+        // The caller will pipe this to the response
+        if (!response.body) {
+          throw new Error('No response body for streaming');
+        }
+        return response.body as NodeJS.ReadableStream;
       } else {
         // For non-streaming, collect all chunks
         let fullResponse = '';

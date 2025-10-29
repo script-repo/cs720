@@ -86,8 +86,30 @@ export const useChatStore = create<ChatStore>()(
       }));
 
       try {
-        console.log('[ChatStore] Calling API endpoint: /api/ai/query');
-        // Use simple non-streaming API call
+        console.log('[ChatStore] Calling API endpoint: /api/ai/query with streaming');
+
+        // Create AI message placeholder that we'll update as stream arrives
+        const aiMessageId = generateUUID();
+        const aiMessage: ChatMessage = {
+          id: aiMessageId,
+          accountId,
+          query,
+          response: '',  // Will be filled by stream
+          sources: [],
+          timestamp: new Date().toISOString(),
+          model: 'streaming...',
+          metadata: {
+            responseTime: 0
+          }
+        };
+
+        // Add AI message placeholder to state
+        console.log('[ChatStore] Adding AI message placeholder');
+        set((state) => ({
+          messages: [...state.messages, aiMessage]
+        }));
+
+        // Use streaming API call
         const response = await fetch('/api/ai/query', {
           method: 'POST',
           headers: {
@@ -96,7 +118,7 @@ export const useChatStore = create<ChatStore>()(
           body: JSON.stringify({
             accountId,
             query,
-            stream: false
+            stream: true
           }),
         });
 
@@ -106,34 +128,90 @@ export const useChatStore = create<ChatStore>()(
           throw new Error(`AI query failed: ${response.statusText}`);
         }
 
-        const result = await response.json();
-        const responseTime = Date.now() - startTime;
+        // Handle SSE streaming response
+        const reader = response.body?.getReader();
+        const decoder = new TextDecoder();
+        let fullResponse = '';
+        let buffer = '';
+        let sources: any[] = [];
+        let metadata: any = {};
 
-        console.log('[ChatStore] API result:', result);
+        if (reader) {
+          while (true) {
+            const { done, value } = await reader.read();
 
-        // Create AI response message
-        const aiMessage: ChatMessage = {
-          id: result.id || generateUUID(),
-          accountId,
-          query,
-          response: result.content,
-          sources: result.sources || [],
-          timestamp: new Date().toISOString(),
-          model: result.metadata?.model || 'unknown',
+            if (done) {
+              break;
+            }
+
+            // Decode chunk and add to buffer
+            buffer += decoder.decode(value, { stream: true });
+
+            // Process complete SSE messages from buffer
+            const lines = buffer.split('\n\n');
+            buffer = lines.pop() || ''; // Keep incomplete message in buffer
+
+            for (const message of lines) {
+              if (!message.trim()) continue;
+
+              // Parse SSE format: "data: {...}"
+              const dataMatch = message.match(/^data: (.+)$/m);
+              if (!dataMatch) continue;
+
+              try {
+                const data = JSON.parse(dataMatch[1]);
+
+                if (data.type === 'start') {
+                  console.log('[ChatStore] Stream started:', data.id);
+                } else if (data.type === 'content') {
+                  fullResponse += data.content;
+
+                  // Update message in state with accumulated response
+                  set((state) => ({
+                    messages: state.messages.map(msg =>
+                      msg.id === aiMessageId
+                        ? { ...msg, response: fullResponse }
+                        : msg
+                    )
+                  }));
+                } else if (data.type === 'done') {
+                  console.log('[ChatStore] Stream completed');
+                  sources = data.sources || [];
+                  metadata = data.metadata || {};
+                } else if (data.type === 'error') {
+                  throw new Error(data.error);
+                }
+              } catch (e) {
+                console.warn('[ChatStore] Failed to parse SSE message:', message, e);
+              }
+            }
+          }
+        }
+
+        console.log('[ChatStore] Streaming completed');
+
+        // Update final message with complete response and metadata from stream
+        const finalMessage: ChatMessage = {
+          ...aiMessage,
+          response: fullResponse,
+          sources: sources,
+          model: metadata.model || 'ollama',
           metadata: {
-            responseTime: result.metadata?.responseTime || responseTime
+            responseTime: metadata.responseTime || (Date.now() - startTime),
+            confidence: metadata.confidence
           }
         };
 
-        console.log('[ChatStore] Adding AI message to state');
         set((state) => ({
-          messages: [...state.messages, aiMessage],
+          messages: state.messages.map(msg =>
+            msg.id === aiMessageId ? finalMessage : msg
+          ),
           isTyping: false
         }));
 
         // Save to database
         console.log('[ChatStore] Saving to database');
-        await DatabaseService.saveChatMessage(aiMessage);
+        await DatabaseService.saveChatMessage(finalMessage);
         console.log('[ChatStore] Message saved successfully');
 
       } catch (error) {

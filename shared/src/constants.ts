@@ -268,6 +268,8 @@ export const CORS_CONFIG = {
     'http://127.0.0.1:3000',
     'http://localhost:5173',
     'http://127.0.0.1:5173',
+    'http://10.42.156.59:3000',
+    'http://10.42.156.59:5173',
   ],
   ALLOWED_METHODS: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   ALLOWED_HEADERS: ['Content-Type', 'Authorization', 'Access-Control-Request-Private-Network'],

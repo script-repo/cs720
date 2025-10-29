@@ -20,9 +20,15 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 // ============================================================================
 
 const ALLOWED_ORIGINS = new Set<string>([...CORS_CONFIG.ALLOWED_ORIGINS]);
+const isDevelopment = NODE_ENV === 'development';
 
 const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
+    // In development, allow any origin for easier testing across different IPs/hostnames
+    if (isDevelopment) {
+      return callback(null, true);
+    }
+    // In production, strictly enforce whitelist
     if (!origin || ALLOWED_ORIGINS.has(origin)) {
       return callback(null, true);
     }
