@@ -1,0 +1,53 @@
+# Image policies for automated updates
+# These policies determine which image tags to use
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: cs720-frontend
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: cs720-frontend
+  policy:
+    semver:
+      range: '>=1.0.0'
+  # Alternative: use latest from main branch
+  # policy:
+  #   alphabetical:
+  #     order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: cs720-backend
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: cs720-backend
+  policy:
+    semver:
+      range: '>=1.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: cs720-proxy
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: cs720-proxy
+  policy:
+    semver:
+      range: '>=1.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: cs720-ai-service
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: cs720-ai-service
+  policy:
+    semver:
+      range: '>=1.0.0'

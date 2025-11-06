@@ -1,0 +1,45 @@
+# Image repositories for automated updates
+# Flux will scan these registries for new images
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: cs720-frontend
+  namespace: flux-system
+spec:
+  image: ghcr.io/YOUR-USERNAME/cs720-frontend  # Replace with your repo
+  interval: 5m0s
+  secretRef:
+    name: ghcr-auth  # Optional: for private repos
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: cs720-backend
+  namespace: flux-system
+spec:
+  image: ghcr.io/YOUR-USERNAME/cs720-backend  # Replace with your repo
+  interval: 5m0s
+  secretRef:
+    name: ghcr-auth
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: cs720-proxy
+  namespace: flux-system
+spec:
+  image: ghcr.io/YOUR-USERNAME/cs720-proxy  # Replace with your repo
+  interval: 5m0s
+  secretRef:
+    name: ghcr-auth
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: cs720-ai-service
+  namespace: flux-system
+spec:
+  image: ghcr.io/YOUR-USERNAME/cs720-ai-service  # Replace with your repo
+  interval: 5m0s
+  secretRef:
+    name: ghcr-auth

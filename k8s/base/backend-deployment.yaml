@@ -1,0 +1,145 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cs720-backend
+  namespace: cs720
+  labels:
+    app: cs720-backend
+    app.kubernetes.io/name: backend
+    app.kubernetes.io/component: api
+    app.kubernetes.io/part-of: cs720-platform
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: cs720-backend
+  template:
+    metadata:
+      labels:
+        app: cs720-backend
+        app.kubernetes.io/name: backend
+        app.kubernetes.io/component: api
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+      - name: backend
+        image: ghcr.io/OWNER/cs720-backend:latest  # Replace OWNER with your GitHub org/username
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 3001
+          protocol: TCP
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: cs720-backend-config
+              key: NODE_ENV
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: cs720-backend-config
+              key: PORT
+        - name: HOST
+          valueFrom:
+            configMapKeyRef:
+              name: cs720-backend-config
+              key: HOST
+        - name: PREFERRED_BACKEND
+          valueFrom:
+            configMapKeyRef:
+              name: cs720-backend-config
+              key: PREFERRED_BACKEND
+        - name: OLLAMA_BASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: cs720-backend-config
+              key: OLLAMA_BASE_URL
+        - name: PROXY_URL
+          valueFrom:
+            configMapKeyRef:
+              name: cs720-backend-config
+              key: PROXY_URL
+        - name: SALESFORCE_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: cs720-secrets
+              key: SALESFORCE_CLIENT_ID
+        - name: SALESFORCE_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: cs720-secrets
+              key: SALESFORCE_CLIENT_SECRET
+        - name: ENCRYPTION_KEY
+          valueFrom:
+            secretKeyRef:
+              name: cs720-secrets
+              key: ENCRYPTION_KEY
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 40
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        volumeMounts:
+        - name: data
+          mountPath: /app/data
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: cs720-backend-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cs720-backend
+  namespace: cs720
+  labels:
+    app: cs720-backend
+spec:
+  type: ClusterIP
+  ports:
+  - port: 3001
+    targetPort: http
+    protocol: TCP
+    name: http
+  selector:
+    app: cs720-backend
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cs720-backend-data
+  namespace: cs720
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  # storageClassName: standard  # Uncomment and set based on your cluster

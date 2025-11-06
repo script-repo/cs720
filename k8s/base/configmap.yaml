@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cs720-backend-config
+  namespace: cs720
+data:
+  NODE_ENV: "production"
+  PORT: "3001"
+  HOST: "0.0.0.0"
+  PREFERRED_BACKEND: "ollama"
+  OLLAMA_BASE_URL: "http://localhost:11434"
+  OLLAMA_MODEL: "gemma3:270m"
+  PROXY_URL: "http://cs720-proxy:3002/proxy"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cs720-proxy-config
+  namespace: cs720
+data:
+  NODE_ENV: "production"
+  PORT: "3002"
+  ALLOWED_ORIGINS: "*"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cs720-ai-config
+  namespace: cs720
+data:
+  NODE_ENV: "production"
+  PORT: "3003"
+  PREFERRED_BACKEND: "ollama"
+  OLLAMA_URL: "http://localhost:11434"
+  OLLAMA_MODEL: "llama2"
+  PROXY_URL: "http://cs720-proxy:3002"
+  DEFAULT_TEMPERATURE: "0.7"
+  DEFAULT_MAX_TOKENS: "2048"

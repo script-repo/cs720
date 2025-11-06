@@ -1,0 +1,39 @@
+# Kustomization for CS720 application
+# This tells Flux how to deploy your application
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cs720
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  path: ./k8s/base
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: cs720
+  timeout: 2m0s
+  wait: true
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: cs720-frontend
+      namespace: cs720
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: cs720-backend
+      namespace: cs720
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: cs720-proxy
+      namespace: cs720
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: cs720-ai-service
+      namespace: cs720
+  # Retry configuration
+  retryInterval: 1m0s
+  # Post-build variable substitution (optional)
+  # postBuild:
+  #   substitute:
+  #     DOMAIN: "cs720.example.com"

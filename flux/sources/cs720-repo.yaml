@@ -1,0 +1,18 @@
+# GitRepository source for Flux
+# This tells Flux where to find your Kubernetes manifests
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: cs720
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  url: https://github.com/YOUR-USERNAME/cs720  # Replace with your repo URL
+  ref:
+    branch: main
+  secretRef:
+    name: cs720-git-auth  # Optional: only needed for private repos
+  ignore: |
+    # Exclude files that shouldn't trigger reconciliation
+    /*
+    !/k8s/
