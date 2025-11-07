@@ -262,7 +262,7 @@ app.post(AI_SERVICE_ROUTES.CHAT, async (req: Request, res: Response) => {
   };
 
   try {
-    let response: string;
+    let response: string | NodeJS.ReadableStream;
 
     if (config.backend === 'ollama') {
       response = await ollamaClient.chat(messages, config, stream);
