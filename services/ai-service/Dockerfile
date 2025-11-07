@@ -2,36 +2,35 @@
 # Compatible with kaniko, buildkit, and containerd
 FROM node:20-alpine AS builder
 
-WORKDIR /app
+WORKDIR /build
 
-# Copy shared module
+# Copy shared module to match workspace structure
 COPY shared/ ./shared/
-WORKDIR /app/shared
+WORKDIR /build/shared
 RUN npm ci && npm run build
 
-# Build ai-service
-WORKDIR /app/ai-service
-COPY services/ai-service/package*.json ./
-RUN npm ci
-
-COPY services/ai-service/ ./
-RUN npm run build
+# Build ai-service - maintain relative path structure
+WORKDIR /build
+COPY services/ai-service/ ./services/ai-service/
+WORKDIR /build/services/ai-service
+RUN npm ci && npm run build
 
 # Production stage
 FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy shared module
-COPY --from=builder /app/shared ./shared
+# Copy shared module build output
+COPY --from=builder /build/shared/dist ./node_modules/@cs720/shared/dist
+COPY --from=builder /build/shared/package.json ./node_modules/@cs720/shared/
 
-# Copy package files and install production dependencies
-COPY services/ai-service/package*.json ./
+# Copy application
+COPY --from=builder /build/services/ai-service/dist ./dist
+COPY --from=builder /build/services/ai-service/package*.json ./
+
+# Install only production dependencies (will link to shared module)
 RUN npm ci --only=production && \
     npm cache clean --force
-
-# Copy built application
-COPY --from=builder /app/ai-service/dist ./dist
 
 # Set permissions
 RUN chown -R node:node /app
