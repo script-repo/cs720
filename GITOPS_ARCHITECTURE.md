@@ -75,7 +75,7 @@ When you push code to the `main` branch:
 
 4. **Pushes to GitHub Container Registry (ghcr.io)**:
    - Your images are stored like Docker Hub, but integrated with GitHub
-   - Example: `ghcr.io/your-username/cs720-frontend:latest`
+   - Example: `ghcr.io/script-repo/cs720-frontend:latest`
 
 **Why this matters:**
 
@@ -187,7 +187,7 @@ Flux is like a robot that constantly:
 
 ```yaml
 GitRepository: cs720
-  ├── URL: https://github.com/your-username/cs720
+  ├── URL: https://github.com/script-repo/cs720
   ├── Branch: main
   ├── Interval: Check every 1 minute
   └── Path: /k8s/ (only care about this folder)
@@ -224,7 +224,7 @@ This is more advanced - automatically updates image tags in Git:
 
 ```yaml
 ImageRepository: cs720-frontend
-  ├── Scans: ghcr.io/your-username/cs720-frontend
+  ├── Scans: ghcr.io/script-repo/cs720-frontend
   ├── Interval: Every 5 minutes
   └── Finds: New image tags
 

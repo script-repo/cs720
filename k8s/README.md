@@ -39,7 +39,7 @@ See [DEPLOYMENT.md](../DEPLOYMENT.md) for complete Flux setup.
 
 ```bash
 # Bootstrap Flux
-flux bootstrap github --owner=YOUR-USERNAME --repository=cs720 --path=./flux
+flux bootstrap github --owner=script-repo --repository=cs720 --path=./flux
 
 # Apply Flux configuration
 kubectl apply -f flux/sources/cs720-repo.yaml
@@ -52,7 +52,7 @@ kubectl apply -f flux/kustomizations/cs720.yaml
 
 1. **Update image references** in all `*-deployment.yaml` files:
    ```yaml
-   image: ghcr.io/YOUR-USERNAME/cs720-frontend:latest
+   image: ghcr.io/script-repo/cs720-frontend:latest
    ```
 
 2. **Update secrets** in `secrets.yaml` or create them separately:

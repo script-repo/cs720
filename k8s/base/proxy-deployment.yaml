@@ -31,7 +31,7 @@ spec:
         fsGroup: 1000
       containers:
       - name: proxy
-        image: ghcr.io/OWNER/cs720-proxy:latest  # Replace OWNER with your GitHub org/username
+        image: ghcr.io/script-repo/cs720-proxy:latest
         imagePullPolicy: Always
         ports:
         - name: http

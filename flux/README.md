@@ -33,7 +33,7 @@ flux check --pre
 
 # Bootstrap Flux with GitHub
 flux bootstrap github \
-  --owner=YOUR-GITHUB-USERNAME \
+  --owner=script-repo \
   --repository=cs720 \
   --branch=main \
   --path=./flux \
@@ -56,7 +56,7 @@ If using private GitHub Container Registry:
 kubectl create secret docker-registry ghcr-auth \
   --namespace=flux-system \
   --docker-server=ghcr.io \
-  --docker-username=YOUR-GITHUB-USERNAME \
+  --docker-username=script-repo \
   --docker-password=YOUR-GITHUB-PAT \
   --docker-email=YOUR-EMAIL
 ```
@@ -83,10 +83,10 @@ Or use a secret management solution like:
 Before deploying, update the following files with your values:
 
 1. **flux/sources/cs720-repo.yaml**
-   - Replace `YOUR-USERNAME` with your GitHub username/org
+   - Replace `script-repo` with your GitHub username/org
 
 2. **flux/image-automation/\*.yaml** (if using image automation)
-   - Replace `YOUR-USERNAME` with your GitHub username/org
+   - Replace `script-repo` with your GitHub username/org
 
 3. **k8s/base/\*.yaml**
    - Update image references to match your GHCR path

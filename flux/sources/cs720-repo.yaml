@@ -7,11 +7,11 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  url: https://github.com/YOUR-USERNAME/cs720  # Replace with your repo URL
+  url: https://github.com/script-repo/cs720
   ref:
     branch: main
-  secretRef:
-    name: cs720-git-auth  # Optional: only needed for private repos
+  # secretRef:
+  #   name: cs720-git-auth  # Uncomment if using private repo
   ignore: |
     # Exclude files that shouldn't trigger reconciliation
     /*

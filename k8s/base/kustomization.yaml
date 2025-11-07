@@ -19,11 +19,11 @@ commonLabels:
   app.kubernetes.io/managed-by: flux
 
 images:
-  - name: ghcr.io/OWNER/cs720-backend
+  - name: ghcr.io/script-repo/cs720-backend
     newTag: latest
-  - name: ghcr.io/OWNER/cs720-proxy
+  - name: ghcr.io/script-repo/cs720-proxy
     newTag: latest
-  - name: ghcr.io/OWNER/cs720-ai-service
+  - name: ghcr.io/script-repo/cs720-ai-service
     newTag: latest
-  - name: ghcr.io/OWNER/cs720-frontend
+  - name: ghcr.io/script-repo/cs720-frontend
     newTag: latest

@@ -67,18 +67,18 @@ Before deploying, you need to customize several files with your GitHub username 
 **Flux Sources** (flux/sources/cs720-repo.yaml):
 ```yaml
 spec:
-  url: https://github.com/YOUR-USERNAME/cs720
+  url: https://github.com/script-repo/cs720
 ```
 
 **Flux Image Automation** (flux/image-automation/\*.yaml):
 ```yaml
 spec:
-  image: ghcr.io/YOUR-USERNAME/cs720-frontend
+  image: ghcr.io/script-repo/cs720-frontend
 ```
 
 **Kubernetes Deployments** (k8s/base/\*-deployment.yaml):
 ```yaml
-image: ghcr.io/YOUR-USERNAME/cs720-frontend:latest
+image: ghcr.io/script-repo/cs720-frontend:latest
 ```
 
 **Ingress** (k8s/base/ingress.yaml):
@@ -89,7 +89,7 @@ image: ghcr.io/YOUR-USERNAME/cs720-frontend:latest
 **Kustomization** (k8s/base/kustomization.yaml):
 ```yaml
 images:
-  - name: ghcr.io/YOUR-USERNAME/cs720-backend
+  - name: ghcr.io/script-repo/cs720-backend
 ```
 
 #### 1.2 Update Secrets Template
@@ -119,7 +119,7 @@ GHCR is automatically enabled for your GitHub account. No additional setup neede
 
 After first push, go to:
 ```
-https://github.com/YOUR-USERNAME?tab=packages
+https://github.com/script-repo?tab=packages
 ```
 
 Make packages public or keep private (you'll need authentication for private).
@@ -151,17 +151,17 @@ Pushing to `main` branch automatically triggers GitHub Actions to build images.
 Monitor the build:
 ```bash
 # Via GitHub web UI
-https://github.com/YOUR-USERNAME/cs720/actions
+https://github.com/script-repo/cs720/actions
 
 # Or via CLI (requires gh)
 gh workflow view "Build and Push Container Images" --web
 ```
 
 The workflow will build and push 4 images:
-- `ghcr.io/YOUR-USERNAME/cs720-frontend:latest`
-- `ghcr.io/YOUR-USERNAME/cs720-backend:latest`
-- `ghcr.io/YOUR-USERNAME/cs720-proxy:latest`
-- `ghcr.io/YOUR-USERNAME/cs720-ai-service:latest`
+- `ghcr.io/script-repo/cs720-frontend:latest`
+- `ghcr.io/script-repo/cs720-backend:latest`
+- `ghcr.io/script-repo/cs720-proxy:latest`
+- `ghcr.io/script-repo/cs720-ai-service:latest`
 
 ### Phase 4: Install Flux on Kubernetes
 
@@ -183,7 +183,7 @@ flux check --pre
 
 ```bash
 # Set your GitHub username
-export GITHUB_USER=YOUR-USERNAME
+export GITHUB_USER=script-repo
 export GITHUB_TOKEN=your-personal-access-token
 
 # Bootstrap Flux
@@ -421,7 +421,7 @@ kubectl describe pod POD-NAME -n cs720
 # For private GHCR, create pull secret
 kubectl create secret docker-registry ghcr-pull-secret \
   --docker-server=ghcr.io \
-  --docker-username=YOUR-USERNAME \
+  --docker-username=script-repo \
   --docker-password=YOUR-PAT \
   --namespace=cs720
 
