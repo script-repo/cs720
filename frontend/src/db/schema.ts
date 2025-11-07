@@ -172,7 +172,7 @@ export class DatabaseService {
     tickets?: Ticket[];
     industryIntelligence?: IndustryIntelligence[];
   }): Promise<void> {
-    const operations: Promise<void>[] = [];
+    const operations: Promise<any>[] = [];
 
     if (data.priorities) {
       operations.push(db.priorities.bulkPut(data.priorities));

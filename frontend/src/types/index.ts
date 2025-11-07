@@ -186,7 +186,7 @@ export interface DashboardData {
     cases: number;
     licenses: number;
   };
-  clusters?: unknown[];
+  clusters?: Cluster[];
   utilization?: unknown[];
 }
 
