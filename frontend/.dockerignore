@@ -2,12 +2,10 @@
 node_modules
 npm-debug.log
 yarn-error.log
-package-lock.json
 
-# Build output
+# Build output (not source)
 dist
 build
-*.tsbuildinfo
 
 # Development
 .env
@@ -48,6 +46,3 @@ docs
 # Misc
 .editorconfig
 .prettierrc
-.eslintrc*
-tsconfig.json
-vite.config.ts
