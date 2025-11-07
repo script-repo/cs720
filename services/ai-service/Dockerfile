@@ -20,17 +20,10 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy shared module build output
-COPY --from=builder /build/shared/dist ./node_modules/@cs720/shared/dist
-COPY --from=builder /build/shared/package.json ./node_modules/@cs720/shared/
-
-# Copy application
+# Copy application and dependencies from builder
 COPY --from=builder /build/services/ai-service/dist ./dist
 COPY --from=builder /build/services/ai-service/package*.json ./
-
-# Install only production dependencies (will link to shared module)
-RUN npm ci --only=production && \
-    npm cache clean --force
+COPY --from=builder /build/services/ai-service/node_modules ./node_modules
 
 # Set permissions
 RUN chown -R node:node /app
