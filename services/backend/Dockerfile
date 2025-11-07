@@ -7,15 +7,15 @@ RUN apk add --no-cache python3 make g++
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# Copy package files from services/backend (context is root)
+COPY services/backend/package*.json ./
 
 # Install all dependencies (including devDependencies for build)
 RUN npm ci && \
     npm cache clean --force
 
-# Copy source code
-COPY . .
+# Copy source code from services/backend
+COPY services/backend/ ./
 
 # Build TypeScript
 RUN npm run build
