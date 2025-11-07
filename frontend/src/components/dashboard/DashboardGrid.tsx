@@ -26,7 +26,7 @@ export default function DashboardGrid({ data }: DashboardGridProps) {
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {/* Clusters */}
         {data.clusters && data.clusters.length > 0 && (
-          <ClustersCard clusters={data.clusters} />
+          <ClustersCard clusters={data.clusters as any} />
         )}
 
         {/* Support Cases */}
