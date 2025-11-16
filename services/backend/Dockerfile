@@ -28,8 +28,8 @@ RUN apk add --no-cache sqlite
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# Copy package files from builder
+COPY --from=builder /app/package*.json ./
 
 # Install production dependencies only
 RUN npm ci --only=production && \
