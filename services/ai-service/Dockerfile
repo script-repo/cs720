@@ -20,14 +20,14 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy shared package from builder (ensures @cs720/shared is available)
-COPY --from=builder /build/shared/dist ./node_modules/@cs720/shared/dist
-COPY --from=builder /build/shared/package.json ./node_modules/@cs720/shared/package.json
-
 # Copy application and dependencies from builder
 COPY --from=builder /build/services/ai-service/dist ./dist
 COPY --from=builder /build/services/ai-service/package*.json ./
 COPY --from=builder /build/services/ai-service/node_modules ./node_modules
+
+# Replace @cs720/shared symlink with actual built files (ensures @cs720/shared is available)
+COPY --from=builder /build/shared/dist ./node_modules/@cs720/shared/dist
+COPY --from=builder /build/shared/package.json ./node_modules/@cs720/shared/package.json
 
 # Set permissions
 RUN chown -R node:node /app
