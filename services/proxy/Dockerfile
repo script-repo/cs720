@@ -20,6 +20,10 @@ FROM node:20-alpine
 
 WORKDIR /app
 
+# Copy shared package from builder (ensures @cs720/shared is available)
+COPY --from=builder /build/shared/dist ./node_modules/@cs720/shared/dist
+COPY --from=builder /build/shared/package.json ./node_modules/@cs720/shared/package.json
+
 # Copy application and dependencies from builder
 COPY --from=builder /build/services/proxy/dist ./dist
 COPY --from=builder /build/services/proxy/package*.json ./
