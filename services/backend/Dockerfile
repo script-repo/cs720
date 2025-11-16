@@ -38,6 +38,10 @@ RUN npm ci --only=production && \
 # Copy built application from builder
 COPY --from=builder /app/dist ./dist
 
+# Copy required runtime resources
+COPY --from=builder /app/src/db/schema.sql ./src/db/schema.sql
+COPY --from=builder /app/public ./public
+
 # Create data directory for SQLite database and set permissions
 RUN mkdir -p /app/data && \
     chown -R node:node /app
